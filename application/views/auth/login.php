@@ -11,20 +11,20 @@
                             <div class="card-body">
                                 <form>
                                     <div class="form-group">
-                                        <input class="form-control py-4" id="username" name="username" type="text" placeholder="Enter username..." />
+                                        <input class="form-control py-4" id="username" name="username" type="text" placeholder="Username" />
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control py-4" id="password" name="password" type="password" placeholder="Enter password" />
+                                        <input class="form-control py-4" id="password" name="password" type="password" placeholder="Password" />
                                     </div>
                                     <div class="form-group d-flex align-items-center justify-content-between mt-5 mb-0">
                                         <a class="small" href="password.html">Forgot Password?</a>
-                                        <button type="submit" class="btn btn-primary" href="index.html">Login</but>
+                                        <button type="submit" class="btn btn-primary" href="index.html">Login</button>
                                     </div>
                                 </form>
                             </div>
                             <div class="card-footer text-center">
                                 <div class="small">
-                                    <a href="register.html">Need an account? Sign up!</a>
+                                    <a href="<?= base_url('auth/registration'); ?>">Need an account? Sign up!</a>
                                 </div>
                             </div>
                         </div>
