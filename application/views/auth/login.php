@@ -9,6 +9,9 @@
                                 <h3 class="text-center font-weight-light my-4">Login</h3>
                             </div>
                             <div class="card-body">
+
+                                <?= $this->session->flashdata('pesan'); ?>
+
                                 <form>
                                     <div class="form-group">
                                         <input class="form-control py-4" id="username" name="username" type="text" placeholder="Username" />
