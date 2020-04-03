@@ -12,12 +12,14 @@
 
                                 <?= $this->session->flashdata('pesan'); ?>
 
-                                <form>
+                                <form class="user" method="POST" action="<?= base_url('auth'); ?>">
                                     <div class="form-group">
-                                        <input class="form-control py-4" id="username" name="username" type="text" placeholder="Username" />
+                                        <input class="form-control py-4" id="username" name="username" type="text" placeholder="Username" value="<?= set_value('username'); ?>" />
+                                        <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                     <div class="form-group">
                                         <input class="form-control py-4" id="password" name="password" type="password" placeholder="Password" />
+                                        <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                     <div class="form-group d-flex align-items-center justify-content-between mt-5 mb-0">
                                         <a class="small" href="password.html">Forgot Password?</a>
