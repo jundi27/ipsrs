@@ -6,7 +6,11 @@ class User extends CI_Controller
 
     public function index()
     {
+        $data['title'] = 'Profil';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-        echo 'Selamat datang ' . $data['user']['nama'];
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('user/index', $data);
+        $this->load->view('templates/footer');
     }
 }
