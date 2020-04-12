@@ -24,6 +24,7 @@
                     <?php foreach ($menu as $m) : ?>
                         <div class="sb-sidenav-menu-heading">
                             <?= $m['menu']; ?>
+
                         </div>
 
                         <!-- SIAPKAN SUB-MENU SESUAI MENU -->
@@ -40,12 +41,20 @@
                         ?>
 
                         <?php foreach ($subMenu as $sm) : ?>
-                            <a class="nav-link" href="<?= base_url($sm['url']); ?>">
-                                <div class="sb-nav-link-icon">
-                                    <i class="<?= ($sm['icon']) ?>"></i>
-                                </div>
-                                <?= ($sm['title']) ?>
-                            </a>
+                            <!-- <?php if ($title == $sm['judul']) : ?>
+                            <li class="nav-item active">
+                            <?php else : ?>
+                            <li class="nav-item active">
+                            <?php endif; ?> -->
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?= base_url($sm['url']); ?>">
+                                    <div class="sb-nav-link-icon">
+                                        <i class="<?= ($sm['icon']) ?>"></i>
+                                    </div>
+                                    <?= ($sm['judul']) ?>
+                                </a>
+                            </li>
                         <?php endforeach; ?>
 
 
