@@ -33,7 +33,26 @@
 <script src="<?= base_url('assets/'); ?>demo/chart-bar-demo.js"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-<script src="<?= base_url('assets/'); ?>demo/datatables-demo.js"></script>
+<script src="<?= base_url('assets/'); ?>demo/datatables-demo.js"></script>]
+
+<script>
+    $('.form-check-input').on('click', function() {
+        const menuId = $(this).data('menu');
+        const roleId = $(this).data('role');
+
+        $.ajax({
+            url: "<?= base_url('admin/gantiakses'); ?>",
+            type: 'post',
+            data: {
+                menuId: menuId,
+                roleId: roleId
+            },
+            success: function() {
+                document.location.href = "<?= base_url('admin/roleakses/') ?>" + roleId;
+            }
+        });
+    });
+</script>
 
 </body>
 
