@@ -8,7 +8,6 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Admin_model');
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
     }
 
     public function index()

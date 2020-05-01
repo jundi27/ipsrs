@@ -31,11 +31,11 @@ class User extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $nama = $this->input->post('nama');
-            $username = $this->input->post('username');
+            $email = $this->input->post('email');
 
             //QUERY
             // cek jika ada gambar yang akan diupload
-            $upload_image = $_FILES['image']['nama'];
+            $upload_image = $_FILES['image']['name'];
 
             if ($upload_image) {
                 $config['allowed_types'] = 'gif|jpg|png';
@@ -59,7 +59,7 @@ class User extends CI_Controller
             }
 
             $this->db->set('nama', $nama);
-            $this->db->where('username', $username);
+            $this->db->where('email', $email);
             $this->db->update('user');
 
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
