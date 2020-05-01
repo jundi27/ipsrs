@@ -1,5 +1,6 @@
+<!-- Sbadmin -->
 <!-- Content -->
-<div id="layoutSidenav_content">
+<!-- <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
             <h1 class="mt-4">Dashboard</h1>
@@ -562,4 +563,18 @@
                 </div>
             </div>
         </div>
-    </main>
+    </main> -->
+
+
+<!-- Sbadmin2 -->
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+
+</div>
+<!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->

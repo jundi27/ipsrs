@@ -1,15 +1,16 @@
+<!-- Sbadmin -->
 <!--Sidebar-->
-<div id="layoutSidenav">
+<!-- <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
-                <div class="nav">
+                <div class="nav"> -->
 
 
-                    <!-- QUERY MENU -->
-                    <?php
-                    $role_id = $this->session->userdata('role_id');
-                    $queryMenu = "SELECT `user_menu`.`id`, `menu`
+<!-- QUERY MENU -->
+<!-- <?php
+        $role_id = $this->session->userdata('role_id');
+        $queryMenu = "SELECT `user_menu`.`id`, `menu`
                                     FROM `user_menu` 
                                     JOIN `user_access_menu` 
                                     ON `user_menu`.`id` = `user_access_menu`.`menu_id`
@@ -17,37 +18,37 @@
                                 ORDER BY `user_access_menu`.`menu_id` ASC 
                                 ";
 
-                    $menu = $this->db->query($queryMenu)->result_array();
-                    ?>
+        $menu = $this->db->query($queryMenu)->result_array();
+        ?> -->
 
-                    <!-- LOOPING MENU -->
-                    <?php foreach ($menu as $m) : ?>
+<!-- LOOPING MENU -->
+<!-- <?php foreach ($menu as $m) : ?>
                         <div class="sb-sidenav-menu-heading">
                             <?= $m['menu']; ?>
 
-                        </div>
+                        </div> -->
 
-                        <!-- SIAPKAN SUB-MENU SESUAI MENU -->
-                        <?php
-                        $menuId = $m['id'];
-                        $querySubMenu = "SELECT * 
+<!-- SIAPKAN SUB-MENU SESUAI MENU -->
+<!-- <?php
+            $menuId = $m['id'];
+            $querySubMenu = "SELECT * 
                                     FROM `user_sub_menu`
                                     JOIN `user_menu`
                                     ON   `user_sub_menu`.`menu_id` = `user_menu`.`id`
                                     WHERE `user_sub_menu`.`menu_id` = $menuId
                                     AND `user_sub_menu`.`is_active` = 1 
                                     ";
-                        $subMenu = $this->db->query($querySubMenu)->result_array();
-                        ?>
+            $subMenu = $this->db->query($querySubMenu)->result_array();
+        ?> -->
 
-                        <?php foreach ($subMenu as $sm) : ?>
-                            <!-- <?php if ($title == $sm['judul']) : ?>
+<!-- <?php foreach ($subMenu as $sm) : ?> -->
+<!-- <?php if ($title == $sm['judul']) : ?>
                             <li class="nav-item active">
                             <?php else : ?>
                             <li class="nav-item active">
                             <?php endif; ?> -->
 
-                            <li class="nav-item">
+<!-- <li class="nav-item">
                                 <a class="nav-link" href="<?= base_url($sm['url']); ?>">
                                     <div class="sb-nav-link-icon">
                                         <i class="<?= ($sm['icon']) ?>"></i>
@@ -58,14 +59,14 @@
                         <?php endforeach; ?>
 
 
-                    <?php endforeach; ?>
+                    <?php endforeach; ?> -->
 
 
 
-                    <!-- Heading -->
-                    <!-- <div class="sb-sidenav-menu-heading">Interface</div> -->
+<!-- Heading -->
+<!-- <div class="sb-sidenav-menu-heading">Interface</div> -->
 
-                    <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+<!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon">
                             <i class="fas fa-fw fa-columns"></i>
                         </div>
@@ -118,10 +119,10 @@
                         </nav>
                     </div> -->
 
-                    <!-- Heading -->
-                    <!-- <div class="sb-sidenav-menu-heading">User</div> -->
+<!-- Heading -->
+<!-- <div class="sb-sidenav-menu-heading">User</div> -->
 
-                    <!-- <a class="nav-link" href="<?= base_url('vendor/') ?>sbadmin/dist/charts.html">
+<!-- <a class="nav-link" href="<?= base_url('vendor/') ?>sbadmin/dist/charts.html">
                         <div class="sb-nav-link-icon">
                             <i class="fas fa-fw fa-chart-area"></i>
                         </div>
@@ -134,8 +135,8 @@
                         Tables
                     </a> -->
 
-                    <!-- Heading -->
-                    <div class="sb-sidenav-menu-heading"></div>
+<!-- Heading -->
+<!-- <div class="sb-sidenav-menu-heading"></div>
 
                     <a class="nav-link" href="<?= base_url('auth/logout') ?>">
                         <div class="sb-nav-link-icon">
@@ -145,11 +146,96 @@
                     </a>
 
                 </div>
-            </div>
+            </div> -->
 
-            <!-- <div class="sb-sidenav-footer">
+<!-- <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
                     <?= $user['name']; ?>
                 </div> -->
-        </nav>
-    </div>
+<!-- </nav>
+    </div> -->
+
+
+<!-- Sbadmin2 -->
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon rotate-n-15">
+            <i class="fas fa-laugh-wink"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">IPSRS</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+
+    <!-- QUERY MENU -->
+    <?php
+    $role_id = $this->session->userdata('role_id');
+    $queryMenu = "SELECT `user_menu`.`id`, `menu`
+                  FROM `user_menu` 
+                  JOIN `user_access_menu` 
+                  ON `user_menu`.`id` = `user_access_menu`.`menu_id`
+                  WHERE `user_access_menu`.`role_id` = $role_id
+                  ORDER BY `user_access_menu`.`menu_id` ASC 
+                ";
+
+    $menu = $this->db->query($queryMenu)->result_array();
+    ?>
+
+    <!-- LOOPING MENU -->
+    <?php foreach ($menu as $m) : ?>
+        <div class="sidebar-heading">
+            <?= $m['menu']; ?>
+        </div>
+
+        <!-- SIAPKAN SUB-MENU SESUAI MENU -->
+        <?php
+        $menuId = $m['id'];
+        $querySubMenu = "SELECT * 
+                         FROM `user_sub_menu`
+                         JOIN `user_menu`
+                         ON   `user_sub_menu`.`menu_id` = `user_menu`.`id`
+                         WHERE `user_sub_menu`.`menu_id` = $menuId
+                         AND `user_sub_menu`.`is_active` = 1 
+                        ";
+        $subMenu = $this->db->query($querySubMenu)->result_array();
+        ?>
+
+        <?php foreach ($subMenu as $sm) : ?>
+            <?php if ($title == $sm['judul']) : ?>
+                <li class="nav-item active">
+                <?php else : ?>
+                <li class="nav-item">
+                <?php endif; ?>
+                <a class="nav-link pb-0" href="<?= base_url($sm['url']); ?>">
+                    <i class="<?= $sm['icon']; ?>"></i>
+                    <span><?= $sm['judul']; ?></span></a>
+                </li>
+            <?php endforeach; ?>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider mt-3">
+
+        <?php endforeach; ?>
+
+        <!-- Nav Item -->
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('auth/logout') ?>">
+                <i class="fas fa-fw fa-sign-out-alt"></i>
+                <span>Logout</span></a>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+</ul>
+<!-- End of Sidebar -->

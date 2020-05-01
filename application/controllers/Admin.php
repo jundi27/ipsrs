@@ -17,8 +17,8 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/topbar', $data);
         $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('admin/index', $data);
         $this->load->view('templates/footer');
     }
@@ -26,7 +26,7 @@ class Admin extends CI_Controller
     // MENU
     public function menu()
     {
-        $data['title'] = 'Menu Managemen';
+        $data['title'] = 'Menu Manajemen';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $data['menu'] = $this->db->get('user_menu')->result_array();
@@ -35,8 +35,8 @@ class Admin extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
-            $this->load->view('templates/topbar', $data);
             $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
             $this->load->view('admin/menu', $data);
             $this->load->view('templates/footer');
         } else {
@@ -58,7 +58,7 @@ class Admin extends CI_Controller
     // SUBMENU
     public function submenu()
     {
-        $data['title'] = 'Submenu Managemen';
+        $data['title'] = 'Submenu Manajemen';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $data['subMenu'] = $this->Admin_model->getSubMenu();
@@ -71,8 +71,8 @@ class Admin extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
-            $this->load->view('templates/topbar', $data);
             $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
             $this->load->view('admin/submenu', $data);
             $this->load->view('templates/footer');
         } else {
@@ -109,8 +109,8 @@ class Admin extends CI_Controller
         $data['role'] = $this->db->get('user_role')->result_array();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/topbar', $data);
         $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('admin/akses', $data);
         $this->load->view('templates/footer');
     }
