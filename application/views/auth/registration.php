@@ -92,9 +92,9 @@
                                     <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Ulangi Password">
                                 </div>
                             </div>
-                            <a href="login.html" class="btn btn-primary btn-user btn-block">
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
                                 Buat Akun
-                            </a>
+                            </button>
                         </form>
                         <hr>
                         <div class="text-center">

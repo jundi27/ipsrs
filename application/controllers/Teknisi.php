@@ -1,9 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class User extends CI_Controller
+class Teknisi extends CI_Controller
 {
-
     public function index()
     {
         $data['title'] = 'Profil Saya';
@@ -12,7 +11,7 @@ class User extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('user/index', $data);
+        $this->load->view('teknisi/index', $data);
         $this->load->view('templates/footer');
     }
 
@@ -27,7 +26,7 @@ class User extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('user/edit', $data);
+            $this->load->view('teknisi/edit', $data);
             $this->load->view('templates/footer');
         } else {
             $nama = $this->input->post('nama');
@@ -81,7 +80,7 @@ class User extends CI_Controller
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
             $this->load->view('templates/topbar', $data);
-            $this->load->view('user/changepassword', $data);
+            $this->load->view('teknisi/changepassword', $data);
             $this->load->view('templates/footer');
         } else {
             $current_password = $this->input->post('current_password');
