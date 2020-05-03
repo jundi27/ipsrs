@@ -222,6 +222,16 @@
 
         <?php endforeach; ?>
 
+        <div class="sidebar-heading">
+            Pemeliharaan
+        </div>
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('admin/lappemeliharaan') ?>">
+                <i class="fas fa-fw fa-book-open"></i>
+                <span>Laporan Pemeliharaan</span></a>
+        </li>
         <!-- Nav Item -->
         <li class="nav-item">
             <a class="nav-link" href="<?= base_url('auth/logout') ?>">
