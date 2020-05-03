@@ -151,4 +151,15 @@ class Admin extends CI_Controller
 
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Akses berhasil diganti!</div>');
     }
+
+    public function lappemeliharaan()
+    {
+        $data['title'] = "Administrator - Laporan Pemeliharaan";
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/lappemeliharaan', $data);
+        $this->load->view('templates/footer');
+    }
 }
