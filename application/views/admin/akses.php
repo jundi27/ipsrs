@@ -112,8 +112,7 @@
                             <td><?= $r['role'] ?></td>
                             <td>
                                 <a href="<?= base_url('admin/roleakses/') . $r['id']; ?>" class="badge badge-warning">Akses</a>
-                                <a href="" class="badge badge-success">Edit</a>
-                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#hapusMenuModal">Hapus</a>
+                                <a href="" class="badge badge-danger" data-toggle="modal" data-target="#hapusaksesModal">Hapus</a>
                             </td>
                         </tr>
                         <?php $i++; ?>
@@ -149,6 +148,32 @@
             </div>
         </div>
     </div>
+
+    <!-- Hapus Submenu Modal -->
+    <div class="modal fade" id="hapusaksesModal" tabindex="-1" role="dialog" aria-labelledby="hapusaksesModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="hapusaksesModalLabel">Hapus Role</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="form-group">
+                        Apakah anda yakin ingin menghapus role ini?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="<?= base_url('admin/hapus/'); ?><?= $r['id']; ?>" class="btn btn-success" style="width: 60px">Iya</a>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 </div>
 <!-- /.container-fluid -->

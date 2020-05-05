@@ -30,7 +30,7 @@
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $m['menu'] ?></td>
                             <td>
-                                <a href="" class="badge badge-success">Edit</a>
+                                <a href="<?= base_url('menu/ubah/'); ?><?= $m['id']; ?>" class="badge badge-success">Ubah</a>
                                 <a href="" class="badge badge-danger" data-toggle="modal" data-target="#hapusMenuModal">Hapus</a>
                             </td>
                         </tr>
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="<?= base_url('menu/hapusmenu/'); ?><?= $m['id']; ?>" class="btn btn-success" style="width: 60px">Iya</a>
+                    <a href="<?= base_url('menu/hapus/' . $m['id']); ?>" class="btn btn-success" style="width: 60px">Iya</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
                 </div>
 

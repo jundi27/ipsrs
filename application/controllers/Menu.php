@@ -10,6 +10,7 @@ class MEnu extends CI_Controller
         $this->load->model('Menu_model');
     }
 
+    //MENU
     public function index()
     {
         $data['title'] = 'Menu Manajemen';
@@ -32,13 +33,35 @@ class MEnu extends CI_Controller
         }
     }
 
-    public function hapusMenu($id)
+    public function hapus($id)
     {
-        return $this->db->delete('user_menu', ['id' => $id]);
+        $this->Menu_model->hapusMenu($id);
 
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
         Menu berhasil di hapus!</div>');
         redirect('menu');
+    }
+
+    public function ubah($id)
+    {
+        $data['title'] = 'Menu Manajemen';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['user_menu'] = $this->Menu_model->getMenuById($id);
+
+        $this->form_validation->set_rules('menu', 'Menu', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/ubah-menu', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->Menu_model->ubahMenu();
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Menu berhasil diubah!</div>');
+            redirect('menu');
+        }
     }
 
     // SUBMENU
@@ -77,9 +100,37 @@ class MEnu extends CI_Controller
         }
     }
 
-    public function hapusSubMenu($id)
+    public function ubahSubmenu($id)
     {
-        return $this->db->delete('user_sub_menu', ['id' => $id]);
+        $data['title'] = 'Menu Manajemen';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['menu'] = $this->Menu_model->getAllMenu();
+
+        $data['submenu'] = $this->Menu_model->getSubMenu();
+        $data['user_menu'] = $this->Menu_model->getMenuById($id);
+        $data['user_submenu'] = $this->Menu_model->getSubMenuById($id);
+
+        $this->form_validation->set_rules('menu_id', 'Menu', 'required');
+        $this->form_validation->set_rules('judul', 'Sub Menu', 'required');
+        $this->form_validation->set_rules('url', 'URL', 'required');
+        $this->form_validation->set_rules('icon', 'Ikon', 'required');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('menu/ubah-submenu', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->Menu_model->ubahSM();
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Submenu berhasil diubah!</div>');
+            redirect('menu/submenu');
+        }
+    }
+
+    public function hapusSubmenu($id)
+    {
+        $this->Menu_model->hapusSM($id);
 
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
         Submenu berhasil di hapus!</div>');

@@ -42,7 +42,7 @@
                             <td><?= $sm['icon'] ?></td>
                             <td><?= $sm['is_active'] ?></td>
                             <td>
-                                <a href="" class="badge badge-success">Edit</a>
+                                <a href="<?= base_url('menu/ubahSubmenu/' . $sm['id']); ?>" class="badge badge-success">Ubah</a>
                                 <a href="" class="badge badge-danger" data-toggle="modal" data-target="#hapusSubMenuModal">Hapus</a>
                             </td>
                         </tr>
