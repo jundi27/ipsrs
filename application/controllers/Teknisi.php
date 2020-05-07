@@ -7,6 +7,11 @@ class Teknisi extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->library('form_validation');
+
+        if (!$this->session->userdata('username')) {
+            redirect('auth/login');
+        }
     }
 
     public function index()
@@ -180,7 +185,7 @@ class Teknisi extends CI_Controller
         }
     }
 
-    //Pemeliharaan
+    //PEMELIHARAAN
 
     public function lappemeliharaan()
     {
@@ -192,5 +197,38 @@ class Teknisi extends CI_Controller
         $this->load->view('templatesteknisi/topbar', $data);
         $this->load->view('teknisi/lappemeliharaan', $data);
         $this->load->view('templatesteknisi/footer');
+
+        $this->form_validation->set_rules('nama_alat', 'Nama Alat', 'required|trim', array('required' => 'Nama alat harus diisi'));
+        $this->form_validation->set_rules('ruangan', 'Ruangan', 'required|trim', array('required' => 'Ruangan harus diisi'));
+        $this->form_validation->set_rules('suhu', 'Suhu', 'required|trim', array('required' => 'Suhu harus diisi'));
+        $this->form_validation->set_rules('kelembaban', 'Kelembaban', 'required|trim', array('required' => 'Kelembaban harus diisi'));
+        $this->form_validation->set_rules('tegangan', 'Tegangan', 'required|trim', array('required' => 'Tegangan harus diisi'));
+        $this->form_validation->set_rules('daya_semu', 'Daya Semu', 'required|trim', array('required' => 'Daya semu harus diisi'));
+        $this->form_validation->set_rules('daya_aktif', 'Daya Aktif', 'required|trim', array('required' => 'Daya aktif harus diisi'));
+        $this->form_validation->set_rules('daya_reaktif', 'Daya Reaktif', 'required|trim', array('required' => 'Daya reaktif harus diisi'));
+        $this->form_validation->set_rules('kondisi_fisik', 'Kondisi Fisik', 'required|trim', array('required' => 'Kondisi fisik harus diisi'));
+        $this->form_validation->set_rules('ket_kondisi_fisik', 'Keterangan Kondisi Fisik', 'required|trim', array('required' => 'Keterangan kondisi fisik harus diisi'));
+        if ($this->form_validation->run() == false) {
+        } else {
+            $data = array(
+                'nama_alat' => htmlspecialchars($this->input->post('nama_alat', true)),
+                'ruangan' => htmlspecialchars($this->input->post('ruangan', true)),
+                'suhu' => htmlspecialchars($this->input->post('suhu', true)),
+                'kelembaban' => htmlspecialchars($this->input->post('kelembaban', true)),
+                'tegangan' => htmlspecialchars($this->input->post('tegangan', true)),
+                'daya_semu' => htmlspecialchars($this->input->post('daya_semu', true)),
+                'daya_aktif' => htmlspecialchars($this->input->post('daya_aktif', true)),
+                'daya_reaktif' => htmlspecialchars($this->input->post('daya_reaktif', true)),
+                'kondisi_fisik' => htmlspecialchars($this->input->post('kondisi_fisik', true)),
+                'ket_kondisi_fisik' => htmlspecialchars($this->input->post('ket_kondisi_fisik', true)),
+                'date_created' => time()
+            );
+
+
+            $this->db->insert('lap_pemeliharaan', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                laporan pemeliharaan berhasil dibuat!</div>');
+            redirect('teknisi/lappemeliharaan');
+        }
     }
 }
