@@ -1,21 +1,34 @@
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container justify-content-center">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
-    <div class="container">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+    <div class="row">
 
-                <form action="" method="POST">
+        <div class="col-lg mb-5">
+
+            <div style="background-color: #ffffff" class="container-fluid w-50 shadow">
+                <form action="" method="post">
+                    <!--Remember-->
                     <input type="hidden" name="id" value="<?= $user_submenu['id']; ?>">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" value="<?= $user_submenu['judul']; ?>" class="form-control" id="judul" name="judul" placeholder="Judul Submenu">
+                    <div class="modal-body container">
+                        <div class="input-form">
+                            <input type="text" value="<?= $user_submenu['judul']; ?>" id="judul" name="judul" placeholder="Judul Submenu">
+                            <label for="judul">Judul Submenu</label>
                         </div>
 
-                        <div class="form-group">
+                        <div class="input-form">
+                            <input type="text" value="<?= $user_submenu['url']; ?>" id="url" name="url" placeholder="Url Submenu">
+                            <label for="url">Url Submenu</label>
+                        </div>
+
+                        <div class="input-form">
+                            <input type="text" value="<?= $user_submenu['icon']; ?>" id="icon" name="icon" placeholder="Icon Submenu">
+                            <label for="icon">Icon Submenu</label>
+                        </div>
+
+                        <div class="form-group pt-2 pb-0">
                             <select name="menu_id" id="menu_id" class="form-control">
                                 <option value="">Select Menu</option>
                                 <?php foreach ($menu as $m) : ?>
@@ -25,34 +38,27 @@
                         </div>
 
                         <div class="form-group">
-                            <input type="text" value="<?= $user_submenu['url']; ?>" class="form-control" id="url" name="url" placeholder="Url Submenu">
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text" value="<?= $user_submenu['icon']; ?>" class="form-control" id="icon" name="icon" placeholder="Icon Submenu">
-                        </div>
-
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="is_active" id="is_active" checked>
-                                <label class="form-check-label" for="is_active">
+                            <div class="custom-controls-stacked d-block pt-3 pr-2">
+                                <label class="custom-control material-checkbox">
+                                    <input checked type="checkbox" value="1" name="is_active" id="is_active" class="material-control-input">
                                     Active?
+                                    <span class="material-control-indicator"></span>
+                                    <span class="material-control-description"></span>
                                 </label>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                        <a class="btn btn-danger" data-dismiss="modal" href="<?= base_url('menu/submenu'); ?>">Batal</a>
+                        <a class="btn btn-danger" href="<?= base_url('menu/submenu'); ?>">Batal</a>
+                        <button type="submit" class="btn btn-success">Ubah</button>
                     </div>
                 </form>
+
+
+
             </div>
+
         </div>
     </div>
-
 </div>
-<!-- /.container-fluid -->
-
-</div>
-<!-- End of Main Content -->

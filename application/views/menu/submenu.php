@@ -17,10 +17,10 @@
 
             <?= $this->session->flashdata('pesan'); ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#subMenuModal">Tambah Submenu Baru</a>
+            <a style="background-color:#008983; color:#ffffff;" href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#subMenuModal">Tambah Submenu Baru</a>
 
             <table class="table table-hover">
-                <thead>
+                <thead style="background-color:#008983; color:#ffffff;">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Judul</th>
@@ -42,7 +42,7 @@
                             <td><?= $sm['icon'] ?></td>
                             <td><?= $sm['is_active'] ?></td>
                             <td>
-                                <a href="<?= base_url('menu/ubahSubmenu/' . $sm['id']); ?>" class="badge badge-success">Ubah</a>
+                                <a href="<?= base_url('menu/ubahSubmenu/' . $sm['id']); ?>" class="badge badge-info">Ubah</a>
                                 <a href="" class="badge badge-danger" data-toggle="modal" data-target="#hapusSubMenuModal">Hapus</a>
                             </td>
                         </tr>
@@ -58,17 +58,33 @@
     <div class="modal fade" id="subMenuModal" tabindex="-1" role="dialog" aria-labelledby="subMenuModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div style="background-color:#008983; color:#ffffff;" class="modal-header">
                     <h5 class="modal-title" id="subMenuModalLabel">Tambahkan Submenu Baru</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <form action="<?= base_url('menu/submenu'); ?>" method="POST">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="judul" name="judul" placeholder="Judul Submenu">
+                        <div class="input-form">
+                            <input type="text" id="judul" name="judul" placeholder="Judul Submenu">
+                            <?= form_error('judul', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="judul">Judul Submenu</label>
                         </div>
+
+                        <div class="input-form">
+                            <input type="text" id="url" name="url" placeholder="Url submenu">
+                            <?= form_error('url', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="url">Url Submenu</label>
+                        </div>
+
+                        <div class="input-form">
+                            <input type="text" id="icon" name="icon" placeholder="Icon submenu">
+                            <?= form_error('icon', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="icon">Icon Submenu</label>
+                        </div>
+
                         <div class="form-group">
                             <select name="menu_id" id="menu_id" class="form-control">
                                 <option value="">Select Menu</option>
@@ -77,24 +93,22 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
+
                         <div class="form-group">
-                            <input type="text" class="form-control" id="url" name="url" placeholder="Url submenu">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="icon" name="icon" placeholder="Icon submenu">
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="is_active" id="is_active" checked>
-                                <label class="form-check-label" for="is_active">
+                            <div class="custom-controls-stacked d-block pt-3 pr-2">
+                                <label class="custom-control material-checkbox">
+                                    <input checked type="checkbox" value="1" name="is_active" id="is_active" class="material-control-input">
                                     Active?
+                                    <span class="material-control-indicator"></span>
+                                    <span class="material-control-description"></span>
                                 </label>
                             </div>
                         </div>
                     </div>
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Tambah</button>
                     </div>
                 </form>
             </div>
@@ -105,7 +119,7 @@
     <div class="modal fade" id="hapusSubMenuModal" tabindex="-1" role="dialog" aria-labelledby="hapusSubMenuModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div style="background-color:#008983; color:#ffffff;" class="modal-header">
                     <h5 class="modal-title" id="hapusSubMenuModalLabel">Hapus Submenu</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

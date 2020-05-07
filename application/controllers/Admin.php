@@ -7,6 +7,7 @@ class Admin extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('Admin_model');
     }
 
     public function index()
@@ -89,5 +90,72 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
         Role berhasil di hapus!</div>');
         redirect('admin/akses');
+    }
+
+    //Kelola Akun
+    public function akun()
+    {
+        $data['title'] = 'Akun Manajemen';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['member'] = $this->Admin_model->getUser();
+        $data['teknisi'] = $this->Admin_model->getTeknisi();
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]');
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]');
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/akun', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->Admin_model->tambah();
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+            Akun berhasil di tambahkan!</div>');
+            redirect('admin/akun');
+        }
+    }
+
+    public function hapusAkun($id)
+    {
+        $this->Admin_model->hapus($id);
+
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+        Akun berhasil di hapus!</div>');
+        redirect('admin/akun');
+    }
+
+    public function ubahAkun($un)
+    {
+
+        $data['title'] = 'Ubah Data Akun';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['user'] = $this->Admin_model->getUserById($un);
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('username', 'Nama Pengguna', 'required|trim');
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]');
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('admin/upAkun', $data);
+            $this->load->view('templates/footer');
+        } else {
+
+            $this->Admin_model->ubah();
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
+            Akun berhasil di ubah!</div>');
+            redirect('admin/akun');
+        }
     }
 }

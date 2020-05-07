@@ -94,10 +94,10 @@
 
             <?= $this->session->flashdata('pesan'); ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#aksesModal">Tambah Akses Baru</a>
+            <a style="background-color:#008983; color:#ffffff;" href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#aksesModal">Tambah Akses Baru</a>
 
             <table class="table table-hover">
-                <thead>
+                <thead style="background-color:#008983; color:#ffffff;">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Role</th>
@@ -127,7 +127,7 @@
     <div class="modal fade" id="aksesModal" tabindex="-1" role="dialog" aria-labelledby="aksesModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div style="background-color:#008983; color:#ffffff;" class="modal-header">
                     <h5 class="modal-title" id="aksesModalLabel">Tambahkan Akses Baru</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -135,25 +135,28 @@
                 </div>
                 <form action="<?= base_url('admin/akses'); ?>" method="POST">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="role" name="role" placeholder="Nama role">
-                            <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
+
+                        <div class="input-form">
+                            <input type="text" id="role" name="role" placeholder="Nama role">
+                            <?= form_error('role', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="role">Nama Role</label>
                         </div>
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    <div class="modal-footer mt-4">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Tambah</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Hapus Submenu Modal -->
+    <!-- Hapus Modal -->
     <div class="modal fade" id="hapusaksesModal" tabindex="-1" role="dialog" aria-labelledby="hapusaksesModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div style="background-color:#008983; color:#ffffff;" class="modal-header">
                     <h5 class="modal-title" id="hapusaksesModalLabel">Hapus Role</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

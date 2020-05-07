@@ -1,32 +1,33 @@
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container justify-content-center">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
-    <div class="container">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
+    <div class="row">
 
-                <form action="" method="POST">
+        <div class="col-lg mb-5">
+
+            <div style="background-color: #ffffff" class="container-fluid w-50 shadow">
+                <form action="" method="post">
+                    <!--Remember-->
                     <input type="hidden" name="id" value="<?= $user_menu['id']; ?>">
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" value="<?= $user_menu['menu']; ?>" class="form-control" id="menu" name="menu" placeholder="Nama menu">
+                    <div class="modal-body container">
+                        <div class="input-form">
+                            <input type="text" value="<?= $user_menu['menu']; ?>" id="menu" name="menu" placeholder="Judul Submenu">
+                            <label for="menu">Nama menu</label>
                         </div>
-                    </div>
 
+                    </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Simpan</button>
-                        <a class="btn btn-danger" data-dismiss="modal" href="<?= base_url('menu'); ?>">Batal</a>
+                        <a class="btn btn-danger" href="<?= base_url('menu'); ?>">Batal</a>
+                        <button type="submit" class="btn btn-success">Ubah</button>
                     </div>
                 </form>
             </div>
+
         </div>
+
     </div>
-
 </div>
-<!-- /.container-fluid -->
-
 </div>
-<!-- End of Main Content -->

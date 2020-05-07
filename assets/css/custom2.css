@@ -1,0 +1,16 @@
+a {
+	color: #008983;
+	text-decoration: none;
+	background-color: transparent;
+}
+
+a:hover {
+	color: #14cfc6;
+	text-decoration: underline;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+	color: #fff;
+	background-color: #008983;
+}

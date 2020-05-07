@@ -13,10 +13,10 @@
 
             <?= $this->session->flashdata('pesan'); ?>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#menuModal">Tambah Menu Baru</a>
+            <a style="background-color:#008983; color:#ffffff;" href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#menuModal">Tambah Menu Baru</a>
 
             <table class="table table-hover">
-                <thead>
+                <thead style="background-color:#008983; color:#ffffff;">
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Menu</th>
@@ -30,7 +30,7 @@
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $m['menu'] ?></td>
                             <td>
-                                <a href="<?= base_url('menu/ubah/'); ?><?= $m['id']; ?>" class="badge badge-success">Ubah</a>
+                                <a href="<?= base_url('menu/ubah/'); ?><?= $m['id']; ?>" class="badge badge-info">Ubah</a>
                                 <a href="" class="badge badge-danger" data-toggle="modal" data-target="#hapusMenuModal">Hapus</a>
                             </td>
                         </tr>
@@ -46,7 +46,7 @@
     <div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div style="background-color:#008983; color:#ffffff;" class="modal-header">
                     <h5 class="modal-title" id="menuModalLabel">Tambahkan Menu Baru</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -54,14 +54,15 @@
                 </div>
                 <form action="<?= base_url('menu'); ?>" method="POST">
                     <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" id="menu" name="menu" placeholder="Nama menu">
+                        <div class="input-form">
+                            <input type="text" id="menu" name="menu" placeholder="Nama menu">
                             <?= form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="menu">Nama Menu</label>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    <div class="modal-footer mt-4">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-success">Tambah</button>
                     </div>
                 </form>
             </div>
@@ -72,7 +73,7 @@
     <div class="modal fade" id="hapusMenuModal" tabindex="-1" role="dialog" aria-labelledby="hapusMenuModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                <div style="background-color:#008983; color:#ffffff;" class="modal-header">
                     <h5 class="modal-title" id="hapusMenuModalLabel">Hapus Menu</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>

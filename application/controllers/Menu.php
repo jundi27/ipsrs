@@ -44,7 +44,7 @@ class MEnu extends CI_Controller
 
     public function ubah($id)
     {
-        $data['title'] = 'Menu Manajemen';
+        $data['title'] = 'Ubah Menu';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $data['user_menu'] = $this->Menu_model->getMenuById($id);
@@ -102,7 +102,7 @@ class MEnu extends CI_Controller
 
     public function ubahSubmenu($id)
     {
-        $data['title'] = 'Menu Manajemen';
+        $data['title'] = 'Ubah Submenu';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
         $data['menu'] = $this->Menu_model->getAllMenu();
 
