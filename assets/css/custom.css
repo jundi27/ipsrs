@@ -9,12 +9,12 @@
 	margin: 1.2em 0;
 }
 
-input,
-label {
+.input-form>input,
+.input-form>label {
 	transition: 0.4s case;
 }
 
-label {
+.input-form>label {
 	padding-left: 0px;
 	transform: translate(4px, -14px) scale(1.02);
 	cursor: text;
@@ -23,19 +23,19 @@ label {
 	position: absolute;
 }
 
-input:focus,
-input:not(:placeholder-shown) {
+.input-form input:focus,
+.input-form input:not(:placeholder-shown) {
 	border-bottom: 1px solid #008983;
 }
 
-input:not(:placeholder-shown)~label,
-input:focus~label {
+.input-form input:not(:placeholder-shown)~label,
+.input-form input:focus~label {
 	transform: translate(6px, -30px) scale(0.8);
 	padding-left: 0px;
 	color: black;
 }
 
-input {
+.input-form>input {
 	font-size: 14px;
 	padding: 25px 10px 10px 10px;
 	border: none;
@@ -45,7 +45,7 @@ input {
 	border-radius: 5px 5px 0px 0px;
 }
 
-input::placeholder {
+.input-form>input::placeholder {
 	opacity: 0;
 }
 
