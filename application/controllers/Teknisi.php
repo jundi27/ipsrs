@@ -64,7 +64,7 @@ class Teknisi extends CI_Controller
                     $this->db->set('image', $new_image);
                 } else {
                     $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-                    redirect('user');
+                    redirect('teknisi');
                 }
             }
 
@@ -128,6 +128,8 @@ class Teknisi extends CI_Controller
     {
         $data['title'] = 'Teknisi IPSRS - Laporan Pemeliharaan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
 
         $this->load->view('templatesteknisi/header', $data);
         $this->load->view('templatesteknisi/sidebar', $data);
