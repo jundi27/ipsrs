@@ -217,6 +217,34 @@ class Admin extends CI_Controller
         $this->load->view('templates/sidebarA', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/detailKen', $data);
+    }
+
+    //PEMELIHARAAN
+    public function ceklappem()
+    {
+        $data['title'] = 'Administrator - Laporan Pemeliharaan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/ceklappem', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function historylappem()
+    {
+        $data['title'] = 'Administrator - History Laporan Pemeliharaan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/historylappem', $data);
         $this->load->view('templates/footer');
     }
 }
