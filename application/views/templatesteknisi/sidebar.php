@@ -20,7 +20,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="<?= base_url('teknisi/pengaduan'); ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <i class="fas fa-fw fa-folder"></i>
+            <i class="fas fa-fw fa-laptop-medical"></i>
             <span>Pengaduan</span>
         </a>
 
@@ -38,7 +38,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="<?= base_url('teknisi/pemeliharaan'); ?>" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-folder"></i>
+            <i class="fas fa-fw fa-briefcase-medical"></i>
             <span>Pemeliharaan</span>
         </a>
 
@@ -54,7 +54,7 @@
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="<?= base_url('teknisi/index'); ?>" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-            <i class="fas fa-fw fa-folder"></i>
+            <i class="fas fa-fw fa-user"></i>
             <span>Profil</span>
         </a>
 
