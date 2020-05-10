@@ -233,4 +233,17 @@ class Teknisi extends CI_Controller
             redirect('teknisi/lappemeliharaan');
         }
     }
+    public function ceklappem()
+    {
+        $data['title'] = 'Teknisi IPSRS - History Laporan Pemeliharaan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
+
+        $this->load->view('templatesteknisi/header', $data);
+        $this->load->view('templatesteknisi/sidebar', $data);
+        $this->load->view('templatesteknisi/topbar', $data);
+        $this->load->view('teknisi/ceklappem', $data);
+        $this->load->view('templatesteknisi/footer');
+    }
 }
