@@ -310,13 +310,18 @@ class Admin extends CI_Controller
         $data['id'] = $this->Admin_model->getAlkes();
     }
 
+    ////////////////////////////////////////////////////////////////
+
     public function kelolateknisi()
     {
 
         $data['title'] = 'Administrator - Kelola Data Teknisi';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
+        $data['date'] = $this->db->get('user')->result_array();
+
+        $this->load->model('Admin_model', 'admin');
+        $data['nama'] = $this->admin->getNama();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -354,10 +359,30 @@ class Admin extends CI_Controller
 
             $this->db->insert('user', $data);
 
-            //beri pesan
-            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Selamat akun anda berhasil dibuat. Silahkan login</div>');
-            //pindah halaman
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Data teknisi berhasil dibuat. Silahkan login</div>');
             redirect('admin/kelolateknisi');
         }
+    }
+
+    public function hapusTeknisi($id)
+    {
+        $this->load->model('Admin_model');
+        $this->Admin_model->getHapusAkunTeknisi($id);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Data teknisi berhasil dihapus!</div>');
+        redirect('admin/kelolateknisi');
+    }
+
+    public function hapusakunteknisi()
+    {
+        $data['user'] = $this->db->get_where('user', array(
+            'username' => $this->session->userdata('username')
+        ))->row_array();
+
+        $this->load->model('Admin_model');
+        $data['nama'] = $this->Admin_model->getNama();
     }
 }
