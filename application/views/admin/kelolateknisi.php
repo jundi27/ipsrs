@@ -15,12 +15,12 @@
         <tbody>
 
             <?php $i = 1; ?>
-            <?php foreach ($date as $dc) : ?>
+            <?php foreach ($nama as $n) : ?>
                 <tr>
                     <td scope="row"><?= $i; ?></td>
-                    <td><?= $user['nama'] ?></td>
-                    <td><?= $ak['merk'] ?></td>
-                    <td><a href="<?= base_url(); ?>admin/hapusTeknisi/<?= $ak['id'] ?> " class="badge badge-danger">Hapus</a><a href="" class="badge badge-primary">Edit</a></td>
+                    <td><?= $n['nama']; ?></td>
+                    <td><?= date('d F Y', $user['date_created']); ?></td>
+                    <td><a href="<?= base_url(); ?>admin/hapusTeknisi/<?= $n['id'] ?>" class="badge badge-danger">Hapus</a><a href="" class="badge badge-primary">Edit</a></td>
                 </tr>
 
                 <?php $i++; ?>
