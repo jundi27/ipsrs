@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin_model extends CI_Model
 {
+<<<<<<< HEAD
     public function getUserById($un)
     {
         return $this->db->get_where('user', ['username' => $un])->row_array();
@@ -72,5 +73,14 @@ class Admin_model extends CI_Model
     public function getDetailKen($id)
     {
         return $this->db->get_where('kendala', ['id' => $id])->row_array();
+=======
+    public function getAlkes(){
+        $query = "select * from `akun` where `id`";
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getHapusAlkes($id){
+        $this->db->delete('alkes', array( 'id' => $id));
+>>>>>>> mengedit sidebar teknisi, membuat halaman kelola data teknisi, membuat halaman kelola alkes, mengedit controller admin
     }
 }

@@ -9,6 +9,10 @@ class Admin extends CI_Controller
         parent::__construct();
         $this->load->model('Admin_model');
         $this->load->model('User_model');
+
+        if (!$this->session->userdata('username')) {
+            redirect('auth/login');
+        }
     }
 
     public function index()
@@ -222,6 +226,7 @@ class Admin extends CI_Controller
     //PEMELIHARAAN
     public function ceklappem()
     {
+
         $data['title'] = 'Administrator - Laporan Pemeliharaan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
@@ -246,5 +251,113 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/historylappem', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function kelolaalkes()
+    {
+        $data['title'] = 'Administrator - Kelola Data Alat Kesehatan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['alatkes'] = $this->db->get('alkes')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/kelolaalkes', $data);
+        $this->load->view('templates/footer');
+
+        $this->form_validation->set_rules('nama_alat', 'Nama Alat', 'required|trim', array('required' => 'Nama alat harus diisi'));
+        $this->form_validation->set_rules('merk', 'Merk', 'required|trim', array('required' => 'Merk harus diisi'));
+        $this->form_validation->set_rules('model', 'Model', 'required|trim', array('required' => 'Model harus diisi'));
+        $this->form_validation->set_rules('nomorseri', 'Nomor Seri', 'required|trim', array('required' => 'Nomor Seri harus diisi'));
+        $this->form_validation->set_rules('ruangan', 'Ruangan', 'required|trim', array('required' => 'Ruangan harus diisi'));
+        if ($this->form_validation->run() == false) {
+        } else {
+            $data = array(
+                'nama_alat' => htmlspecialchars($this->input->post('nama_alat', true)),
+                'merk' => $this->input->post('merk', true),
+                'model' => $this->input->post('model', true),
+                'nomorseri' => $this->input->post('nomorseri', true),
+                'ruangan' => htmlspecialchars($this->input->post('ruangan', true)),
+                'date_created' => time()
+            );
+
+
+            $this->db->insert('alkes', $data);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Data alat kesehatan berhasil ditambahkan!</div>');
+            redirect('admin/kelolaalkes');
+        }
+    }
+
+    public function hapusAlkes($id)
+    {
+        $this->load->model('Admin_model');
+        $this->Admin_model->getHapusAlkes($id);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+                Data alat kesehatan berhasil dihapus!</div>');
+        redirect('admin/kelolaalkes');
+    }
+
+    public function hapusalatkesehatan()
+    {
+        $data['user'] = $this->db->get_where('user', array(
+            'username' => $this->session->userdata('username')
+        ))->row_array();
+
+        $this->load->model('Admin_model');
+        $data['id'] = $this->Admin_model->getAlkes();
+    }
+
+    public function kelolateknisi()
+    {
+
+        $data['title'] = 'Administrator - Kelola Data Teknisi';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/kelolateknisi', $data);
+        $this->load->view('templates/footer');
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]', [
+            'is_unique' => 'Username ini telah terdaftar!'
+        ]);
+        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+            'is_unique' => 'Email ini telah terdaftar!'
+        ]);
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
+            'matches' => 'Password tidak sama!',
+            'min_length' => 'Password terlalu pendek!'
+        ]);
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+
+        //validasi data 
+        if ($this->form_validation->run() == false) {
+        } else {
+            $email = $this->input->post('email', true);
+            $data = [
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'username' => htmlspecialchars($this->input->post('username', true)),
+                'email' => htmlspecialchars($email),
+                'image' => 'default.jpg',
+                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+                'role_id' => 3,
+                'is_active' => 1,
+                'date_created' => time()
+            ];
+
+            $this->db->insert('user', $data);
+
+            //beri pesan
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Selamat akun anda berhasil dibuat. Silahkan login</div>');
+            //pindah halaman
+            redirect('admin/kelolateknisi');
+        }
     }
 }
