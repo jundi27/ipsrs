@@ -10,7 +10,7 @@ class Teknisi extends CI_Controller
         $this->load->library('form_validation');
 
         if (!$this->session->userdata('username')) {
-            redirect('auth/login');
+            redirect('auth');
         }
     }
 

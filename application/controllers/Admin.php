@@ -11,7 +11,7 @@ class Admin extends CI_Controller
         $this->load->model('User_model');
 
         if (!$this->session->userdata('username')) {
-            redirect('auth/login');
+            redirect('auth');
         }
     }
 
