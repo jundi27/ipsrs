@@ -8,11 +8,11 @@ class Teknisi extends CI_Controller
         $data['title'] = 'Profil Saya';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $this->load->view('templatesteknisi/header', $data);
-        $this->load->view('templatesteknisi/sidebar', $data);
-        $this->load->view('templatesteknisi/topbar', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebart', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('teknisi/index', $data);
-        $this->load->view('templatesteknisi/footer');
+        $this->load->view('templates/footer');
     }
 
     public function edit()
@@ -23,11 +23,11 @@ class Teknisi extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('templatesteknisi/header', $data);
-            $this->load->view('templatesteknisi/sidebar', $data);
-            $this->load->view('templatesteknisi/topbar', $data);
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebart', $data);
+            $this->load->view('templates/topbar', $data);
             $this->load->view('teknisi/edit', $data);
-            $this->load->view('templatesteknisi/footer');
+            $this->load->view('templates/footer');
         } else {
             $nama = $this->input->post('nama');
             $email = $this->input->post('email');
@@ -53,7 +53,7 @@ class Teknisi extends CI_Controller
                     $this->db->set('image', $new_image);
                 } else {
                     $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">' . $this->upload->display_errors() . '</div>');
-                    redirect('user');
+                    redirect('teknisi');
                 }
             }
 
@@ -63,7 +63,7 @@ class Teknisi extends CI_Controller
 
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
             Profil berhasil diubah!</div>');
-            redirect('user');
+            redirect('teknisi');
         }
     }
 
@@ -77,11 +77,11 @@ class Teknisi extends CI_Controller
         $this->form_validation->set_rules('new_password2', 'Confirm New Password', 'required|trim|min_length[3]|matches[new_password1]');
 
         if ($this->form_validation->run() == false) {
-            $this->load->view('templatesteknisi/header', $data);
-            $this->load->view('templatesteknisi/sidebar', $data);
-            $this->load->view('templatesteknisi/topbar', $data);
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebart', $data);
+            $this->load->view('templates/topbar', $data);
             $this->load->view('teknisi/changepassword', $data);
-            $this->load->view('templatesteknisi/footer');
+            $this->load->view('templates/footer');
         } else {
             $current_password = $this->input->post('current_password');
             $new_password     = $this->input->post('new_password1');
@@ -105,7 +105,7 @@ class Teknisi extends CI_Controller
 
                     $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">
                     Password berhasil diganti!</div>');
-                    redirect('user/changepassword');
+                    redirect('teknisi/changepassword');
                 }
             }
         }

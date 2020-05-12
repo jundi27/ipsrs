@@ -15,48 +15,55 @@
                     <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="nip" class="col-sm-3 col-form-label">NIP</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nip" name="nip">
+                    <input type="number" class="form-control" id="nip" name="nip">
                     <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="kerusakan" class="col-sm-3 col-form-label">Fasilitas Kerusakan</label>
                 <div class="col-sm-9">
                     <select type="text" class="form-control" id="kerusakan" name="kerusakan">
+                        <option value="">Pilih Fasilitas Kerusakan...</option>
+                        <option value="">Alat Kesehatan</option>
                         <option value="">IT</option>
-                        <option value="">A</option>
                         <option value="">Listrik</option>
+                        <option value="">Air</option>
+                        <option value="">Gedung</option>
+                        <option value="">Bangunan</option>
                     </select>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="brg" class="col-sm-3 col-form-label">Nama Barang</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" id="brg" name="brg">
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="name" class="col-sm-3 col-form-label">Nama Ruangan</label>
+                <label for="ruangan" class="col-sm-3 col-form-label">Nama Ruangan</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="nip" name="nip">
+                    <input type="text" class="form-control" id="ruangan" name="ruangan">
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="name" class="col-sm-3 col-form-label">Tanggal</label>
-                <div class="input-group date col-sm-9" id="datetimepicker1">
-                    <input type="text" class="form-control" id="" name="">
-                    <span class="input-group-addon">
-                        <i class="far fa-calender-alt"></i>
-                    </span>
+                <label for="tgl" class="col-sm-3 col-form-label">Tanggal</label>
+                <div class="col-sm-9">
+                    <input type="date" class="form-control" id="tgl" name="tgl">
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="uraian" class="col-sm-3 col-form-label">Uraian</label>
+                <label for="ket" class="col-sm-3 col-form-label">Keterangan</label>
                 <div class="col-sm-9">
-                    <textarea type="text" class="form-control" id="uraian" name="uraian"></textarea>
+                    <textarea type="text" class="form-control" id="ket" name="ket"></textarea>
                 </div>
             </div>
 
@@ -67,9 +74,7 @@
                 </div>
             </div>
 
-
             </form>
-
 
         </div>
     </div>
