@@ -3,6 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Teknisi extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('User_model');
+    }
+
     public function index()
     {
         $data['title'] = 'Profil Saya';
@@ -117,7 +123,6 @@ class Teknisi extends CI_Controller
         $data['title'] = 'Laporan Pengaduan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $this->load->model('User_model');
         $data['pengaduan'] = $this->User_model->getPengaduan();
 
         $this->load->view('templates/header', $data);
@@ -125,5 +130,37 @@ class Teknisi extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('teknisi/lappengaduan', $data);
         $this->load->view('templates/footer');
+    }
+
+    //kendala
+    public function kendalaKer()
+    {
+        $data['title'] = 'Form Kendala Kerusakan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('kendala', 'Kendala', 'required|trim');
+        $this->form_validation->set_rules('ruangan', 'Ruangan', 'required|trim');
+        $this->form_validation->set_rules('tgl', 'Tanggal', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebart', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('teknisi/kendalaKer', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = [
+                'nama' => $this->input->post('nama'),
+                'kendala' => $this->input->post('kendala'),
+                'ruangan' => $this->input->post('ruangan'),
+                'tgl' => $this->input->post('tgl'),
+                'ket' => $this->input->post('ket')
+            ];
+
+            $this->db->insert('kendala', $data);
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil dikirim!</div>');
+            redirect('teknisi/kendalaKer');
+        }
     }
 }

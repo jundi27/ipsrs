@@ -4,6 +4,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class User extends CI_Controller
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('User_model');
+    }
+
     public function index()
     {
         $data['title'] = 'Profil Saya';
@@ -114,14 +120,11 @@ class User extends CI_Controller
 
     public function pengaduanKer()
     {
-        $data['title'] = 'Form Pengaduan';
+        $data['title'] = 'Pengaduan Kerusakan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
-
-        $this->load->model('User_model');
 
         $data['pengaduan'] = $this->User_model->getPengaduan();
         $data['kerusakan'] = $this->db->get('fasilitas')->result_array();
-
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
         $this->form_validation->set_rules('nip', 'NIP', 'required|trim');

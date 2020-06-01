@@ -174,4 +174,18 @@ class Admin extends CI_Controller
         $this->load->view('admin/lappengaduan', $data);
         $this->load->view('templates/footer');
     }
+
+    public function lapkendala()
+    {
+        $data['title'] = 'Laporan Kendala';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['kendala'] = $this->User_model->getKendala();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebarA', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/lapkendala', $data);
+        $this->load->view('templates/footer');
+    }
 }

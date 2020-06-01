@@ -40,7 +40,7 @@
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="<?= base_url('admin/lappengaduan'); ?>">Cek Laporan Pengaduan</a>
-                <a class="collapse-item" href="<?= base_url('teknisi/kendala') ?>">Cek Laporan Kendala</a>
+                <a class="collapse-item" href="<?= base_url('admin/lapkendala') ?>">Cek Laporan Kendala</a>
             </div>
         </div>
     </li>

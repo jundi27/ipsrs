@@ -10,7 +10,16 @@ class User_model extends CI_Model
                     FROM `pengaduan`
                     JOIN `fasilitas`
                       ON `pengaduan`.`kerusakan_id` = `fasilitas`.`id` 
-        ";
+                 ";
+
+        return $this->db->query($query)->result_array();
+    }
+
+    public function getKendala()
+    {
+        $query = "SELECT `kendala`.*
+                    FROM `kendala`
+                ";
 
         return $this->db->query($query)->result_array();
     }

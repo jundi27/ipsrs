@@ -60,7 +60,7 @@
             <?php endforeach; ?>
 
             <!-- Divider -->
-            <hr class="sidebar-divider mt-3">
+            <hr class="sidebar-divider mt-3 mb-0">
 
         <?php endforeach; ?>
 
