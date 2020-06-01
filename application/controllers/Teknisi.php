@@ -110,4 +110,20 @@ class Teknisi extends CI_Controller
             }
         }
     }
+
+    //pengaduan
+    public function lappengaduan()
+    {
+        $data['title'] = 'Laporan Pengaduan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->load->model('User_model');
+        $data['pengaduan'] = $this->User_model->getPengaduan();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebart', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('teknisi/lappengaduan', $data);
+        $this->load->view('templates/footer');
+    }
 }

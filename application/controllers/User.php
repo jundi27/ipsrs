@@ -112,15 +112,44 @@ class User extends CI_Controller
         }
     }
 
-    public function lapor()
+    public function pengaduanKer()
     {
         $data['title'] = 'Form Pengaduan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('user/lapor', $data);
-        $this->load->view('templates/footer');
+        $this->load->model('User_model');
+
+        $data['pengaduan'] = $this->User_model->getPengaduan();
+        $data['kerusakan'] = $this->db->get('fasilitas')->result_array();
+
+
+        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
+        $this->form_validation->set_rules('kerusakan_id', 'Kerusakan', 'required|trim');
+        $this->form_validation->set_rules('brg', 'Barang', 'required|trim');
+        $this->form_validation->set_rules('ruangan', 'Ruangan', 'required|trim');
+        $this->form_validation->set_rules('tgl', 'Tanggal', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/pengaduanKer', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $data = [
+                'nama' => $this->input->post('nama'),
+                'nip' => $this->input->post('nip'),
+                'kerusakan_id' => $this->input->post('kerusakan_id'),
+                'brg' => $this->input->post('brg'),
+                'ruangan' => $this->input->post('ruangan'),
+                'tgl' => $this->input->post('tgl'),
+                'ket' => $this->input->post('ket')
+            ];
+
+            $this->db->insert('pengaduan', $data);
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil dikirim!</div>');
+            redirect('user/pengaduanKer');
+        }
     }
 }

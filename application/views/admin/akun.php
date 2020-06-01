@@ -12,7 +12,7 @@
         <div class="row">
             <div style="border-right: 2px solid #008983;" class="col-lg-2 mt-3 mb-5 ">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">User</a>
+                    <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Pegawai</a>
                     <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Teknisi</a>
                 </div>
             </div>
@@ -191,7 +191,7 @@
                             <select name="role_id" id="role_id" class="form-control">
                                 <option value="">Select Role</option>
                                 <option value="1">Administrator</option>
-                                <option value="2">User</option>
+                                <option value="2">Pegawai</option>
                                 <option value="3">Teknisi</option>
                             </select>
                         </div>
@@ -200,7 +200,7 @@
                             <div class="custom-controls-stacked d-block pt-3 pr-2">
                                 <label class="custom-control material-checkbox">
                                     <input checked type="checkbox" value="1" name="is_active" id="is_active" class="material-control-input">
-                                    Beri Status
+                                    Active?
                                     <span class="material-control-indicator"></span>
                                     <span class="material-control-description"></span>
                                 </label>

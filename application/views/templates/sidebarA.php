@@ -14,24 +14,37 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Teknisi
+        Administrator
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= base_url('teknisi/pengaduan'); ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <a class="nav-link" href="<?= base_url('admin'); ?>">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- <hr class="sidebar-divider d-none d-md-block"> -->
+
+    <li class="nav-item">
+        <a class="nav-link pt-0" href="<?= base_url('admin/akun'); ?>">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Akun Manajemen</span></a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed pt-0" href="" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <i class="fas fa-fw fa-folder"></i>
             <span>Pengaduan</span>
         </a>
 
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="<?= base_url('teknisi/lappengaduan') ?>">Cek Laporan Pengaduan</a>
-                <a class="collapse-item" href="<?= base_url('teknisi/kendalaKer') ?>">Form Kendala</a>
+                <a class="collapse-item" href="<?= base_url('admin/lappengaduan'); ?>">Cek Laporan Pengaduan</a>
+                <a class="collapse-item" href="<?= base_url('teknisi/kendala') ?>">Cek Laporan Kendala</a>
             </div>
         </div>
     </li>
 
-    <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
     <li class="nav-item">
         <a class="nav-link collapsed pt-0" href="<?= base_url('teknisi/pemeliharaan'); ?>" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -46,34 +59,6 @@
             </div>
         </div>
     </li>
-
-    <!-- <hr class="sidebar-divider d-none d-md-block"> -->
-
-    <li class="nav-item">
-        <a class="nav-link collapsed pt-0" href="<?= base_url('teknisi/index'); ?>" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Profil</span>
-        </a>
-
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="<?= base_url('teknisi/index') ?>">Profil</a>
-                <a class="collapse-item" href="<?= base_url('teknisi/edit') ?>">Edit Profil</a>
-                <a class="collapse-item" href="<?= base_url('teknisi/changepassword') ?>">Ganti Password</a>
-            </div>
-        </div>
-    </li>
-    <!--<li class="nav-item">
-        <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Buat Laporan Pemeliharaan</span></a>
-    </li>
-
-    <li class="nav-item">
-        <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-history"></i>
-            <span>Cek Laporan Pemeliharaan</span></a>
-    </li>-->
 
     <hr class="sidebar-divider d-none d-md-block">
 

@@ -8,6 +8,7 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Admin_model');
+        $this->load->model('User_model');
     }
 
     public function index()
@@ -16,7 +17,7 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/sidebarA', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/index', $data);
         $this->load->view('templates/footer');
@@ -109,7 +110,7 @@ class Admin extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/sidebarA', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('admin/akun', $data);
             $this->load->view('templates/footer');
@@ -146,7 +147,7 @@ class Admin extends CI_Controller
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
-            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/sidebarA', $data);
             $this->load->view('templates/topbar', $data);
             $this->load->view('admin/upAkun', $data);
             $this->load->view('templates/footer');
@@ -157,5 +158,20 @@ class Admin extends CI_Controller
             Akun berhasil di ubah!</div>');
             redirect('admin/akun');
         }
+    }
+
+    //Pengaduan
+    public function lappengaduan()
+    {
+        $data['title'] = 'Laporan Pengaduan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['pengaduan'] = $this->User_model->getPengaduan();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebarA', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/lappengaduan', $data);
+        $this->load->view('templates/footer');
     }
 }
