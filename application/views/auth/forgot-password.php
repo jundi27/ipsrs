@@ -63,7 +63,7 @@
                                         <input type="text" class="form-control form-control-user" id="email" name="email" placeholder="Masukkan Alamat Email..." value="<?= set_value('email'); ?>">
                                         <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
-                                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    <button type="submit" class="btn btn-success btn-user btn-block">
                                         Reset Password
                                     </button>
                                 </form>

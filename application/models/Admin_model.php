@@ -63,4 +63,14 @@ class Admin_model extends CI_Model
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('user', $data);
     }
+
+    public function getDetailPeng($id)
+    {
+        return $this->db->get_where('pengaduan', ['id' => $id])->row_array();
+    }
+
+    public function getDetailKen($id)
+    {
+        return $this->db->get_where('kendala', ['id' => $id])->row_array();
+    }
 }

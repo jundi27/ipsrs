@@ -68,7 +68,7 @@
                 <div class="col-lg">
                     <div class="p-5">
                         <div class="text-center">
-                            <h1 class="h4 text-gray-900 mb-4">Buat Akun!</h1>
+                            <h1 class="h4 text-gray-900 mb-4">Buat Akun</h1>
                         </div>
                         <form class="user" method="POST" action="<?= base_url('auth/registration'); ?>">
                             <div class="form-group">
@@ -92,7 +92,7 @@
                                     <input type="password" class="form-control form-control-user" id="password2" name="password2" placeholder="Ulangi Password">
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                            <button type="submit" class="btn btn-success btn-user btn-block">
                                 Buat Akun
                             </button>
                         </form>
@@ -101,7 +101,7 @@
                             <a class="small" href="<?= base_url('auth/forgotpassword'); ?>">Lupa Password?</a>
                         </div>
                         <div class="text-center">
-                            <a class="small" href="<?= base_url('auth'); ?>">Sudah memiliki akun? Login!</a>
+                            <a class="small" href="<?= base_url('auth'); ?>">Sudah memiliki akun? Login</a>
                         </div>
                     </div>
                 </div>

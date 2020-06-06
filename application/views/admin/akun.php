@@ -6,7 +6,7 @@
 
     <?= $this->session->flashdata('pesan'); ?>
 
-    <a style="background-color:#008983; color:#ffffff;" data-toggle="modal" data-target="#subModal" href="" class="btn btn-primary mb-2">Tambah Akun</a>
+    <a style="background-color:#008983; color:#ffffff;" data-toggle="modal" data-target="#subModal" href="" class="btn btn-primary mb-2"><i class="fa fa-plus"></i> Tambah Akun</a>
 
     <div style="height: 500px" class="container shadow">
         <div class="row">
@@ -26,6 +26,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Username</th>
+                                    <th scope="col">Jabatan</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -37,6 +38,7 @@
                                         <th scope="row"><?= $i; ?></th>
                                         <td><?= $m['nama']; ?></td>
                                         <td><?= $m['username']; ?></td>
+                                        <td><?= $m['lvl']; ?></td>
                                         <td>
 
                                             <a class="badge badge-info" href="<?= base_url('admin/ubahAkun/'); ?><?= $m['username']; ?>">Ubah</a>
@@ -59,6 +61,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Username</th>
+                                    <th scope="col">Jabatan</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -70,6 +73,7 @@
                                         <th scope="row"><?= $i; ?></th>
                                         <td><?= $t['nama']; ?></td>
                                         <td><?= $t['username']; ?></td>
+                                        <td><?= $t['lvl']; ?></td>
                                         <td>
 
                                             <a class="badge badge-info" href="<?= base_url('admin/ubahAkun/'); ?><?= $t['username']; ?>">Ubah</a>
@@ -150,7 +154,7 @@
     <div class="modal fade" id="subModal" tabindex="-1" role="dialog" aria-labelledby="subModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div style="background-color:#008983; color:#ffffff;" class="modal-header">
+                <div style="background-color:#008983; color:#ffffff" class="modal-header">
                     <h5 class="modal-title" id="subModalLabel">Tambah Akun Baru</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -177,6 +181,7 @@
 
                             <label for="email">Email</label>
                         </div>
+
                         <div class="input-form">
                             <input type="password" id="password1" name="password1" placeholder="Password">
 
@@ -185,6 +190,12 @@
                         <div class="input-form">
                             <input type="password" id="password2" name="password2" placeholder="Ulangi Password">
                             <label for="password2">Ulangi Password</label>
+                        </div>
+
+                        <div class="input-form">
+                            <input type="text" id="lvl" name="lvl" placeholder="Jabatan">
+                            <?= form_error('lvl', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="lvl">Jabatan</label>
                         </div>
 
                         <div class="form-group">

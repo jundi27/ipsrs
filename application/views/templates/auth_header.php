@@ -37,6 +37,26 @@
     <!-- Custom styles for this template-->
     <link href="<?= base_url('assets/') ?>css/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+        .bg-gradient-success {
+            background-color: #008983;
+            background-image: linear-gradient(180deg, #008983 10%, #008983 100%);
+            background-size: cover;
+        }
+
+        .btn-success {
+            color: #fff;
+            background-color: #01a098;
+            border-color: #01a098;
+        }
+
+        .btn-success:hover {
+            color: #fff;
+            background-color: #008983;
+            border-color: #008983;
+        }
+    </style>
+
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-success">

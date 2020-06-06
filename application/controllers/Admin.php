@@ -93,7 +93,7 @@ class Admin extends CI_Controller
         redirect('admin/akses');
     }
 
-    //Kelola Akun
+    //KELOLA AKUN
     public function akun()
     {
         $data['title'] = 'Akun Manajemen';
@@ -160,7 +160,7 @@ class Admin extends CI_Controller
         }
     }
 
-    //Pengaduan
+    //PENGADUAN
     public function lappengaduan()
     {
         $data['title'] = 'Laporan Pengaduan';
@@ -175,6 +175,22 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function detail($id)
+    {
+        $data['title'] = 'Detail Laporan Pengaduan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['detail'] = $this->Admin_model->getDetailPeng($id);
+        $data['pengaduan'] = $this->User_model->getPengaduan();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebarA', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/detail', $data);
+        $this->load->view('templates/footer');
+    }
+
+    //KENDALA
     public function lapkendala()
     {
         $data['title'] = 'Laporan Kendala';
@@ -186,6 +202,21 @@ class Admin extends CI_Controller
         $this->load->view('templates/sidebarA', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/lapkendala', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function detailKen($id)
+    {
+        $data['title'] = 'Detail Laporan Kendala';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['detail'] = $this->Admin_model->getDetailKen($id);
+        $data['pengaduan'] = $this->User_model->getPengaduan();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebarA', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/detailKen', $data);
         $this->load->view('templates/footer');
     }
 }

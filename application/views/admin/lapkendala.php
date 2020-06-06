@@ -23,9 +23,9 @@
                         <th scope="col">#</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Kendala</th>
-                        <th scope="col">Ruangan</th>
+                        <!-- <th scope="col">Ruangan</th> -->
                         <th scope="col">Tanggal</th>
-                        <th scope="col">Keterangan</th>
+                        <!-- <th scope="col">Keterangan</th> -->
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -36,11 +36,11 @@
                             <th scope="row"><?= $i; ?></th>
                             <td><?= $k['nama'] ?></td>
                             <td><?= $k['kendala'] ?></td>
-                            <td><?= $k['ruangan'] ?></td>
+                            <!-- <td><?= $k['ruangan'] ?></td> -->
                             <td><?= $k['tgl'] ?></td>
-                            <td><?= $k['ket'] ?></td>
+                            <!-- <td><?= $k['ket'] ?></td> -->
                             <td>
-                                <a href="" class="badge badge-warning">Detail</a>
+                                <a href="<?= base_url('admin/detailKen/'); ?><?= $k['id']; ?>" class="badge badge-warning">Detail</a>
                                 <!-- <a href="" class="badge badge-info">Terima</a>
                                 <a href="" class="badge badge-danger">Tolak</a> -->
                             </td>

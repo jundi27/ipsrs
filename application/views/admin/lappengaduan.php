@@ -24,10 +24,10 @@
                         <th scope="col">Nama</th>
                         <th scope="col">NIP</th>
                         <th scope="col">Kerusakan</th>
-                        <th scope="col">Barang</th>
-                        <th scope="col">Ruangan</th>
+                        <!-- <th scope="col">Barang</th> -->
+                        <!-- <th scope="col">Ruangan</th> -->
                         <th scope="col">Tanggal</th>
-                        <th scope="col">Keterangan</th>
+                        <!-- <th scope="col">Keterangan</th> -->
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
@@ -39,12 +39,12 @@
                             <td><?= $p['nama'] ?></td>
                             <td><?= $p['nip'] ?></td>
                             <td><?= $p['kerusakan'] ?></td>
-                            <td><?= $p['brg'] ?></td>
-                            <td><?= $p['ruangan'] ?></td>
+                            <!-- <td><?= $p['brg'] ?></td> -->
+                            <!-- <td><?= $p['ruangan'] ?></td> -->
                             <td><?= $p['tgl'] ?></td>
-                            <td><?= $p['ket'] ?></td>
+                            <!-- <td><?= $p['ket'] ?></td> -->
                             <td>
-                                <a href="" class="badge badge-warning">Detail</a>
+                                <a href="<?= base_url('admin/detail/'); ?><?= $p['id']; ?>" class="badge badge-warning">Detail</a>
                                 <!-- <a href="" class="badge badge-info">Terima</a>
                                 <a href="" class="badge badge-danger">Tolak</a> -->
                             </td>

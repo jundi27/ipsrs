@@ -44,7 +44,7 @@
                             <td><?= $p['tgl']; ?></td>
                             <td><?= $p['ket']; ?></td>
                             <td>
-                                <a href="" class="badge badge-warning">Detail</a>
+                                <a href="<?= base_url('admin/detail/'); ?><?= $p['id']; ?>" class="badge badge-warning">Detail</a>
                             </td>
                         </tr>
                         <?php $i++; ?>

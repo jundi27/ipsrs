@@ -117,7 +117,7 @@ class Teknisi extends CI_Controller
         }
     }
 
-    //pengaduan
+    //PENGADUAN
     public function lappengaduan()
     {
         $data['title'] = 'Laporan Pengaduan';
@@ -132,7 +132,23 @@ class Teknisi extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    //kendala
+    public function detail($id)
+    {
+        $data['title'] = 'Detail Laporan Pengaduan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['detail'] = $this->Admin_model->getDetail_data($id);
+        $data['pengaduan'] = $this->User_model->getPengaduan();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebarA', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('teknisi/detail', $data);
+        $this->load->view('templates/footer');
+    }
+
+
+    //KENDALA
     public function kendalaKer()
     {
         $data['title'] = 'Form Kendala Kerusakan';

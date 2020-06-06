@@ -39,6 +39,11 @@
                             <input type="password" id="password2" name="password2" placeholder="Ulangi Password">
                             <label for="password2">Ulangi Password</label>
                         </div>
+                        <div class="input-form">
+                            <input value="<?= $user['lvl']; ?>" type="text" id="lvl" name="lvl" placeholder="Jabatan">
+                            <?= form_error('lvl', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="lvl">Jabatan</label>
+                        </div>
 
                         <div class="form-group">
                             <select name="role_id" id="role_id" class="form-control">
