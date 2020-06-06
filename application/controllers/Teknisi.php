@@ -11,8 +11,8 @@ class Teknisi extends CI_Controller
 
         if (!$this->session->userdata('username')) {
             redirect('auth');
-        }else{
-            if($this->session->role_id==1){
+        } else {
+            if ($this->session->role_id == 1) {
                 redirect('admin');
             }
         }
@@ -190,7 +190,6 @@ class Teknisi extends CI_Controller
     }
 
     //PEMELIHARAAN
-
     public function lappemeliharaan()
     {
         $data['title'] = 'Teknisi IPSRS - Laporan Pemeliharaan';
@@ -199,11 +198,11 @@ class Teknisi extends CI_Controller
         // join antara lap_pemeliharaan dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: lap_pemeliharaan.date_created menjadi lpdc
         $data['lappem'] = $this->db->query('select lap_pemeliharaan.date_created as lpdc, lap_pemeliharaan.id as lpid, lap_pemeliharaan.*, user.* from lap_pemeliharaan, user where lap_pemeliharaan.user_id = user.id order by lap_pemeliharaan.date_created desc')->result();
 
-        $this->load->view('templatesteknisi/header', $data);
-        $this->load->view('templatesteknisi/sidebar', $data);
-        $this->load->view('templatesteknisi/topbar', $data);
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebart', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('teknisi/lappemeliharaan', $data);
-        $this->load->view('templatesteknisi/footer');
+        $this->load->view('templates/footer');
 
         $this->form_validation->set_rules('nama_alat', 'Nama Alat', 'required|trim', array('required' => 'Nama alat harus diisi'));
         $this->form_validation->set_rules('ruangan', 'Ruangan', 'required|trim', array('required' => 'Ruangan harus diisi'));
@@ -217,13 +216,13 @@ class Teknisi extends CI_Controller
         $this->form_validation->set_rules('ket_kondisi_fisik', 'Keterangan Kondisi Fisik', 'required|trim', array('required' => 'Keterangan kondisi fisik harus diisi'));
         if ($this->form_validation->run() == false) {
         } else {
-            $myd=date_create();
+            $myd = date_create();
             $dtfrmt = date_format($myd, 'Y-m-d');
             $arrdt = explode('-', $dtfrmt);
             $year = $arrdt[0];
             $month = $arrdt[1];
             $day = $arrdt[2];
-            $mktime = mktime( 0, 0, 0, $month, $day, $year );
+            $mktime = mktime(0, 0, 0, $month, $day, $year);
             // sebulan setelah ini
             $expired_date = strftime('%Y-%m-%d', strtotime('+1 month', $mktime));
 
@@ -258,11 +257,11 @@ class Teknisi extends CI_Controller
 
         // join antara history_lappem dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: history_lappem.date_created menjadi lpdc
         $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id')->result();
-        
-        $this->load->view('templatesteknisi/header', $data);
-        $this->load->view('templatesteknisi/sidebar', $data);
-        $this->load->view('templatesteknisi/topbar', $data);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebart', $data);
+        $this->load->view('templates/topbar', $data);
         $this->load->view('teknisi/ceklappem', $data);
-        $this->load->view('templatesteknisi/footer');
+        $this->load->view('templates/footer');
     }
 }
