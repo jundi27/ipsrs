@@ -99,6 +99,10 @@
 <script src="<?= base_url('assets/'); ?>js/demo/chart-area-demo.js"></script>
 <script src="<?= base_url('assets/'); ?>js/demo/chart-pie-demo.js"></script>
 
+<!-- data tables -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
 <script>
     $('.custom-file-input').on('change', function() {
         let fileName = $(this).val().split('\\').pop();
@@ -122,6 +126,107 @@
             }
         });
     });
+
+
+    // fungsi untuk load data laporan pemeliharaan pada history, secara live biar bisa filter tanggal
+    const liveLappem = () => {
+        $.ajax({
+            url: 'http://localhost/ipsrs/ajax/lappem',
+            method: 'get',
+            success: (res)=>{
+                $("#liveLappem").html(res)
+            },
+            error: (err)=>{
+                console.log('error mendapatkan data!')
+            }
+        })
+    }
+
+    // ajax detail laporan
+    const viewDtlLaporan = () => {
+        const detailLaporan = $("#detailLaporan");
+        detailLaporan.on("show.bs.modal", (e)=>{
+            const id = $(e.relatedTarget).data('id-laporan');
+            console.log(id)
+            $.ajax({
+                url: 'http://localhost/ipsrs/ajax/detaillappem',
+                method: 'get',
+                data: { id: id },
+                success: (res)=>{
+                    let arr = JSON.parse(res);
+                    console.log(arr)
+                    $("#namaAlat").text(arr[0].nama_alat)
+                    $("#lpruangan").text(arr[0].ruangan)
+                    $("#lpsuhu").text(arr[0].suhu+' °C')
+                    $("#lpkelembaban").text(arr[0].kelembaban+' %RH')
+                    $("#lptegangan").text(arr[0].tegangan+' V')
+                    $("#lpdayaSemu").text(arr[0].daya_semu+' VA')
+                    $("#lpdayaAktif").text(arr[0].daya_aktif+' watt')
+                    $("#lpdayaReaktif").text(arr[0].daya_reaktif+' VAR')
+                    $("#lpkondisiFisik").text(arr[0].kondisi_fisik)
+                    $("#lpketKondisiFisik").text(arr[0].ket_kondisi_fisik)
+                    const tanggal = arr[0].lpdc;
+                    const reversed = tanggal.split('-').reverse().join('/');
+                    $("#lptanggal").text(reversed)
+                    $("#lpteknisi").text(arr[0].nama)
+                },
+                error: (err)=>{
+                    console.log("error mendapatkan data!");
+                }
+            })
+        })
+    }
+
+    // filter tanggal live dengan ajax
+    $("#filterDateAwal").change(()=>filterTanggal());
+    $("#filterDateAkhir").change(()=>filterTanggal());
+    const filterTanggal = () => {
+        const dateAwal = $("#filterDateAwal").val();
+        const dateAkhir = $("#filterDateAkhir").val();
+
+        let url;
+        if(dateAwal === '' || dateAkhir === ''){
+            url = 'http://localhost/ipsrs/ajax/lappem'
+        }else{
+            url = 'http://localhost/ipsrs/ajax/lappem?tgl_awal='+dateAwal+'&&tgl_akhir='+dateAkhir;
+        }
+
+        $.ajax({
+            url: url,
+            method: 'get',
+            success: (res)=>{
+                $("#liveLappem").html(res)
+            },
+            error: (err)=>{
+                alert("Error mendapatkan data!");
+            }
+        })
+    }
+
+    // cek laporan apakah sudah expired atau belum
+    const cekExpired = () => {
+        $.ajax({
+            url: 'http://localhost/ipsrs/ajax/cek_expired',
+            method: 'get',
+            success: (res)=>{
+                console.log(res);
+                if(res.includes('data dengan id')){
+                    window.location.reload();
+                }
+            },
+            error: (err)=>{
+                console.log('no expired data!');
+            }
+        })
+    }
+
+    // eksekusi fungsi
+    viewDtlLaporan();
+    liveLappem();
+    cekExpired();
+
+    // data table untuk semua tabel
+    $("table").dataTable();
 </script>
 
 

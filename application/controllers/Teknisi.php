@@ -11,6 +11,10 @@ class Teknisi extends CI_Controller
 
         if (!$this->session->userdata('username')) {
             redirect('auth');
+        }else{
+            if($this->session->role_id==1){
+                redirect('admin');
+            }
         }
     }
 
@@ -192,7 +196,8 @@ class Teknisi extends CI_Controller
         $data['title'] = 'Teknisi IPSRS - Laporan Pemeliharaan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
+        // join antara lap_pemeliharaan dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: lap_pemeliharaan.date_created menjadi lpdc
+        $data['lappem'] = $this->db->query('select lap_pemeliharaan.date_created as lpdc, lap_pemeliharaan.id as lpid, lap_pemeliharaan.*, user.* from lap_pemeliharaan, user where lap_pemeliharaan.user_id = user.id order by lap_pemeliharaan.date_created desc')->result();
 
         $this->load->view('templatesteknisi/header', $data);
         $this->load->view('templatesteknisi/sidebar', $data);
@@ -212,7 +217,18 @@ class Teknisi extends CI_Controller
         $this->form_validation->set_rules('ket_kondisi_fisik', 'Keterangan Kondisi Fisik', 'required|trim', array('required' => 'Keterangan kondisi fisik harus diisi'));
         if ($this->form_validation->run() == false) {
         } else {
+            $myd=date_create();
+            $dtfrmt = date_format($myd, 'Y-m-d');
+            $arrdt = explode('-', $dtfrmt);
+            $year = $arrdt[0];
+            $month = $arrdt[1];
+            $day = $arrdt[2];
+            $mktime = mktime( 0, 0, 0, $month, $day, $year );
+            // sebulan setelah ini
+            $expired_date = strftime('%Y-%m-%d', strtotime('+1 month', $mktime));
+
             $data = array(
+                'user_id' => $this->session->user_id,
                 'nama_alat' => htmlspecialchars($this->input->post('nama_alat', true)),
                 'ruangan' => htmlspecialchars($this->input->post('ruangan', true)),
                 'suhu' => htmlspecialchars($this->input->post('suhu', true)),
@@ -223,7 +239,8 @@ class Teknisi extends CI_Controller
                 'daya_reaktif' => htmlspecialchars($this->input->post('daya_reaktif', true)),
                 'kondisi_fisik' => htmlspecialchars($this->input->post('kondisi_fisik', true)),
                 'ket_kondisi_fisik' => htmlspecialchars($this->input->post('ket_kondisi_fisik', true)),
-                'date_created' => time()
+                'date_created' => date_format($myd, 'Y-m-d'),
+                'expired' => $expired_date
             );
 
 
@@ -233,13 +250,15 @@ class Teknisi extends CI_Controller
             redirect('teknisi/lappemeliharaan');
         }
     }
+
     public function ceklappem()
     {
         $data['title'] = 'Teknisi IPSRS - History Laporan Pemeliharaan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
-
+        // join antara history_lappem dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: history_lappem.date_created menjadi lpdc
+        $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id')->result();
+        
         $this->load->view('templatesteknisi/header', $data);
         $this->load->view('templatesteknisi/sidebar', $data);
         $this->load->view('templatesteknisi/topbar', $data);

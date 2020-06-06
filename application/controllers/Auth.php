@@ -11,6 +11,14 @@ class Auth extends CI_Controller
 
     public function index()
     {
+        if($this->session->username!==null){
+            if($this->session->role_id===1){
+                redirect('admin');
+            }else{
+                redirect('teknisi');
+            }
+        }
+
         $this->form_validation->set_rules('username', 'Username', 'required|trim');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
@@ -43,7 +51,8 @@ class Auth extends CI_Controller
                 $data = [
                     'username' => $user['username'],
                     //untuk menentukan masuk ke menu mana
-                    'role_id' => $user['role_id']
+                    'role_id' => $user['role_id'],
+                    'user_id' => $user['id']
                 ];
                 $this->session->set_userdata($data);
                 if ($user['role_id'] == 1) {
