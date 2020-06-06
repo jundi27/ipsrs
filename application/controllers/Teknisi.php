@@ -179,4 +179,18 @@ class Teknisi extends CI_Controller
             redirect('teknisi/kendalaKer');
         }
     }
+
+    //Pemeliharaan
+
+    public function lappemeliharaan()
+    {
+        $data['title'] = 'Teknisi IPSRS - Laporan Pemeliharaan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $this->load->view('templatesteknisi/header', $data);
+        $this->load->view('templatesteknisi/sidebar', $data);
+        $this->load->view('templatesteknisi/topbar', $data);
+        $this->load->view('teknisi/lappemeliharaan', $data);
+        $this->load->view('templatesteknisi/footer');
+    }
 }

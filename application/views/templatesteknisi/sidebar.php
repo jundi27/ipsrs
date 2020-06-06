@@ -44,7 +44,7 @@
 
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="<?= base_url('teknisi/buatlappem') ?>">Laporan Pemeliharaan</a>
+                <a class="collapse-item" href="<?= base_url('teknisi/lappemeliharaan') ?>">Laporan Pemeliharaan</a>
                 <a class="collapse-item" href="<?= base_url('teknisi/ceklappem') ?>">Cek Laporan Pemeliharaan</a>
             </div>
         </div>
