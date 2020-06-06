@@ -10,6 +10,10 @@ class Admin extends CI_Controller
 
         if (!$this->session->userdata('username')) {
             redirect('auth');
+        }else{
+            if($this->session->role_id==3){
+                redirect('teknisi');
+            }
         }
     }
 
@@ -101,7 +105,8 @@ class Admin extends CI_Controller
         $data['title'] = 'Administrator - Laporan Pemeliharaan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
+        // join antara lap_pemeliharaan dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: lap_pemeliharaan.date_created menjadi lpdc
+         $data['lappem'] = $this->db->query('select lap_pemeliharaan.date_created as lpdc, lap_pemeliharaan.id as lpid, lap_pemeliharaan.*, user.* from lap_pemeliharaan, user where lap_pemeliharaan.user_id = user.id order by lap_pemeliharaan.date_created desc')->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -115,13 +120,34 @@ class Admin extends CI_Controller
         $data['title'] = 'Administrator - History Laporan Pemeliharaan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $data['date'] = $this->db->get('lap_pemeliharaan')->result_array();
+        // join antara history_lappem dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: history_lappem.date_created menjadi lpdc
+        $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id')->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/historylappem', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function printlappem($id){
+        $data['title'] = 'Print Laporan';
+
+        // join antara lap_pemeliharaan dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: lap_pemeliharaan.date_created menjadi lpdc
+        $data['lappem'] = $this->db->query('select lap_pemeliharaan.date_created as lpdc, lap_pemeliharaan.id as lpid, lap_pemeliharaan.*, user.* from lap_pemeliharaan, user where lap_pemeliharaan.user_id = user.id and lap_pemeliharaan.id = '.$id)->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('admin/printlappem', $data);
+    }
+
+    public function printhistorylappem($id){
+        $data['title'] = 'Print Laporan';
+
+        // join antara history_lappem dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: history_lappem.date_created menjadi lpdc
+        $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.id as lpid, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id and history_lappem.id = '.$id)->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('admin/printlappem', $data);
     }
 
     public function kelolaalkes()

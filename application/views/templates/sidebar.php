@@ -1,5 +1,3 @@
-<!-- Sbadmin2 -->
-<!-- Sidebar -->
 <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -115,4 +113,3 @@
         </div>
 
 </ul>
-<!-- End of Sidebar -->

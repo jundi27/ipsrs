@@ -36,7 +36,7 @@
 
     <hr class="sidebar-divider d-none d-md-block">
 
-    <li class="nav-item">
+    <li class="nav-item <?= current_url() === base_url('teknisi/ceklappem') || current_url() === base_url('teknisi/lappemeliharaan') ? 'active' : null ?>">
         <a class="nav-link collapsed" href="<?= base_url('teknisi/pemeliharaan'); ?>" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-briefcase-medical"></i>
             <span>Pemeliharaan</span>
@@ -52,7 +52,7 @@
 
     <hr class="sidebar-divider d-none d-md-block">
 
-    <li class="nav-item">
+    <li class="nav-item <?= current_url() === base_url('teknisi/index') || current_url() === base_url('teknisi/edit') || current_url() === base_url('teknisi/changepassword') ? 'active' : null ?>">
         <a class="nav-link collapsed" href="<?= base_url('teknisi/index'); ?>" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
             <i class="fas fa-fw fa-user"></i>
             <span>Profil</span>
