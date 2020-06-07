@@ -23,7 +23,7 @@
                         <table class="table table-hover text-center">
                             <thead style="background-color:#008983; color:#ffffff;">
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">No</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Username</th>
                                     <th scope="col">Jabatan</th>
@@ -58,7 +58,7 @@
                         <table class="table table-hover text-center">
                             <thead style="background-color:#008983; color:#ffffff;">
                                 <tr>
-                                    <th scope="col">#</th>
+                                    <th scope="col">No</th>
                                     <th scope="col">Nama</th>
                                     <th scope="col">Username</th>
                                     <th scope="col">Jabatan</th>

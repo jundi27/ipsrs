@@ -9,13 +9,13 @@ class Teknisi extends CI_Controller
         $this->load->model('User_model');
         $this->load->library('form_validation');
 
-        if (!$this->session->userdata('username')) {
-            redirect('auth');
-        } else {
-            if ($this->session->role_id == 1) {
-                redirect('admin');
-            }
-        }
+        // if (!$this->session->userdata('username')) {
+        //     redirect('auth');
+        // } else {
+        //     if ($this->session->role_id == 1) {
+        //         redirect('admin');
+        //     }
+        // }
     }
 
     public function index()
@@ -129,7 +129,7 @@ class Teknisi extends CI_Controller
     //PENGADUAN
     public function lappengaduan()
     {
-        $data['title'] = 'Laporan Pengaduan';
+        $data['title'] = 'Teknisi IPSRS - Laporan Pengaduan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $data['pengaduan'] = $this->User_model->getPengaduan();
@@ -160,7 +160,7 @@ class Teknisi extends CI_Controller
     //KENDALA
     public function kendalaKer()
     {
-        $data['title'] = 'Form Kendala Kerusakan';
+        $data['title'] = 'Teknisi IPSRS - Lapor Kendala Kerusakan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');

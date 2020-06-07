@@ -28,7 +28,8 @@
     <li class="nav-item">
         <a class="nav-link pt-0" href="<?= base_url('admin/akun'); ?>">
             <i class="fas fa-fw fa-users"></i>
-            <span>Akun Manajemen</span></a>
+            <span>Akun Manajemen</span>
+        </a>
     </li>
 
     <li class="nav-item">
@@ -45,19 +46,25 @@
         </div>
     </li>
 
-
     <li class="nav-item">
-        <a class="nav-link collapsed pt-0" href="<?= base_url('teknisi/pemeliharaan'); ?>" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-folder"></i>
+        <a class="nav-link collapsed pt-0" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-briefcase-medical"></i>
             <span>Pemeliharaan</span>
         </a>
 
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="<?= base_url('teknisi/buatlappem') ?>">Laporan Pemeliharaan</a>
-                <a class="collapse-item" href="<?= base_url('teknisi/ceklappem') ?>">Cek Laporan Pemeliharaan</a>
+                <a class="collapse-item" href="<?= base_url('admin/ceklappem') ?>">Laporan Pemeliharaan</a>
+                <a class="collapse-item" href="<?= base_url('admin/historylappem') ?>">History Laporan</a>
             </div>
         </div>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link pt-0" href="<?= base_url('admin/kelolaalkes'); ?>">
+            <i class="fas fa-fw fa-laptop-medical"></i>
+            <span>Kelola Alat Kesehatan</span>
+        </a>
     </li>
 
     <hr class="sidebar-divider d-none d-md-block">

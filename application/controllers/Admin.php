@@ -10,13 +10,13 @@ class Admin extends CI_Controller
         $this->load->model('Admin_model');
         $this->load->model('User_model');
 
-        if (!$this->session->userdata('username')) {
-            redirect('auth');
-        }else{
-            if($this->session->role_id==3){
-                redirect('teknisi');
-            }
-        }
+        // if (!$this->session->userdata('username')) {
+        //     redirect('auth');
+        // } else {
+        //     if ($this->session->role_id == 3) {
+        //         redirect('teknisi');
+        //     }
+        // }
     }
 
     public function index()
@@ -171,7 +171,7 @@ class Admin extends CI_Controller
     //PENGADUAN
     public function lappengaduan()
     {
-        $data['title'] = 'Laporan Pengaduan';
+        $data['title'] = 'Administrator - Laporan Pengaduan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $data['pengaduan'] = $this->User_model->getPengaduan();
@@ -201,7 +201,7 @@ class Admin extends CI_Controller
     //KENDALA
     public function lapkendala()
     {
-        $data['title'] = 'Laporan Kendala';
+        $data['title'] = 'Administrator - Laporan Kendala';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         $data['kendala'] = $this->User_model->getKendala();
@@ -230,15 +230,14 @@ class Admin extends CI_Controller
     //PEMELIHARAAN
     public function ceklappem()
     {
-
         $data['title'] = 'Administrator - Laporan Pemeliharaan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         // join antara lap_pemeliharaan dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: lap_pemeliharaan.date_created menjadi lpdc
-         $data['lappem'] = $this->db->query('select lap_pemeliharaan.date_created as lpdc, lap_pemeliharaan.id as lpid, lap_pemeliharaan.*, user.* from lap_pemeliharaan, user where lap_pemeliharaan.user_id = user.id order by lap_pemeliharaan.date_created desc')->result();
+        $data['lappem'] = $this->db->query('select lap_pemeliharaan.date_created as lpdc, lap_pemeliharaan.id as lpid, lap_pemeliharaan.*, user.* from lap_pemeliharaan, user where lap_pemeliharaan.user_id = user.id order by lap_pemeliharaan.date_created desc')->result();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/sidebarA', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/ceklappem', $data);
         $this->load->view('templates/footer');
@@ -253,27 +252,29 @@ class Admin extends CI_Controller
         $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id')->result();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/sidebarA', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/historylappem', $data);
         $this->load->view('templates/footer');
     }
 
-    public function printlappem($id){
+    public function printlappem($id)
+    {
         $data['title'] = 'Print Laporan';
 
         // join antara lap_pemeliharaan dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: lap_pemeliharaan.date_created menjadi lpdc
-        $data['lappem'] = $this->db->query('select lap_pemeliharaan.date_created as lpdc, lap_pemeliharaan.id as lpid, lap_pemeliharaan.*, user.* from lap_pemeliharaan, user where lap_pemeliharaan.user_id = user.id and lap_pemeliharaan.id = '.$id)->result();
+        $data['lappem'] = $this->db->query('select lap_pemeliharaan.date_created as lpdc, lap_pemeliharaan.id as lpid, lap_pemeliharaan.*, user.* from lap_pemeliharaan, user where lap_pemeliharaan.user_id = user.id and lap_pemeliharaan.id = ' . $id)->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('admin/printlappem', $data);
     }
 
-    public function printhistorylappem($id){
+    public function printhistorylappem($id)
+    {
         $data['title'] = 'Print Laporan';
 
         // join antara history_lappem dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: history_lappem.date_created menjadi lpdc
-        $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.id as lpid, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id and history_lappem.id = '.$id)->result();
+        $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.id as lpid, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id and history_lappem.id = ' . $id)->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('admin/printlappem', $data);
@@ -287,7 +288,7 @@ class Admin extends CI_Controller
         $data['alatkes'] = $this->db->get('alkes')->result_array();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/sidebarA', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/kelolaalkes', $data);
         $this->load->view('templates/footer');
@@ -336,79 +337,77 @@ class Admin extends CI_Controller
         $data['id'] = $this->Admin_model->getAlkes();
     }
 
-    ////////////////////////////////////////////////////////////////
+    // public function kelolateknisi()
+    // {
 
-    public function kelolateknisi()
-    {
+    //     $data['title'] = 'Administrator - Kelola Data Teknisi';
+    //     $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $data['title'] = 'Administrator - Kelola Data Teknisi';
-        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+    //     $data['date'] = $this->db->get('user')->result_array();
 
-        $data['date'] = $this->db->get('user')->result_array();
+    //     $this->load->model('Admin_model', 'admin');
+    //     $data['nama'] = $this->admin->getNama();
 
-        $this->load->model('Admin_model', 'admin');
-        $data['nama'] = $this->admin->getNama();
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('admin/kelolateknisi', $data);
+    //     $this->load->view('templates/footer');
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('admin/kelolateknisi', $data);
-        $this->load->view('templates/footer');
+    //     $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+    //     $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]', [
+    //         'is_unique' => 'Username ini telah terdaftar!'
+    //     ]);
+    //     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
+    //         'is_unique' => 'Email ini telah terdaftar!'
+    //     ]);
+    //     $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
+    //         'matches' => 'Password tidak sama!',
+    //         'min_length' => 'Password terlalu pendek!'
+    //     ]);
+    //     $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
-        $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
-        $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]', [
-            'is_unique' => 'Username ini telah terdaftar!'
-        ]);
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
-            'is_unique' => 'Email ini telah terdaftar!'
-        ]);
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-            'matches' => 'Password tidak sama!',
-            'min_length' => 'Password terlalu pendek!'
-        ]);
-        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+    //     //validasi data 
+    //     if ($this->form_validation->run() == false) {
+    //     } else {
+    //         $email = $this->input->post('email', true);
+    //         $data = [
+    //             'nama' => htmlspecialchars($this->input->post('nama', true)),
+    //             'username' => htmlspecialchars($this->input->post('username', true)),
+    //             'email' => htmlspecialchars($email),
+    //             'image' => 'default.jpg',
+    //             'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
+    //             'role_id' => 3,
+    //             'is_active' => 1,
+    //             'date_created' => time()
+    //         ];
 
-        //validasi data 
-        if ($this->form_validation->run() == false) {
-        } else {
-            $email = $this->input->post('email', true);
-            $data = [
-                'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'username' => htmlspecialchars($this->input->post('username', true)),
-                'email' => htmlspecialchars($email),
-                'image' => 'default.jpg',
-                'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-                'role_id' => 3,
-                'is_active' => 1,
-                'date_created' => time()
-            ];
-
-            $this->db->insert('user', $data);
+    //         $this->db->insert('user', $data);
 
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                Data teknisi berhasil dibuat. Silahkan login</div>');
-            redirect('admin/kelolateknisi');
-        }
-    }
+    //         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+    //             Data teknisi berhasil dibuat. Silahkan login</div>');
+    //         redirect('admin/kelolateknisi');
+    //     }
+    // }
 
-    public function hapusTeknisi($id)
-    {
-        $this->load->model('Admin_model');
-        $this->Admin_model->getHapusAkunTeknisi($id);
+    // public function hapusTeknisi($id)
+    // {
+    //     $this->load->model('Admin_model');
+    //     $this->Admin_model->getHapusAkunTeknisi($id);
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                Data teknisi berhasil dihapus!</div>');
-        redirect('admin/kelolateknisi');
-    }
+    //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+    //             Data teknisi berhasil dihapus!</div>');
+    //     redirect('admin/kelolateknisi');
+    // }
 
-    public function hapusakunteknisi()
-    {
-        $data['user'] = $this->db->get_where('user', array(
-            'username' => $this->session->userdata('username')
-        ))->row_array();
+    // public function hapusakunteknisi()
+    // {
+    //     $data['user'] = $this->db->get_where('user', array(
+    //         'username' => $this->session->userdata('username')
+    //     ))->row_array();
 
-        $this->load->model('Admin_model');
-        $data['nama'] = $this->Admin_model->getNama();
-    }
+    //     $this->load->model('Admin_model');
+    //     $data['nama'] = $this->Admin_model->getNama();
+    // }
 }

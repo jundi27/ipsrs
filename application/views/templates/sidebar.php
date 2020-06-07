@@ -63,41 +63,6 @@
 
         <?php endforeach; ?>
 
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="<?= base_url('admin/pemeliharaan'); ?>" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-briefcase-medical"></i>
-                <span>Pemeliharaan</span>
-            </a>
-
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="<?= base_url('admin/ceklappem') ?>">Laporan Pemeliharaan</a>
-                    <a class="collapse-item" href="<?= base_url('admin/historylappem') ?>">History Laporan</a>
-                </div>
-            </div>
-        </li>
-
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('admin/kelolaalkes'); ?>">
-                <i class="fas fa-fw fa-laptop-medical"></i>
-                <span>Kelola Data Alat Kesehatan</span>
-            </a>
-        </li>
-
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <li class="nav-item">
-            <a class="nav-link" href="<?= base_url('admin/kelolateknisi'); ?>">
-                <i class="fas fa-fw fa-users-cog"></i>
-                <span>Kelola Data Teknisi</span>
-            </a>
-        </li>
-
-
         <!-- Nav Item -->
         <li class="nav-item">
             <a class="nav-link" href="<?= base_url('auth/logout') ?>">

@@ -1,4 +1,3 @@
-
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -19,12 +18,60 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Laporan Pemeliharaan</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <?php 
-                                $lappem = $this->db->get('lap_pemeliharaan')->result(); 
-                                $hstlappem = $this->db->get('history_lappem')->result(); 
+                                <?php
+                                $lappem = $this->db->get('lap_pemeliharaan')->result();
+                                $hstlappem = $this->db->get('history_lappem')->result();
 
                                 // total laporan diakumulasikan dari data lap_pemeliharaan dan history_lappem
-                                echo count($lappem+$hstlappem);
+                                echo count($lappem + $hstlappem);
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-file-pdf fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menghitung total laporan pengaduan -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Laporan Pengaduan</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <?php
+                                $lappen = $this->db->get('pengaduan')->result();
+
+                                // total laporan diakumulasikan dari data lap_pemeliharaan dan history_lappem
+                                echo count($lappen);
+                                ?>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-file-pdf fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menghitung total laporan kendala -->
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Laporan Kendala</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <?php
+                                $lapken = $this->db->get('kendala')->result();
+
+                                // total laporan diakumulasikan dari data lap_pemeliharaan dan history_lappem
+                                echo count($lapken);
                                 ?>
                             </div>
                         </div>
@@ -44,8 +91,8 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Alat Kesehatan</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <?php 
-                                $alkes = $this->db->get('alkes')->result(); 
+                                <?php
+                                $alkes = $this->db->get('alkes')->result();
                                 echo count($alkes);
                                 ?>
                             </div>
@@ -66,9 +113,9 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Teknisi</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <?php 
+                                <?php
                                 // Teknisi diambil dari tabel user dengan role_id 3
-                                $teknisi = $this->db->get_where('user', ['role_id' => 3])->result(); 
+                                $teknisi = $this->db->get_where('user', ['role_id' => 3])->result();
                                 echo count($teknisi);
                                 ?>
                             </div>
@@ -89,8 +136,8 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pengguna Sistem</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                <?php 
-                                $users = $this->db->get('user')->result(); 
+                                <?php
+                                $users = $this->db->get('user')->result();
                                 echo count($users);
                                 ?>
                             </div>

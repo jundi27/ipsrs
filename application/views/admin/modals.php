@@ -18,7 +18,7 @@
                             <td>:</td>
                             <td><span id="lpruangan"></span></td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td><b>Suhu</b></td>
                             <td>:</td>
                             <td><span id="lpsuhu"></span></td>
@@ -88,7 +88,7 @@
                             <td>:</td>
                             <td><span id="hstlpruangan"></span></td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td><b>Suhu</b></td>
                             <td>:</td>
                             <td><span id="hstlpsuhu"></span></td>

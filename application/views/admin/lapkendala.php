@@ -20,7 +20,7 @@
             <table class="table table-hover">
                 <thead style="background-color:#008983; color:#ffffff;">
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">No</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Kendala</th>
                         <!-- <th scope="col">Ruangan</th> -->
@@ -37,10 +37,10 @@
                             <td><?= $k['nama'] ?></td>
                             <td><?= $k['kendala'] ?></td>
                             <!-- <td><?= $k['ruangan'] ?></td> -->
-                            <td><?= $k['tgl'] ?></td>
+                            <td><?php echo date('d M Y', strtotime($k['tgl'])); ?></td>
                             <!-- <td><?= $k['ket'] ?></td> -->
                             <td>
-                                <a href="<?= base_url('admin/detailKen/'); ?><?= $k['id']; ?>" class="badge badge-warning">Detail</a>
+                                <a href="<?= base_url('admin/detailKen/'); ?><?= $k['id']; ?>" class="badge badge-primary">Detail</a>
                                 <!-- <a href="" class="badge badge-info">Terima</a>
                                 <a href="" class="badge badge-danger">Tolak</a> -->
                             </td>
