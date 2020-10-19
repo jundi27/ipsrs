@@ -44,7 +44,7 @@
                             <td><?php echo date('d M Y', strtotime($p['tgl'])); ?></td>
                             <td><?= $p['ket']; ?></td>
                             <td>
-                                <a href="<?= base_url('admin/detail/'); ?><?= $p['id']; ?>" class="badge badge-warning">Detail</a>
+                                <a href="<?= base_url('teknisi/detail/'); ?><?= $p['id']; ?>" class="badge badge-primary">Detail</a>
                             </td>
                         </tr>
                         <?php $i++; ?>

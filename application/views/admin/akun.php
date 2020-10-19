@@ -40,10 +40,8 @@
                                         <td><?= $m['username']; ?></td>
                                         <td><?= $m['lvl']; ?></td>
                                         <td>
-
                                             <a class="badge badge-info" href="<?= base_url('admin/ubahAkun/'); ?><?= $m['username']; ?>">Ubah</a>
                                             <a class="badge badge-danger" data-toggle="modal" data-target="#hapusModal" href="">Hapus</a>
-
                                         </td>
 
                                     </tr>
@@ -119,7 +117,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a style="width: 60px" class="btn btn-success" href="<?= base_url('admin/hapusAkun/'); ?><?= $t['id']; ?>">Ya</a>
+                    <a style="width: 60px" class="btn btn-success" href="<?= base_url('admin/hapusAkun/'); ?><?= $m['id']; ?>">Ya</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
                 </div>
             </div>

@@ -7,6 +7,7 @@ class Teknisi extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->model('Admin_model');
         $this->load->library('form_validation');
 
         // if (!$this->session->userdata('username')) {
@@ -146,11 +147,11 @@ class Teknisi extends CI_Controller
         $data['title'] = 'Detail Laporan Pengaduan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $data['detail'] = $this->Admin_model->getDetail_data($id);
+        $data['detail'] = $this->Admin_model->getDetailPeng($id);
         $data['pengaduan'] = $this->User_model->getPengaduan();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebarA', $data);
+        $this->load->view('templates/sidebart', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('teknisi/detail', $data);
         $this->load->view('templates/footer');

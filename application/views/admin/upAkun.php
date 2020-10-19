@@ -20,13 +20,13 @@
                             <label for="nama">Nama Lengkap</label>
                         </div>
                         <div class="input-form">
-                            <input value="<?= $user['username']; ?>" type="text" id="username" name="username" placeholder="Username">
+                            <input value="<?= $user['username']; ?>" type="text" id="username" name="username" placeholder="Username" readonly>
                             <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label for="username">Username</label>
                         </div>
 
                         <div class="input-form">
-                            <input value="<?= $user['email']; ?>" type="text" id="email" name="email" placeholder="Email">
+                            <input value="<?= $user['email']; ?>" type="text" id="email" name="email" placeholder="Email" readonly>
                             <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label for="email">Email</label>
                         </div>
@@ -49,7 +49,7 @@
                             <select name="role_id" id="role_id" class="form-control">
                                 <option value="">Select Role</option>
                                 <option value="1">Administrator</option>
-                                <option value="2">User</option>
+                                <option value="2">Pegawai</option>
                                 <option value="3">Teknisi</option>
                             </select>
                         </div>

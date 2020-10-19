@@ -10,23 +10,23 @@
         <table class="table">
             <tr>
                 <th>Nama</th>
-                <td><?= $detail['nama'] ?></td>
+                <td>: <?= $detail['nama'] ?></td>
             </tr>
             <tr>
                 <th>Kendala</th>
-                <td><?= $detail['kendala'] ?></td>
+                <td>: <?= $detail['kendala'] ?></td>
             </tr>
             <tr>
                 <th>Ruangan</th>
-                <td><?= $detail['ruangan'] ?></td>
+                <td>: <?= $detail['ruangan'] ?></td>
             </tr>
             <tr>
                 <th>Tanggal</th>
-                <td><?= $detail['tgl'] ?></td>
+                <td>: <?= $detail['tgl'] ?></td>
             </tr>
             <tr>
                 <th>Keterangan</th>
-                <td><?= $detail['ket'] ?></td>
+                <td>: <?= $detail['ket'] ?></td>
             </tr>
         </table>
     </section>

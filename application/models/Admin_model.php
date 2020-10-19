@@ -35,6 +35,7 @@ class Admin_model extends CI_Model
             'image' => 'default.jpg',
             'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
             'email' => htmlspecialchars($this->input->post('email', true)),
+            'lvl' => htmlspecialchars($this->input->post('lvl', true)),
             'role_id' => $this->input->post('role_id'),
             'is_active' => $this->input->post('is_active'),
             'date_created' => time()
@@ -56,6 +57,7 @@ class Admin_model extends CI_Model
             'image' => 'default.jpg',
             'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
             'email' => htmlspecialchars($this->input->post('email', true)),
+            'lvl' => htmlspecialchars($this->input->post('lvl', true)),
             'role_id' => $this->input->post('role_id'),
             'is_active' => $this->input->post('is_active'),
             'date_created' => time()

@@ -6,15 +6,15 @@
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <section class="content">
-        <a href="<?= base_url('admin/lappengaduan') ?>" class="btn btn-primary btn-sm mb-4"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="<?= base_url('teknisi/lappengaduan') ?>" class="btn btn-primary btn-sm mb-4"><i class="fas fa-arrow-left"></i> Kembali</a>
         <table class="table">
             <tr>
                 <th>Nama</th>
-                <td><?= $detail['nama'] ?></td>
+                <td>: <?= $detail['nama'] ?></td>
             </tr>
             <tr>
                 <th>NIP</th>
-                <td><?= $detail['nip'] ?></td>
+                <td>: <?= $detail['nip'] ?></td>
             </tr>
             <!-- <tr>
                 <th>Kerusakan</th>
@@ -22,19 +22,19 @@
             </tr> -->
             <tr>
                 <th>Barang</th>
-                <td><?= $detail['brg'] ?></td>
+                <td>: <?= $detail['brg'] ?></td>
             </tr>
             <tr>
                 <th>Ruangan</th>
-                <td><?= $detail['ruangan'] ?></td>
+                <td>: <?= $detail['ruangan'] ?></td>
             </tr>
             <tr>
                 <th>Tanggal</th>
-                <td><?= $detail['tgl'] ?></td>
+                <td>: <?= $detail['tgl'] ?></td>
             </tr>
             <tr>
                 <th>Keterangan</th>
-                <td><?= $detail['ket'] ?></td>
+                <td>: <?= $detail['ket'] ?></td>
             </tr>
         </table>
     </section>
