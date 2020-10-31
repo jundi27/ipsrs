@@ -42,17 +42,17 @@
 
 
 <!-- Sbadmin2 -->
-<div class="container">
+<!-- <div class="container"> -->
 
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
+<!-- Outer Row -->
+<!-- <div class="row justify-content-center">
 
         <div class="col-lg-7">
 
             <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
+                <div class="card-body p-0"> -->
+<!-- Nested Row within Card Body -->
+<!-- <div class="row">
 
                         <div class="col-lg">
                             <div class="p-5">
@@ -78,11 +78,11 @@
                                 <hr>
                                 <div class="text-center">
                                     <a class="small" href="<?= base_url('auth/forgotpassword'); ?>">Lupa Password?</a>
-                                </div>
-                                <!-- <div class="text-center">
+                                </div> -->
+<!-- <div class="text-center">
                                     <a class="small" href="<?= base_url('auth/registration'); ?>">Buat akun</a>
                                 </div> -->
-                            </div>
+<!-- </div>
                         </div>
                     </div>
                 </div>
@@ -92,4 +92,44 @@
 
     </div>
 
+</div> -->
+
+<img class="wave" src="<?= base_url('assets/') ?>img/wave.png">
+<div class="container">
+    <div class="img">
+        <img src="<?= base_url('assets/') ?>img/bgr.svg">
+    </div>
+    <div class="login-content">
+        <form class="user" method="POST" action="<?= base_url('auth'); ?>">
+            <img src="<?= base_url('assets/') ?>img/avatar.svg">
+            <h2 class="title">login</h2>
+
+            <?= $this->session->flashdata('pesan'); ?>
+
+            <div class="input-div one">
+                <div class="i">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                    <h5>Username</h5>
+                    <input type="text" class="input" id="username" name="username">
+                    <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+            </div>
+
+            <div class="input-div pass">
+                <div class="i">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="div">
+                    <h5>Password</h5>
+                    <input type="password" class="input" id="password" name="password">
+                    <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+            </div>
+
+            <a href="<?= base_url('auth/forgotpassword'); ?>">Lupa Password?</a>
+            <input type="submit" class="btn" value="Login">
+        </form>
+    </div>
 </div>

@@ -38,17 +38,17 @@
 
 
 <!-- Sbadmin2 -->
-<div class="container">
+<!-- <div class="container"> -->
 
-    <!-- Outer Row -->
-    <div class="row justify-content-center">
+<!-- Outer Row -->
+<!-- <div class="row justify-content-center">
 
         <div class="col-lg-7">
 
             <div class="card o-hidden border-0 shadow-lg my-5">
-                <div class="card-body p-0">
-                    <!-- Nested Row within Card Body -->
-                    <div class="row">
+                <div class="card-body p-0"> -->
+<!-- Nested Row within Card Body -->
+<!-- <div class="row">
 
                         <div class="col-lg">
                             <div class="p-5">
@@ -81,4 +81,33 @@
 
     </div>
 
+</div> -->
+
+<img class="wave" src="<?= base_url('assets/') ?>img/wave.png">
+<div class="container">
+    <div class="img">
+        <img src="<?= base_url('assets/') ?>img/fp.svg">
+    </div>
+    <div class="login-content">
+        <form class="user" method="POST" action="<?= base_url('auth/forgotpassword'); ?>">
+            <!-- <img src="<?= base_url('assets/') ?>img/avatar.svg"> -->
+            <h2 class="title">Lupa password?</h2>
+
+            <?= $this->session->flashdata('pesan'); ?>
+
+            <div class="input-div pass">
+                <div class="i">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="div">
+                    <h5>Masukkan alamat email...</h5>
+                    <input type="text" class="input" id="email" name="email">
+                    <?= form_error('email,', '<small class="text-danger pl-3">', '</small>'); ?>
+                </div>
+            </div>
+
+            <a href="<?= base_url('auth'); ?>">Kembali ke login</a>
+            <input type="submit" class="btn" value="reset password">
+        </form>
+    </div>
 </div>

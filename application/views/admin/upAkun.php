@@ -30,7 +30,7 @@
                             <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label for="email">Email</label>
                         </div>
-                        <div class="input-form">
+                        <!-- <div class="input-form">
                             <input value="" type="password" id="password1" name="password1" placeholder="Password">
                             <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label for="password1">Password</label>
@@ -38,7 +38,7 @@
                         <div class="input-form">
                             <input type="password" id="password2" name="password2" placeholder="Ulangi Password">
                             <label for="password2">Ulangi Password</label>
-                        </div>
+                        </div> -->
                         <div class="input-form">
                             <input value="<?= $user['lvl']; ?>" type="text" id="lvl" name="lvl" placeholder="Jabatan">
                             <?= form_error('lvl', '<small class="text-danger pl-3">', '</small>'); ?>
@@ -47,7 +47,9 @@
 
                         <div class="form-group">
                             <select name="role_id" id="role_id" class="form-control">
-                                <option value="">Select Role</option>
+                                <?php $role = $this->db->get_where('user_role', ['id' => $user['role_id']])->row();
+                                ?>
+                                <option value="<?= $role->id ?>"><?= $role->role ?></option>
                                 <option value="1">Administrator</option>
                                 <option value="2">Pegawai</option>
                                 <option value="3">Teknisi</option>

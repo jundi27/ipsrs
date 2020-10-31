@@ -12,14 +12,14 @@
         <div class="row">
             <div style="border-right: 2px solid #008983;" class="col-lg-2 mt-3 mb-5 ">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Pegawai</a>
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Pegawai</a>
                     <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Teknisi</a>
                 </div>
             </div>
             <div class="col-lg-10 mt-3 mb-5">
                 <div class="tab-content" id="v-pills-tabContent">
 
-                    <div style="height: 450px" class="tab-pane fade table-wrapper-scroll-y " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                    <div style="height: 450px" class="tab-pane active show fade table-wrapper-scroll-y " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                         <table class="table table-hover text-center">
                             <thead style="background-color:#008983; color:#ffffff;">
                                 <tr>
@@ -34,16 +34,14 @@
                                 <?php $i = 1; ?>
                                 <?php foreach ($member as $m) : ?>
                                     <tr>
-
                                         <th scope="row"><?= $i; ?></th>
                                         <td><?= $m['nama']; ?></td>
                                         <td><?= $m['username']; ?></td>
                                         <td><?= $m['lvl']; ?></td>
                                         <td>
                                             <a class="badge badge-info" href="<?= base_url('admin/ubahAkun/'); ?><?= $m['username']; ?>">Ubah</a>
-                                            <a class="badge badge-danger" data-toggle="modal" data-target="#hapusModal" href="">Hapus</a>
+                                            <a class="badge badge-danger" id="hapus-modal" data-id="<?= $m['id']; ?>" data-toggle="modal" data-target="#hapusModal" href="">Hapus</a>
                                         </td>
-
                                     </tr>
                                     <?php $i++; ?>
                                 <?php endforeach; ?>
@@ -67,18 +65,14 @@
                                 <?php $i = 1; ?>
                                 <?php foreach ($teknisi as $t) : ?>
                                     <tr>
-
                                         <th scope="row"><?= $i; ?></th>
                                         <td><?= $t['nama']; ?></td>
                                         <td><?= $t['username']; ?></td>
                                         <td><?= $t['lvl']; ?></td>
                                         <td>
-
                                             <a class="badge badge-info" href="<?= base_url('admin/ubahAkun/'); ?><?= $t['username']; ?>">Ubah</a>
-                                            <a class="badge badge-danger" data-toggle="modal" data-target="#hapusModal2" href="">Hapus</a>
-
+                                            <a class="badge badge-danger" id="hapus-modal2" data-id="<?= $t['id'] ?>" data-toggle="modal" data-target="#hapusModal2" href="">Hapus</a>
                                         </td>
-
                                     </tr>
                                     <?php $i++; ?>
                                 <?php endforeach; ?>
@@ -99,7 +93,7 @@
     <hr style="color: #008983; size: 5px" class="divider">
     </hr>
 
-    <!-- Modal Hapus Akun -->
+    <!-- Modal Hapus Akun Pegawai-->
     <div class="modal fade" id="hapusModal" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -117,13 +111,28 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a style="width: 60px" class="btn btn-success" href="<?= base_url('admin/hapusAkun/'); ?><?= $m['id']; ?>">Ya</a>
+                    <a style="width: 60px" id="btn-hapus-modal" class="btn btn-success" href="#">Ya</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        const hapusModal = document.querySelectorAll("#hapus-modal")
+        const btnHapusModal = document.querySelector("#btn-hapus-modal")
+
+        hapusModal.forEach(item => {
+            item.addEventListener("click", e => {
+                const id = e.target.getAttribute("data-id")
+
+                // console.log(location);
+                btnHapusModal.setAttribute("href", location.origin + '/ipsrs/admin/hapusAkun/' + id)
+            })
+        })
+    </script>
+
+    <!-- Modal Hapus Akun Teknisi-->
     <div class="modal fade" id="hapusModal2" tabindex="-1" role="dialog" aria-labelledby="hapusModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -141,12 +150,26 @@
                 </div>
 
                 <div class="modal-footer">
-                    <a style="width: 60px" class="btn btn-success" href="<?= base_url('admin/hapusAkun/'); ?><?= $t['id']; ?>">Ya</a>
+                    <a style="width: 60px" id="btn-hapus-modal2" class="btn btn-success" href="#">Ya</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        const hapusModal2 = document.querySelectorAll("#hapus-modal2")
+        const btnHapusModal2 = document.querySelector("#btn-hapus-modal2")
+
+        hapusModal2.forEach(item => {
+            item.addEventListener("click", e => {
+                const id = e.target.getAttribute("data-id")
+
+                // console.log(location);
+                btnHapusModal2.setAttribute("href", location.origin + '/ipsrs/admin/hapusAkun/' + id)
+            })
+        })
+    </script>
 
     <!-- Modal Tambah Akun -->
     <div class="modal fade" id="subModal" tabindex="-1" role="dialog" aria-labelledby="subModalLabel" aria-hidden="true">
