@@ -98,4 +98,15 @@ class Admin_model extends CI_Model
     // {
     //     $this->db->delete('user', array('id' => $id));
     // }
+
+    public function forwardPengaduan($id_pengaduan, $id_teknisi)
+    {
+        return $this->db->insert("forward_pengaduan", [
+            "id_forward" => null,
+            "id_pengaduan" => $id_pengaduan,
+            "id_teknisi" => $id_teknisi,
+            "status" => "Sedang Diteruskan",
+            "alasan_penolakan" => ""
+        ]);
+    }
 }

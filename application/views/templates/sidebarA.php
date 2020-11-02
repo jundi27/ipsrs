@@ -17,53 +17,53 @@
         Administrator
     </div>
 
-    <li class="nav-item <?= $this->uri->segment(2) == '' ? 'active' : '' ?>"">
+    <li class="nav-item">
         <a class=" nav-link" href="<?= base_url('admin'); ?>">
-        <i class="fas fa-fw fa-tachometer-alt"></i>
-        <span>Dashboard</span></a>
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
     </li>
 
     <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
-    <li class="nav-item <?= $this->uri->segment(2) == 'akun' ? 'active' : '' ?>"">
+    <li class="nav-item">
         <a class=" nav-link pt-0" href="<?= base_url('admin/akun'); ?>">
-        <i class="fas fa-fw fa-users"></i>
-        <span>Akun Manajemen</span>
+            <i class="fas fa-fw fa-users"></i>
+            <span>Akun Manajemen</span>
         </a>
     </li>
 
-    <li class="nav-item <?= $this->uri->segment(2) == 'lappengaduan' || $this->uri->segment(2) == 'lapkendala' ? 'active' : '' ?>">
-        <a class="nav-link <?= $this->uri->segment(2) == 'lappengaduan' || $this->uri->segment(2) == 'lapkendala' ? '' : 'collapsed' ?> pt-0" href="" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <li class="nav-item">
+        <a class="nav-link collapsed pt-0" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <i class="fas fa-fw fa-folder"></i>
             <span>Pengaduan</span>
         </a>
 
-        <div id="collapseOne" class="collapse <?= $this->uri->segment(2) == 'lappengaduan' || $this->uri->segment(2) == 'lapkendala' ? 'show' : '' ?>" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item <?= $this->uri->segment(2) == 'lappengaduan' ? 'active' : '' ?>" href="<?= base_url('admin/lappengaduan'); ?>">Cek Laporan Pengaduan</a>
-                <a class="collapse-item <?= $this->uri->segment(2) == 'lapkendala' ? 'active' : '' ?>" href="<?= base_url('admin/lapkendala') ?>">Cek Laporan Kendala</a>
+                <a class="collapse-item" href="<?= base_url('admin/lappengaduan'); ?>">Cek Laporan Pengaduan</a>
+                <a class="collapse-item" href="<?= base_url('admin/lapkendala') ?>">Cek Laporan Kendala</a>
             </div>
         </div>
     </li>
 
-    <li class="nav-item <?= $this->uri->segment(2) == 'ceklappem' || $this->uri->segment(2) == 'historylappem' ? 'active' : '' ?>">
-        <a class="nav-link <?= $this->uri->segment(2) == 'ceklappem' || $this->uri->segment(2) == 'historylappem' ? '' : 'collapsed' ?> pt-0" href="" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+    <li class="nav-item">
+        <a class="nav-link collapsed pt-0" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-briefcase-medical"></i>
             <span>Pemeliharaan</span>
         </a>
 
-        <div id="collapseTwo" class="collapse <?= $this->uri->segment(2) == 'ceklappem' || $this->uri->segment(2) == 'historylappem' ? 'show' : '' ?>" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item <?= $this->uri->segment(2) == 'ceklappem' ? 'active' : '' ?>" href="<?= base_url('admin/ceklappem') ?>">Laporan Pemeliharaan</a>
-                <a class="collapse-item <?= $this->uri->segment(2) == 'historylappem' ? 'active' : '' ?>" href="<?= base_url('admin/historylappem') ?>">History Laporan</a>
+                <a class="collapse-item" href="<?= base_url('admin/ceklappem') ?>">Laporan Pemeliharaan</a>
+                <a class="collapse-item" href="<?= base_url('admin/historylappem') ?>">History Laporan</a>
             </div>
         </div>
     </li>
 
-    <li class="nav-item <?= $this->uri->segment(2) == 'kelolaalkes' ? 'active' : '' ?>"">
-        <a class=" nav-link pt-0" href="<?= base_url('admin/kelolaalkes'); ?>">
-        <i class="fas fa-fw fa-laptop-medical"></i>
-        <span>Kelola Alat Kesehatan</span>
+    <li class="nav-item">
+        <a class=" nav-link collapsed pt-0" href="<?= base_url('admin/kelolaalkes'); ?>">
+            <i class="fas fa-fw fa-laptop-medical"></i>
+            <span>Kelola Alat Kesehatan</span>
         </a>
     </li>
 
@@ -85,3 +85,34 @@
 
 </ul>
 <!-- End of Sidebar -->
+
+<script>
+    const sidebarItem = document.querySelectorAll(".nav-item");
+    const arraySidebarItem = Array.from(sidebarItem)
+
+    console.log(sidebarItem);
+
+    const currentUrl = window.location.href;
+    arraySidebarItem.forEach((item, index) => {
+        console.log(index);
+        if (item.children[0].getAttribute("href") == '#') {
+            const links = item.children[1].children[0].children;
+            const arrayLinks = Array.from(links)
+
+            arrayLinks.forEach(itemLink => {
+                if (itemLink.getAttribute("href") == currentUrl) {
+                    sidebarItem[index].classList.add("active")
+                    item.children[0].classList.remove("collapsed")
+                    item.children[1].classList.add("show")
+                    itemLink.classList.add("active")
+                }
+            })
+        } else {
+            const link = item.children[0].getAttribute("href")
+
+            if (link == currentUrl) {
+                sidebarItem[index].classList.add("active")
+            }
+        }
+    })
+</script>

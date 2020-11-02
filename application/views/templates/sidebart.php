@@ -1,3 +1,23 @@
+<?php
+function sidebarCollapseActive($array_url)
+{
+    $current = explode("/", current_url())[5];
+    foreach ($array_url as $key => $value) {
+        if ($current == $value) {
+            return true;
+        }
+    }
+
+    // return $classes;
+}
+
+function sidebarLinkActive($url)
+{
+    $current = explode("/", current_url())[5];
+    if ($url == $current) return 'active';
+}
+?>
+
 <!-- Sidebar -->
 <ul style="background-color: #008983" class="navbar-nav sidebar sidebar-dark" id="accordionSidebar">
 
@@ -18,7 +38,7 @@
     </div>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="<?= base_url('teknisi/pengaduan'); ?>" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
             <i class="fas fa-fw fa-folder"></i>
             <span>Pengaduan</span>
         </a>
@@ -33,8 +53,8 @@
 
     <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
-    <li class="nav-item <?= current_url() === base_url('teknisi/ceklappem') || current_url() === base_url('teknisi/lappemeliharaan') ? 'active' : null ?>">
-        <a class="nav-link collapsed pt-0" href="<?= base_url('teknisi/pemeliharaan'); ?>" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+    <li class="nav-item">
+        <a class="nav-link collapsed pt-0" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-briefcase-medical"></i>
             <span>Pemeliharaan</span>
         </a>
@@ -49,8 +69,8 @@
 
     <!-- <hr class="sidebar-divider d-none d-md-block"> -->
 
-    <li class="nav-item <?= current_url() === base_url('teknisi/index') || current_url() === base_url('teknisi/edit') || current_url() === base_url('teknisi/changepassword') ? 'active' : null ?>">
-        <a class="nav-link collapsed pt-0" href="<?= base_url('teknisi/index'); ?>" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+    <li class="nav-item">
+        <a class="nav-link collapsed pt-0" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
             <i class="fas fa-fw fa-user"></i>
             <span>Profil</span>
         </a>
@@ -93,3 +113,26 @@
 
 </ul>
 <!-- End of Sidebar -->
+
+<script>
+    const sidebarItem = document.querySelectorAll(".nav-item");
+    const arraySidebarItem = Array.from(sidebarItem)
+
+    const currentUrl = window.location.href;
+    arraySidebarItem.forEach((item, index) => {
+        console.log(index);
+        if (item.children[0].getAttribute("href") == '#') {
+            const links = item.children[1].children[0].children;
+            const arrayLinks = Array.from(links)
+
+            arrayLinks.forEach(itemLink => {
+                if (itemLink.getAttribute("href") == currentUrl) {
+                    sidebarItem[index].classList.add("active")
+                    item.children[0].classList.remove("collapsed")
+                    item.children[1].classList.add("show")
+                    itemLink.classList.add("active")
+                }
+            })
+        }
+    })
+</script>

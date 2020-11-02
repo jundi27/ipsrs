@@ -169,8 +169,12 @@ class Admin extends CI_Controller
     }
 
     //PENGADUAN
-    public function lappengaduan()
+    public function lappengaduan($aksi = null)
     {
+        if ($aksi != null && $aksi == 'forward') {
+            return $this->_forward_pengaduan();
+        }
+
         $data['title'] = 'Administrator - Laporan Pengaduan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
@@ -181,6 +185,22 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/lappengaduan', $data);
         $this->load->view('templates/footer');
+    }
+
+    private function _forward_pengaduan()
+    {
+        $id_pengaduan = $this->input->post('id_pengaduan');
+        $id_teknisi = $this->input->post('teknisi');
+
+        $forward = $this->Admin_model->forwardPengaduan($id_pengaduan, $id_teknisi);
+
+        if ($forward) {
+            $this->session->set_flashdata("success", "Pengaduan Diteruskan!");
+            return redirect("admin/lappengaduan");
+        } else {
+            $this->session->flash("failed", "Gagal Diteruskan!");
+            return redirect("admin/lappengaduan");
+        }
     }
 
     public function detail($id)
