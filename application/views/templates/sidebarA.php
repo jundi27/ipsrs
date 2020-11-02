@@ -90,11 +90,8 @@
     const sidebarItem = document.querySelectorAll(".nav-item");
     const arraySidebarItem = Array.from(sidebarItem)
 
-    console.log(sidebarItem);
-
     const currentUrl = window.location.href;
     arraySidebarItem.forEach((item, index) => {
-        console.log(index);
         if (item.children[0].getAttribute("href") == '#') {
             const links = item.children[1].children[0].children;
             const arrayLinks = Array.from(links)

@@ -1,23 +1,3 @@
-<?php
-function sidebarCollapseActive($array_url)
-{
-    $current = explode("/", current_url())[5];
-    foreach ($array_url as $key => $value) {
-        if ($current == $value) {
-            return true;
-        }
-    }
-
-    // return $classes;
-}
-
-function sidebarLinkActive($url)
-{
-    $current = explode("/", current_url())[5];
-    if ($url == $current) return 'active';
-}
-?>
-
 <!-- Sidebar -->
 <ul style="background-color: #008983" class="navbar-nav sidebar sidebar-dark" id="accordionSidebar">
 
@@ -46,6 +26,7 @@ function sidebarLinkActive($url)
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="<?= base_url('teknisi/lappengaduan') ?>">Cek Laporan Pengaduan</a>
+                <a class="collapse-item" href="<?= base_url('teknisi/lappengaduan?aksi=diteruskan') ?>">Diteruskan ke saya <?php if (count($this->db->get_where("forward_pengaduan", ["id_teknisi" => $this->session->user_id])->result()) != 0) : ?><i class="badge badge-primary badge-pill float-right"><?= count($this->db->get_where("forward_pengaduan", ["id_teknisi" => $this->session->user_id])->result()) ?></i><?php endif; ?></a>
                 <a class="collapse-item" href="<?= base_url('teknisi/kendalaKer') ?>">Kendala Kerusakan</a>
             </div>
         </div>
@@ -120,7 +101,6 @@ function sidebarLinkActive($url)
 
     const currentUrl = window.location.href;
     arraySidebarItem.forEach((item, index) => {
-        console.log(index);
         if (item.children[0].getAttribute("href") == '#') {
             const links = item.children[1].children[0].children;
             const arrayLinks = Array.from(links)
@@ -133,6 +113,12 @@ function sidebarLinkActive($url)
                     itemLink.classList.add("active")
                 }
             })
+        } else {
+            const link = item.children[0].getAttribute("href")
+
+            if (link == currentUrl) {
+                sidebarItem[index].classList.add("active")
+            }
         }
     })
 </script>

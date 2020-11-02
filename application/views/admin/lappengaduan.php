@@ -43,76 +43,92 @@
 
             <?= $this->session->flashdata('pesan'); ?>
 
-            <table class="table table-hover">
-                <thead style="background-color:#008983; color:#ffffff;">
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Nama</th>
-                        <th scope="col">NIP</th>
-                        <th scope="col">Kerusakan</th>
-                        <!-- <th scope="col">Barang</th> -->
-                        <!-- <th scope="col">Ruangan</th> -->
-                        <th scope="col">Tanggal</th>
-                        <!-- <th scope="col">Keterangan</th> -->
-                        <th scope="col">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($pengaduan as $p) : ?>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead style="background-color:#008983; color:#ffffff;">
                         <tr>
-                            <th scope="row"><?= $i; ?></th>
-                            <td><?= $p['nama'] ?></td>
-                            <td><?= $p['nip'] ?></td>
-                            <td><?= $p['kerusakan'] ?></td>
-                            <!-- <td><?= $p['brg'] ?></td> -->
-                            <!-- <td><?= $p['ruangan'] ?></td> -->
-                            <td><?php echo date('d M Y', strtotime($p['tgl'])); ?></td>
-                            <!-- <td><?= $p['ket'] ?></td> -->
-                            <td>
-                                <a href="<?= base_url('admin/detail/'); ?><?= $p['id']; ?>" class="badge badge-primary">Detail</a>
-                                <!-- <a href="" class="badge badge-info">Terima</a>
-                                <a href="" class="badge badge-danger">Tolak</a> -->
-                                <!-- Button trigger modal -->
-
-                                <?php
-                                $cek = $this->db->get_where('forward_pengaduan', ['id_pengaduan' => $p['id']])->result();
-                                if ($cek) :
-                                ?>
-                                    <span class="badge badge-<?php
-                                                                switch ($cek[0]->status) {
-                                                                    case 'Sedang Diteruskan':
-                                                                        echo 'secondary';
-                                                                        break;
-                                                                    case 'Ditolak':
-                                                                        echo 'danger';
-                                                                        break;
-                                                                    case 'Sedang Diperbaiki':
-                                                                        echo 'info';
-                                                                        break;
-                                                                    case 'Sudah Diperbaiki':
-                                                                        echo 'success';
-                                                                        break;
-                                                                    default:
-                                                                        # code...
-                                                                        break;
-                                                                } ?>"><?= $cek[0]->status ?></span>
-                                <?php
-                                else :
-                                ?>
-                                    <a href="javascript:;" class="badge badge-warning btn-forward" data-id="<?= $p['id'] ?>" data-toggle="modal" data-target="#modal-forward">
-                                        Teruskan
-                                    </a>
-                                <?php
-                                endif;
-                                ?>
-                            </td>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">NIP</th>
+                            <th scope="col">Kerusakan</th>
+                            <!-- <th scope="col">Barang</th> -->
+                            <!-- <th scope="col">Ruangan</th> -->
+                            <th scope="col">Tanggal</th>
+                            <!-- <th scope="col">Keterangan</th> -->
+                            <th scope="col">Status</th>
+                            <th scope="col">Aksi</th>
                         </tr>
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        <?php foreach ($pengaduan as $p) : ?>
+                            <tr>
+                                <th scope="row"><?= $i; ?></th>
+                                <td><?= $p['nama'] ?></td>
+                                <td><?= $p['nip'] ?></td>
+                                <td><?= $p['kerusakan'] ?></td>
+                                <!-- <td><?= $p['brg'] ?></td> -->
+                                <!-- <td><?= $p['ruangan'] ?></td> -->
+                                <td><?php echo date('d M Y', strtotime($p['tgl'])); ?></td>
+                                <!-- <td><?= $p['ket'] ?></td> -->
 
+                                <td> <?php
+                                        $cek = $this->db->query("select *, user.nama, user.lvl from forward_pengaduan join user on forward_pengaduan.id_teknisi = user.id where forward_pengaduan.id_pengaduan = '$p[id]'")->result();
+                                        if ($cek) :
+                                            switch ($cek[0]->status) {
+                                                case 'Sedang Diperbaiki':
+                                                    echo '<span class="badge badge-secondary"><i class="fas fa-spinner"></i> Sedang Diperbaiki</span>';
+                                                    break;
+                                                case 'Ditolak':
+                                                    echo '<span class="badge badge-danger"><i class="fas fa-times-circle"></i> Ditolak</span>';
+                                                    break;
+                                                case 'Sedang Diteruskan':
+                                                    echo '<span class="badge badge-dark"><i class="fas fa-info-circle"></i> Belum Diproses</span>';
+                                                    break;
+                                                case 'Sudah Diperbaiki':
+                                                    echo '<span class="badge badge-secondary"><i class="fas fa-check-circle"></i> Sudah Diperbaiki</span>';
+                                                    break;
+                                                default:
+                                                    echo '<span class="badge badge-dark"> Belum Diproses</span>';
+                                                    break;
+                                            }
+                                            if ($cek[0]->status == 'Ditolak') :
+                                        ?>
+                                            <br>
+                                            <a href="#" class="badge badge-info" id="btn-lihat-alasan" data-toggle="modal" data-target="#modal-lihat-alasan" data-nama="<?= $cek[0]->nama ?>" data-alasan="<?= $cek[0]->alasan_penolakan ?>"><i class="fa fa-eye" aria-hidden="true"></i> Lihat alasan</a>
+                                        <?php
+                                            endif;
+                                        ?>
+                                        <br>
+                                        <small class="text-secondary">Diteruskan ke: <b><?= $cek[0]->nama ?></b> (<?= $cek[0]->lvl ?>)</small>
+                                    <?php
+                                        else :
+                                    ?>
+                                        <span class="badge badge-dark"><i class="fas fa-circle"></i> Belum Diproses</span>
+                                    <?php
+                                        endif;
+                                    ?></td>
+                                <td>
+                                    <?php
+                                    if (!$cek) :
+                                    ?>
+                                        <a href="javascript:;" class="badge badge-warning btn-forward" data-id="<?= $p['id'] ?>" data-toggle="modal" data-target="#modal-forward">
+                                            Teruskan
+                                        </a>
+                                    <?php
+                                    endif;
+                                    ?>
+                                    <a href="<?= base_url('admin/detail/'); ?><?= $p['id']; ?>" class="badge badge-primary">Detail</a>
+                                    <!-- <a href="" class="badge badge-info">Terima</a>
+                                <a href="" class="badge badge-danger">Tolak</a> -->
+                                    <!-- Button trigger modal -->
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -159,6 +175,42 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-lihat-alasan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-nama-penolak">Nama Penolak</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-isi-penolakan">Isi Penolakan</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Tandai Selesai</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const btnLihatAlasan = document.querySelectorAll("#btn-lihat-alasan");
+
+    btnLihatAlasan.forEach(item => {
+        item.addEventListener("click", e => {
+            const nama = e.target.getAttribute("data-nama")
+            const alasan = e.target.getAttribute("data-alasan")
+            console.log(alasan);
+
+            document.querySelector("#modal-nama-penolak").innerText = nama
+            document.querySelector("#modal-isi-penolakan").innerText = alasan
+        })
+    })
+</script>
 
 <script>
     const btnForward = document.querySelectorAll(".btn-forward")

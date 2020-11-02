@@ -133,10 +133,10 @@
         $.ajax({
             url: 'http://localhost/ipsrs/ajax/lappem',
             method: 'get',
-            success: (res)=>{
+            success: (res) => {
                 $("#liveLappem").html(res)
             },
-            error: (err)=>{
+            error: (err) => {
                 console.log('error mendapatkan data!')
             }
         })
@@ -145,24 +145,26 @@
     // ajax detail laporan
     const viewDtlLaporan = () => {
         const detailLaporan = $("#detailLaporan");
-        detailLaporan.on("show.bs.modal", (e)=>{
+        detailLaporan.on("show.bs.modal", (e) => {
             const id = $(e.relatedTarget).data('id-laporan');
             console.log(id)
             $.ajax({
                 url: 'http://localhost/ipsrs/ajax/detaillappem',
                 method: 'get',
-                data: { id: id },
-                success: (res)=>{
+                data: {
+                    id: id
+                },
+                success: (res) => {
                     let arr = JSON.parse(res);
                     console.log(arr)
                     $("#namaAlat").text(arr[0].nama_alat)
                     $("#lpruangan").text(arr[0].ruangan)
-                    $("#lpsuhu").text(arr[0].suhu+' °C')
-                    $("#lpkelembaban").text(arr[0].kelembaban+' %RH')
-                    $("#lptegangan").text(arr[0].tegangan+' V')
-                    $("#lpdayaSemu").text(arr[0].daya_semu+' VA')
-                    $("#lpdayaAktif").text(arr[0].daya_aktif+' watt')
-                    $("#lpdayaReaktif").text(arr[0].daya_reaktif+' VAR')
+                    $("#lpsuhu").text(arr[0].suhu + ' °C')
+                    $("#lpkelembaban").text(arr[0].kelembaban + ' %RH')
+                    $("#lptegangan").text(arr[0].tegangan + ' V')
+                    $("#lpdayaSemu").text(arr[0].daya_semu + ' VA')
+                    $("#lpdayaAktif").text(arr[0].daya_aktif + ' watt')
+                    $("#lpdayaReaktif").text(arr[0].daya_reaktif + ' VAR')
                     $("#lpkondisiFisik").text(arr[0].kondisi_fisik)
                     $("#lpketKondisiFisik").text(arr[0].ket_kondisi_fisik)
                     const tanggal = arr[0].lpdc;
@@ -170,7 +172,7 @@
                     $("#lptanggal").text(reversed)
                     $("#lpteknisi").text(arr[0].nama)
                 },
-                error: (err)=>{
+                error: (err) => {
                     console.log("error mendapatkan data!");
                 }
             })
@@ -178,26 +180,26 @@
     }
 
     // filter tanggal live dengan ajax
-    $("#filterDateAwal").change(()=>filterTanggal());
-    $("#filterDateAkhir").change(()=>filterTanggal());
+    $("#filterDateAwal").change(() => filterTanggal());
+    $("#filterDateAkhir").change(() => filterTanggal());
     const filterTanggal = () => {
         const dateAwal = $("#filterDateAwal").val();
         const dateAkhir = $("#filterDateAkhir").val();
 
         let url;
-        if(dateAwal === '' || dateAkhir === ''){
+        if (dateAwal === '' || dateAkhir === '') {
             url = 'http://localhost/ipsrs/ajax/lappem'
-        }else{
-            url = 'http://localhost/ipsrs/ajax/lappem?tgl_awal='+dateAwal+'&&tgl_akhir='+dateAkhir;
+        } else {
+            url = 'http://localhost/ipsrs/ajax/lappem?tgl_awal=' + dateAwal + '&&tgl_akhir=' + dateAkhir;
         }
 
         $.ajax({
             url: url,
             method: 'get',
-            success: (res)=>{
+            success: (res) => {
                 $("#liveLappem").html(res)
             },
-            error: (err)=>{
+            error: (err) => {
                 alert("Error mendapatkan data!");
             }
         })
@@ -208,13 +210,13 @@
         $.ajax({
             url: 'http://localhost/ipsrs/ajax/cek_expired',
             method: 'get',
-            success: (res)=>{
+            success: (res) => {
                 console.log(res);
-                if(res.includes('data dengan id')){
+                if (res.includes('data dengan id')) {
                     window.location.reload();
                 }
             },
-            error: (err)=>{
+            error: (err) => {
                 console.log('no expired data!');
             }
         })
@@ -226,7 +228,9 @@
     cekExpired();
 
     // data table untuk semua tabel
-    $("table").dataTable();
+    $("table").dataTable({
+        // scrollX: window.outerWidth
+    });
 </script>
 
 
