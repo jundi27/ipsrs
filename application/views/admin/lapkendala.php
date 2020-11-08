@@ -21,12 +21,11 @@
                 <thead style="background-color:#008983; color:#ffffff;">
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Nama</th>
+                        <th scope="col">Nama Teknisi</th>
+                        <th scope="col">Level Teknisi</th>
+                        <th scope="col">Barang</th>
+                        <th scope="col">Kerusakan</th>
                         <th scope="col">Kendala</th>
-                        <!-- <th scope="col">Ruangan</th> -->
-                        <th scope="col">Tanggal</th>
-                        <!-- <th scope="col">Keterangan</th> -->
-                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,16 +33,11 @@
                     <?php foreach ($kendala as $k) : ?>
                         <tr>
                             <th scope="row"><?= $i; ?></th>
-                            <td><?= $k['nama'] ?></td>
-                            <td><?= $k['kendala'] ?></td>
-                            <!-- <td><?= $k['ruangan'] ?></td> -->
-                            <td><?php echo date('d M Y', strtotime($k['tgl'])); ?></td>
-                            <!-- <td><?= $k['ket'] ?></td> -->
-                            <td>
-                                <a href="<?= base_url('admin/detailKen/'); ?><?= $k['id']; ?>" class="badge badge-primary">Detail</a>
-                                <!-- <a href="" class="badge badge-info">Terima</a>
-                                <a href="" class="badge badge-danger">Tolak</a> -->
-                            </td>
+                            <td><?= $k->t_nama ?></td>
+                            <td><?= $k->t_lvl ?></td>
+                            <td><?= $k->brg ?></td>
+                            <td><?= $k->kerusakan ?></td>
+                            <td><?= $k->kendala_kerusakan ?></td>
                         </tr>
                         <?php $i++; ?>
                     <?php endforeach; ?>

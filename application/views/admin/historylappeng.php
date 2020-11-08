@@ -98,75 +98,53 @@ function show_userinfo($teknisi, $lvl)
             ?>
 
             <?= $this->session->flashdata('pesan'); ?>
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead style="background-color:#008983; color:#ffffff;">
+            <table class="table table-hover table-responsive">
+                <thead style="background-color:#008983; color:#ffffff;">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">NIP</th>
+                        <th scope="col">Kerusakan</th>
+                        <th scope="col">Barang</th>
+                        <th scope="col">Tanggal Pengaduan</th>
+                        <th scope="col">Keterangan</th>
+                        <th scope="col">Teknisi</th>
+                        <th scope="col">Level Teknisi</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    <?php foreach ($pengaduan as $key => $p) : ?>
                         <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">NIP</th>
-                            <th scope="col">Kerusakan</th>
-                            <!-- <th scope="col">Barang</th> -->
-                            <!-- <th scope="col">Ruangan</th> -->
-                            <th scope="col">Tanggal</th>
-                            <!-- <th scope="col">Keterangan</th> -->
-                            <th scope="col">Status</th>
-                            <th scope="col">Aksi</th>
+                            <td scope="row"><?= $i; ?></th>
+                            <td><?= $p->nama_pengadu ?></td>
+                            <td><?= $p->nip ?></td>
+                            <td><?= $p->kerusakan ?></td>
+                            <td><?= $p->brg ?></td>
+                            <td><?= $p->tgl ?></td>
+                            <td><?= $p->ket ?></td>
+                            <td><?= $p->nama_teknisi ?></td>
+                            <td><?= $p->lvl_teknisi ?></td>
+                            <td><?= show_status($p->status) ?>
+                                <?php
+                                if ($p->status == 'Ditolak') {
+                                    echo show_ditolak_button($p->id, $p->nama_teknisi, $p->alasan_penolakan, $p->edit_alasan_penolakan);
+                                }
+                                if ($p->status == 'Ditunda') {
+                                    echo show_ditunda_button($p->id, $p->nama_teknisi, $p->kendala_kerusakan, $p->edit_kendala_kerusakan);
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <a href="<?= base_url('admin/historylappeng?aksi=hapus&id=' . $p->id) ?>" onclick="return confirm('Hapus data ini?')" class="badge badge-danger"><i class="fa fa-trash" aria-hidden="true"></i> Hapus</a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i = 1; ?>
-                        <?php foreach ($pengaduan as $p) : ?>
-                            <tr>
-                                <th scope="row"><?= $i; ?></th>
-                                <td><?= $p['nama'] ?></td>
-                                <td><?= $p['nip'] ?></td>
-                                <td><?= $p['kerusakan'] ?></td>
-                                <!-- <td><?= $p['brg'] ?></td> -->
-                                <!-- <td><?= $p['ruangan'] ?></td> -->
-                                <td><?php echo date('d M Y', strtotime($p['tgl'])); ?></td>
-                                <!-- <td><?= $p['ket'] ?></td> -->
-
-                                <td>
-                                    <?php
-                                    $query = $this->db->query("SELECT forward_pengaduan.*, user.nama AS t_nama, user.lvl AS t_lvl FROM forward_pengaduan JOIN user ON forward_pengaduan.id_teknisi = user.id WHERE forward_pengaduan.id_pengaduan = " . $p['p_id'])->row();
-
-                                    if ($query) {
-                                        echo show_status($query->status);
-                                        if ($query->status == 'Ditolak') {
-                                            echo show_ditolak_button($query->id_forward, $query->t_nama, $query->alasan_penolakan, $query->edit_alasan_penolakan);
-                                        }
-                                        if ($query->status == 'Ditunda') {
-                                            echo show_ditunda_button($query->id_forward, $query->t_nama, $query->kendala_kerusakan, $query->edit_kendala_kerusakan);
-                                        }
-                                        if ($query->status == 'Dikembalikan') {
-                                            echo show_dikembalikan_button($query->alasan_pengembalian);
-                                        }
-                                        echo show_userinfo($query->t_nama, $query->t_lvl);
-                                    } else {
-                                        echo '<span class="badge badge-secondary"><i class="fa fa-info-circle" aria-hidden="true"></i> Belum Diproses</span>';
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <a href="javascript:;" id="btn-detail" data-toggle="modal" data-target="#modal-detail" data-id="<?= $p['id'] ?>" class="badge badge-primary">Detail</a>
-                                    <br>
-                                    <?php
-                                    if (!$query) {
-                                        echo '<a href="javascript:;" data-id_forward="" data-toggle="modal" data-target="#modal-forward" class="badge badge-warning btn-forward" data-id="' . $p['id'] . '"><i class="fa fa-forward" aria-hidden="true"></i> Teruskan</a>';
-                                    } else {
-                                        if ($query->status == 'Dikembalikan') {
-                                            echo '<a href="javascript:;" data-id_forward="' . $query->id_forward . '" data-toggle="modal" data-target="#modal-forward" class="badge badge-warning btn-forward" data-id="' . $p['id'] . '"><i class="fa fa-forward" aria-hidden="true"></i> Teruskan</a>';
-                                        }
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
-                            <?php $i++; ?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -225,7 +203,6 @@ function show_userinfo($teknisi, $lvl)
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <?= form_open('admin/lappengaduan?aksi=edit_alasan_penolakan') ?>
             <div class="modal-body">
                 <p id="modal-isi-penolakan">Isi Penolakan</p>
                 <hr>
@@ -237,9 +214,7 @@ function show_userinfo($teknisi, $lvl)
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
-            <?= form_close() ?>
         </div>
     </div>
 </div>

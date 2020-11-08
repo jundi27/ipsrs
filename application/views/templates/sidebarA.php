@@ -42,6 +42,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="<?= base_url('admin/lappengaduan'); ?>">Cek Laporan Pengaduan</a>
                 <a class="collapse-item" href="<?= base_url('admin/lapkendala') ?>">Cek Laporan Kendala</a>
+                <a href="<?= base_url('admin/historylappeng') ?>" class="collapse-item">History Laporan</a>
             </div>
         </div>
     </li>

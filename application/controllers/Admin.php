@@ -175,6 +175,33 @@ class Admin extends CI_Controller
             return $this->_forward_pengaduan();
         }
 
+        if (!empty($_GET['aksi'])) {
+            switch ($_GET['aksi']) {
+                case 'edit_kendala':
+                    $edit_kendala_kerusakan = $this->input->post('edit_kendala_kerusakan');
+                    $this->db->update('forward_pengaduan', [
+                        'edit_kendala_kerusakan' => $edit_kendala_kerusakan
+                    ], [
+                        'id_forward' => $this->input->post('id_forward')
+                    ]);
+                    $this->session->set_flashdata('success', 'Pesan diperbarui');
+                    return redirect('admin/lappengaduan');
+                    break;
+                case 'edit_alasan_penolakan':
+                    $edit_alasan_penolakan = $this->input->post('edit_alasan_penolakan');
+                    $this->db->update('forward_pengaduan', [
+                        'edit_alasan_penolakan' => $edit_alasan_penolakan
+                    ], [
+                        'id_forward' => $this->input->post('id_forward')
+                    ]);
+                    $this->session->set_flashdata('success', 'Pesan diperbarui');
+                    return redirect('admin/lappengaduan');
+                    break;
+                default:
+                    break;
+            }
+        }
+
         $data['title'] = 'Administrator - Laporan Pengaduan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
@@ -190,9 +217,14 @@ class Admin extends CI_Controller
     private function _forward_pengaduan()
     {
         $id_pengaduan = $this->input->post('id_pengaduan');
+        $id_forward = $this->input->post('id_forward');
         $id_teknisi = $this->input->post('teknisi');
 
-        $forward = $this->Admin_model->forwardPengaduan($id_pengaduan, $id_teknisi);
+        if ($id_forward != '') {
+            $forward = $this->Admin_model->forwardPengaduanKembali($id_forward, $id_teknisi);
+        } else {
+            $forward = $this->Admin_model->forwardPengaduan($id_pengaduan, $id_teknisi);
+        }
 
         if ($forward) {
             $this->session->set_flashdata("success", "Pengaduan Diteruskan!");
@@ -201,6 +233,20 @@ class Admin extends CI_Controller
             $this->session->flash("failed", "Gagal Diteruskan!");
             return redirect("admin/lappengaduan");
         }
+    }
+
+    public function historylappeng()
+    {
+        $data['title'] = 'Administrator - History Laporan Pengaduan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        $data['pengaduan'] = $this->Admin_model->getHistoryPengaduan()->result();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebarA', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/historylappeng', $data);
+        $this->load->view('templates/footer');
     }
 
     public function detail($id)
@@ -224,7 +270,7 @@ class Admin extends CI_Controller
         $data['title'] = 'Administrator - Laporan Kendala';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
-        $data['kendala'] = $this->User_model->getKendala();
+        $data['kendala'] = $this->Admin_model->getKendala()->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebarA', $data);

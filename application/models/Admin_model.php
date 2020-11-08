@@ -18,6 +18,7 @@ class Admin_model extends CI_Model
         return $query->result_array();
     }
 
+
     public function getTeknisi()
     {
         $this->db->select('*');
@@ -98,6 +99,10 @@ class Admin_model extends CI_Model
     // {
     //     $this->db->delete('user', array('id' => $id));
     // }
+    public function getHistoryPengaduan()
+    {
+        return $this->db->get('history_pengaduan');
+    }
 
     public function forwardPengaduan($id_pengaduan, $id_teknisi)
     {
@@ -108,5 +113,19 @@ class Admin_model extends CI_Model
             "status" => "Sedang Diteruskan",
             "alasan_penolakan" => ""
         ]);
+    }
+
+    public function forwardPengaduanKembali($id_forward, $id_teknisi)
+    {
+        $this->db->where('id_forward', $id_forward);
+        return $this->db->update('forward_pengaduan', [
+            'id_teknisi' => $id_teknisi,
+            'status' => 'Sedang Diteruskan',
+        ]);
+    }
+
+    public function getKendala()
+    {
+        return $this->db->query("SELECT forward_pengaduan.kendala_kerusakan, user.nama as t_nama, user.lvl as t_lvl, pengaduan.nama, pengaduan.nip, pengaduan.brg, pengaduan.ruangan, pengaduan.tgl, pengaduan.ket, fasilitas.kerusakan FROM forward_pengaduan JOIN user ON forward_pengaduan.id_teknisi = user.id JOIN pengaduan ON forward_pengaduan.id_pengaduan = pengaduan.id JOIN fasilitas ON pengaduan.kerusakan_id = fasilitas.id WHERE forward_pengaduan.status = 'Ditunda'");
     }
 }

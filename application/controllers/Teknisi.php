@@ -131,25 +131,28 @@ class Teknisi extends CI_Controller
     public function lappengaduan()
     {
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['title'] = 'Teknisi IPSRS - Laporan Pengaduan';
+        $data['pengaduan'] = $this->User_model->getPengaduanDiteruskan($data['user']['id'])->result_array();
 
         if (!empty($this->input->get("aksi"))) {
             switch ($this->input->get("aksi")) {
-                case 'diteruskan':
-                    return $this->_pengaduan_diteruskan($data);
-                    break;
                 case 'tolak':
                     $tolak = $this->User_model->tolakPengaduan($this->input->post("id_forward_pengaduan"), $this->input->post("alasan_penolakan"));
-                    if ($tolak) {
-                        $this->session->set_flashdata("success", "Pengaduan Ditolak!");
-                        return redirect("teknisi/lappengaduan?aksi=diteruskan");
-                    } else {
-                        $this->session->flash("failed", "Gagal Ditolak!");
-                        return redirect("teknisi/lappengaduan?aksi=diteruskan");
-                    }
+                    $this->session->set_flashdata("success", "Pengaduan Ditolak!");
+                    return redirect("teknisi/lappengaduan");
+                    break;
+                case 'kendala':
+                    $tolak = $this->User_model->tunda\Pengaduan($this->input->post("id_forward_pengaduan"), $this->input->post("kendala_kerusakan"));
+                    $this->session->set_flashdata("success", "Pengaduan ditunda, kendala kerusakan dilaporkan.");
+                    return redirect("teknisi/lappengaduan");
                     break;
                 case 'perbaiki':
                     $this->User_model->perbaikiPengaduan($this->input->get("id"));
-                    return redirect("teknisi/lappengaduan?aksi=diteruskan");
+                    return redirect("teknisi/lappengaduan");
+                    break;
+                case 'selesai':
+                    $this->User_model->selesaiPerbaikiPengaduan($this->input->get("id"));
+                    return redirect("teknisi/lappengaduan");
                     break;
                 default:
                     # code...
@@ -157,21 +160,6 @@ class Teknisi extends CI_Controller
             }
         }
 
-        $data['title'] = 'Teknisi IPSRS - Laporan Pengaduan';
-
-        $data['pengaduan'] = $this->User_model->getPengaduan();
-
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebart', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('teknisi/lappengaduan', $data);
-        $this->load->view('templates/footer');
-    }
-
-    private function _pengaduan_diteruskan($data)
-    {
-        $data['title'] = 'Teknisi IPSRS - Pengaduan Diteruskan';
-        $data['pengaduan'] = $this->User_model->getPengaduanDiteruskan($data['user']['id'])->result_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebart', $data);
         $this->load->view('templates/topbar', $data);

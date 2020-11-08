@@ -1,0 +1,3 @@
+- Si teknisi bisa melaporkan kendala kerusakan, status berubah jadi 'ditunda', ditunda dengan alasan.
+- Si admin bisa menyanmpaikan pesan berbeda untuk alasan ditolak dan ditunda
+- History pengaduan yang sudah selesai

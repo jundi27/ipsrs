@@ -1,3 +1,62 @@
+<!-- php function -->
+<?php
+function show_status($status)
+{
+    $echo = "";
+    switch ($status) {
+        case 'Sedang Diteruskan':
+            $echo .= '<span class="badge badge-dark"><i class="fa fa-forward" aria-hidden="true"></i> ' . $status . '</span>';
+            break;
+        case 'Ditolak':
+            $echo .= '<span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i> ' . $status . '</span>';
+            break;
+        case 'Ditunda':
+            $echo .= '<span class="badge badge-warning"><i class="fa fa-info-circle" aria-hidden="true"></i> ' . $status . '</span>';
+            break;
+        case 'Sedang Diperbaiki':
+            $echo .= '<span class="badge badge-primary"><i class="fa fa-cog" aria-hidden="true"></i> ' . $status . '</span>';
+            break;
+        case 'Sudah Diperbaiki':
+            $echo .= '<span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i> ' . $status . '</span>';
+            break;
+        default:
+            $echo .= '<span class="badge badge-secondary"><i class="fa fa-info-circle" aria-hidden="true"></i> Belum Diproses</span>';
+            break;
+    }
+
+    return $echo;
+}
+
+function show_ditolak_button($teknisi, $alasan)
+{
+    return '<br /><a href="javascript:;" id="btn-lihat-alasan" data-toggle="modal" data-target="#modal-lihat-alasan" data-nama="' . $teknisi . '" data-alasan="' . $alasan . '" class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> Alasan</a>';
+}
+
+function show_ditunda_button($teknisi, $kendala)
+{
+    return '<br /><a href="javascript:;" id="btn-lihat-kendala" data-toggle="modal" data-target="#modal-lihat-kendala" data-nama="' . $teknisi . '" data-kendala="' . $kendala . '" class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> Alasan</a>';
+}
+
+function show_userinfo($teknisi, $lvl)
+{
+    return '<br /><small class="text-secondary"><i class="fa fa-cog" aria-hidden="true"></i>: <b>' . $teknisi . '</b> (' . $lvl . ')</small>';
+}
+
+function show_if_sedang_diteruskan($id_forward)
+{
+    return '<a href="' . base_url('teknisi/lappengaduan?aksi=perbaiki&id=' . $id_forward) . '" class="badge badge-success"><i class="fa fa-cog" aria-hidden="true"></i> Perbaiki</a>
+    <a href="javascript:;" data-id="' . $id_forward . '" class="badge badge-danger btn-tolak" data-toggle="modal" data-target="#modal-tolak"><i class="fa fa-times-circle" aria-hidden="true"></i> Tolak</a>
+    <a href="javascript:;" data-id="' . $id_forward . '" class="badge badge-warning btn-laporkan-kendala" data-toggle="modal" data-target="#modal-laporkan-kendala"><i class="fa fa-recycle" aria-hidden="true"></i> Laporkan Kendala</a>';
+}
+
+function show_if_sedang_diperbaiki($id_forward)
+{
+    return '<a href="' . base_url('teknisi/lappengaduan?aksi=selesai&id=' . $id_forward) . '" onclick="return confirm(`Sudah selesai memperbaiki pengaduan ini?`)" class="badge badge-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Tanda Selesai</a>';
+}
+?>
+<!-- php function -->
+
+
 <!-- Sbadmin2 -->
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -75,50 +134,42 @@
                                 <td><?= $p['ket']; ?></td>
                                 <td>
                                     <?php
-                                    if (!empty($_GET['aksi']) && $_GET['aksi'] == 'diteruskan') {
-                                        $status = $p['status'];
-                                    } else {
-                                        $status = $this->db->query("select *, user.nama, user.lvl from forward_pengaduan join user on forward_pengaduan.id_teknisi = user.id where forward_pengaduan.id_pengaduan = '$p[id]'")->result()[0]->status;
-                                    }
-                                    if ($status) {
-                                        switch ($status) {
-                                            case 'Sedang Diperbaiki':
-                                                echo '<span class="badge badge-secondary"><i class="fas fa-spinner"></i> Sedang Diperbaiki</span>';
-                                                break;
-                                            case 'Ditolak':
-                                                echo '<span class="badge badge-danger"><i class="fas fa-times-circle"></i> Ditolak</span>';
-                                                break;
-                                            case 'Sedang Diteruskan':
-                                                echo '<span class="badge badge-dark"><i class="fas fa-info-circle"></i> Belum Diproses</span>';
-                                                break;
-                                            case 'Sudah Diperbaiki':
-                                                echo '<span class="badge badge-secondary"><i class="fas fa-check-circle"></i> Sudah Diperbaiki</span>';
-                                                break;
-                                            default:
-                                                echo '<span class="badge badge-dark"><i class="fas fa-info-circle"></i> Belum Diproses</span>';
-                                                break;
-                                        }
-                                    }
+                                    $query = $this->db->query("SELECT forward_pengaduan.*, user.nama AS t_nama, user.lvl AS t_lvl FROM forward_pengaduan JOIN user ON forward_pengaduan.id_teknisi = user.id WHERE forward_pengaduan.id_pengaduan = " . $p['p_id'])->row();
                                     ?>
-                                    <?php if ($status == 'Ditolak') : ?>
-                                        <a href="#" class="badge badge-info" id="btn-lihat-alasan" data-toggle="modal" data-target="#modal-lihat-alasan" data-nama="<?= $p['nama'] ?>" data-alasan="<?= $p['alasan_penolakan'] ?>"><i class="fa fa-eye" aria-hidden="true"></i> Lihat alasan</a>
-                                    <?php endif; ?>
-                                    <br>
-                                    <small class="text-secondary">Diteruskan ke: <b><?= $p['nama'] ?></b> (<?= $p['lvl'] ?>)</small>
+
+                                    <?php if (!empty($_GET['aksi']) && $_GET['aksi'] == 'diteruskan') {
+                                        echo show_status($query->status);
+                                        if ($query->status == 'Ditolak') {
+                                            echo show_ditolak_button($query->t_nama, $query->alasan_penolakan);
+                                        }
+                                        echo show_userinfo($query->t_nama, $query->t_lvl);
+                                    } else {
+                                        if ($query) {
+                                            echo show_status($query->status);
+                                            if ($query->status == 'Ditolak') {
+                                                echo show_ditolak_button($query->t_nama, $query->alasan_penolakan);
+                                            }
+                                            if ($query->status == 'Ditunda') {
+                                                echo show_ditunda_button($query->t_nama, $query->kendala_kerusakan);
+                                            }
+                                            echo show_userinfo($query->t_nama, $query->t_lvl);
+                                        } else {
+                                            echo '<span class="badge badge-secondary"><i class="fa fa-info-circle" aria-hidden="true"></i> Belum Diproses</span>';
+                                        }
+                                    } ?>
                                 </td>
                                 <td>
                                     <a href="<?= base_url('teknisi/detail/'); ?><?= $p['id']; ?>" class="badge badge-primary"><i class="fa fa-info-circle" aria-hidden="true"></i> Detail</a>
 
                                     <?php
-                                    if (!empty($this->input->get("aksi")) && $this->input->get("aksi") == 'diteruskan') :
+                                    if ($query) :
                                     ?>
                                         <br>
-                                        <?php if ($p['status'] == 'Sedang Diteruskan') : ?>
-                                            <a href="<?= base_url('teknisi/lappengaduan?aksi=perbaiki&id=' . $p['id_forward']) ?>" class="badge badge-success"><i class="fa fa-cog" aria-hidden="true"></i> Perbaiki</a>
-                                            <a href="javascript:;" data-id="<?= $p['id_forward'] ?>" class="badge badge-danger btn-tolak" data-toggle="modal" data-target="#modal-tolak"><i class="fa fa-times-circle" aria-hidden="true"></i> Tolak</a>
-                                        <?php elseif ($p['status'] == 'Sedang Diperbaiki') : ?>
-                                            <a href="" onclick="return confirm('Sudah selesai memperbaiki pengaduan ini?')" class="badge badge-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Tanda Selesai</a>
-                                        <?php endif; ?>
+                                        <?php if ($query->status == 'Sedang Diteruskan') {
+                                            echo show_if_sedang_diteruskan($query->id_forward);
+                                        } elseif ($query->status == 'Sedang Diperbaiki') {
+                                            echo show_if_sedang_diperbaiki($query->id_forward);
+                                        } ?>
                                     <?php
                                     endif;
                                     ?>
@@ -131,41 +182,65 @@
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="modal-tolak" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Tolak</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <?= form_open("teknisi/lappengaduan?aksi=tolak", 'method="POST"') ?>
-                <div class="modal-body">
-                    <input type="hidden" id="id-forward" name="id_forward_pengaduan">
-                    <div class="form-group">
-                        <label for="">Masukkan alasan penolakan</label>
-                        <textarea class="form-control" name="alasan_penolakan" required rows="3"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Kirim</button>
-                </div>
-                <?= form_close() ?>
-            </div>
-        </div>
-    </div>
-
-
 </div>
 <!-- /.container-fluid -->
 
 </div>
 <!-- End of Main Content -->
 
+<!-- Modal -->
+<div class="modal fade" id="modal-tolak" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tolak</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <?= form_open("teknisi/lappengaduan?aksi=tolak", 'method="POST"') ?>
+            <div class="modal-body">
+                <input type="hidden" id="id-forward" name="id_forward_pengaduan">
+                <div class="form-group">
+                    <label for="">Masukkan alasan penolakan</label>
+                    <textarea class="form-control" name="alasan_penolakan" required rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Kirim</button>
+            </div>
+            <?= form_close() ?>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-laporkan-kendala" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Laporkan Kendala Kerusakan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <?= form_open('teknisi/lappengaduan?aksi=kendala') ?>
+            <div class="modal-body">
+                <input type="hidden" id="id-forward-laporan-kendala" name="id_forward_pengaduan">
+                <div class="form-group">
+                    <label for="">Masukkan Kendala Kerusakan</label>
+                    <textarea class="form-control" name="kendala_kerusakan" required rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Kirim</button>
+            </div>
+            <?= form_close() ?>
+        </div>
+    </div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="modal-lihat-alasan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -187,20 +262,27 @@
     </div>
 </div>
 
-<script>
-    const btnLihatAlasan = document.querySelectorAll("#btn-lihat-alasan");
 
-    btnLihatAlasan.forEach(item => {
-        item.addEventListener("click", e => {
-            const nama = e.target.getAttribute("data-nama")
-            const alasan = e.target.getAttribute("data-alasan")
-            console.log(alasan);
+<!-- Modal -->
+<div class="modal fade" id="modal-lihat-kendala" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-nama">Nama</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-isi-kendala">Isi Kendala</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-            document.querySelector("#modal-nama-penolak").innerText = nama
-            document.querySelector("#modal-isi-penolakan").innerText = alasan
-        })
-    })
-</script>
 
 
 <script>
@@ -212,6 +294,48 @@
             const idForward = e.target.getAttribute("data-id")
 
             idForwardEl.value = idForward
+        })
+    })
+</script>
+
+<script>
+    const btnLihatAlasan = document.querySelectorAll("#btn-lihat-alasan");
+
+    btnLihatAlasan.forEach(item => {
+        item.addEventListener("click", e => {
+            const nama = e.target.getAttribute("data-nama")
+            const alasan = e.target.getAttribute("data-alasan")
+
+            document.querySelector("#modal-nama-penolak").innerText = nama
+            document.querySelector("#modal-isi-penolakan").innerText = alasan
+        })
+    })
+</script>
+
+<script>
+    const btnLihatKendala = document.querySelectorAll("#btn-lihat-kendala")
+
+    btnLihatKendala.forEach(item => {
+        item.addEventListener("click", e => {
+            const nama = e.target.getAttribute("data-nama")
+            const kendala = e.target.getAttribute("data-kendala")
+
+            document.querySelector("#modal-nama").innerText = nama
+            document.querySelector("#modal-isi-kendala").innerText = kendala
+        })
+    })
+</script>
+
+
+<script>
+    const btnLaporkanKendala = document.querySelectorAll(".btn-laporkan-kendala")
+    const idForwardLaporkanKendalaElement = document.querySelector("#id-forward-laporan-kendala")
+
+    btnLaporkanKendala.forEach(item => {
+        item.addEventListener("click", e => {
+            const idForward = e.target.getAttribute("data-id")
+
+            idForwardLaporkanKendalaElement.value = idForward
         })
     })
 </script>

@@ -144,6 +144,7 @@ class User extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             $data = [
+                'id_user' => $data['user']['id'],
                 'nama' => $this->input->post('nama'),
                 'nip' => $this->input->post('nip'),
                 'kerusakan_id' => $this->input->post('kerusakan_id'),
@@ -157,5 +158,50 @@ class User extends CI_Controller
             $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil dikirim!</div>');
             redirect('user/pengaduanKer');
         }
+    }
+
+    public function pengaduan_saya($id = null)
+    {
+        $data['title'] = 'Pengaduan Saya';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+
+        if ($id != null) {
+            return $this->_detail($id);
+        }
+
+        if (!empty($this->input->get('aksi')) && $this->input->get('aksi') == 'selesai') {
+            $id_forward = $this->input->get('id');
+            $this->User_model->selesaikanPengaduan($id_forward);
+            $this->session->set_flashdata("success", "Pengaduan sudah selesai!");
+            return redirect("user/pengaduan_saya");
+        }
+        if (!empty($this->input->get('aksi')) && $this->input->get('aksi') == 'mintalagi') {
+            $id_forward = $this->input->post('id_forward');
+            $alasan = $this->input->post('alasan_pengembalian');
+            $this->User_model->mintaLagi($id_forward, $alasan);
+            $this->session->set_flashdata("success", "Pengaduan diminta kembali!");
+            return redirect("user/pengaduan_saya");
+        }
+
+        $data['pengaduan'] = $this->User_model->getPengaduanOlehPegawai($data['user']['id'])->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/pengaduan_saya', $data);
+        $this->load->view('templates/footer');
+    }
+
+    private function _detail($id)
+    {
+        $data['title'] = 'Detail Pengaduan';
+        $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
+        $data['detail'] = $this->User_model->getDetailPeng($id);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/detail', $data);
+        $this->load->view('templates/footer');
     }
 }

@@ -26,7 +26,6 @@
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="<?= base_url('teknisi/lappengaduan') ?>">Cek Laporan Pengaduan</a>
-                <a class="collapse-item" href="<?= base_url('teknisi/lappengaduan?aksi=diteruskan') ?>">Diteruskan ke saya <?php if (count($this->db->get_where("forward_pengaduan", ["id_teknisi" => $this->session->user_id])->result()) != 0) : ?><i class="badge badge-primary badge-pill float-right"><?= count($this->db->get_where("forward_pengaduan", ["id_teknisi" => $this->session->user_id])->result()) ?></i><?php endif; ?></a>
                 <a class="collapse-item" href="<?= base_url('teknisi/kendalaKer') ?>">Kendala Kerusakan</a>
             </div>
         </div>
