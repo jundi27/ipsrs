@@ -142,7 +142,7 @@ class Teknisi extends CI_Controller
                     return redirect("teknisi/lappengaduan");
                     break;
                 case 'kendala':
-                    $tolak = $this->User_model->tunda\Pengaduan($this->input->post("id_forward_pengaduan"), $this->input->post("kendala_kerusakan"));
+                    $tolak = $this->User_model->tundaPengaduan($this->input->post("id_forward_pengaduan"), $this->input->post("kendala_kerusakan"));
                     $this->session->set_flashdata("success", "Pengaduan ditunda, kendala kerusakan dilaporkan.");
                     return redirect("teknisi/lappengaduan");
                     break;

@@ -12,7 +12,7 @@ class User_model extends CI_Model
                       ON `pengaduan`.`kerusakan_id` = `fasilitas`.`id`
                  ";
 
-        return $this->db->query($query)->result_array();
+        return $this->db->query($query)->result();
     }
 
     public function getPengaduanDiteruskan($id_teknisi)

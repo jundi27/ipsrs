@@ -119,17 +119,17 @@ function show_userinfo($teknisi, $lvl)
                         <?php foreach ($pengaduan as $p) : ?>
                             <tr>
                                 <th scope="row"><?= $i; ?></th>
-                                <td><?= $p['nama'] ?></td>
-                                <td><?= $p['nip'] ?></td>
-                                <td><?= $p['kerusakan'] ?></td>
-                                <!-- <td><?= $p['brg'] ?></td> -->
-                                <!-- <td><?= $p['ruangan'] ?></td> -->
-                                <td><?php echo date('d M Y', strtotime($p['tgl'])); ?></td>
-                                <!-- <td><?= $p['ket'] ?></td> -->
+                                <td><?= $p->nama ?></td>
+                                <td><?= $p->nip ?></td>
+                                <td><?= $p->kerusakan ?></td>
+                                <!-- <td><?= $p->brg ?></td> -->
+                                <!-- <td><?= $p->ruangan ?></td> -->
+                                <td><?php echo date('d M Y', strtotime($p->tgl)); ?></td>
+                                <!-- <td><?= $p->ket ?></td> -->
 
                                 <td>
                                     <?php
-                                    $query = $this->db->query("SELECT forward_pengaduan.*, user.nama AS t_nama, user.lvl AS t_lvl FROM forward_pengaduan JOIN user ON forward_pengaduan.id_teknisi = user.id WHERE forward_pengaduan.id_pengaduan = " . $p['p_id'])->row();
+                                    $query = $this->db->query("SELECT forward_pengaduan.*, user.nama AS t_nama, user.lvl AS t_lvl FROM forward_pengaduan JOIN user ON forward_pengaduan.id_teknisi = user.id WHERE forward_pengaduan.id_pengaduan = " . $p->p_id)->row();
 
                                     if ($query) {
                                         echo show_status($query->status);
@@ -149,14 +149,16 @@ function show_userinfo($teknisi, $lvl)
                                     ?>
                                 </td>
                                 <td>
-                                    <a href="javascript:;" id="btn-detail" data-toggle="modal" data-target="#modal-detail" data-id="<?= $p['id'] ?>" class="badge badge-primary">Detail</a>
+                                    <a href="javascript:;" id="btn-detail" data-toggle="modal" data-target="#modal-detail" <?php foreach ($p as $k => $q) {
+                                                                                                                                echo 'data-' . $k . '="' . $q . '"';
+                                                                                                                            } ?> data-status="<?= $query ? $query->status : 'Belum Diproses' ?>" data-id="<?= $p->id ?>" class="badge badge-primary">Detail</a>
                                     <br>
                                     <?php
                                     if (!$query) {
-                                        echo '<a href="javascript:;" data-id_forward="" data-toggle="modal" data-target="#modal-forward" class="badge badge-warning btn-forward" data-id="' . $p['id'] . '"><i class="fa fa-forward" aria-hidden="true"></i> Teruskan</a>';
+                                        echo '<a href="javascript:;" data-id_forward="" data-toggle="modal" data-target="#modal-forward" class="badge badge-warning btn-forward" data-id="' . $p->id . '"><i class="fa fa-forward" aria-hidden="true"></i> Teruskan</a>';
                                     } else {
                                         if ($query->status == 'Dikembalikan') {
-                                            echo '<a href="javascript:;" data-id_forward="' . $query->id_forward . '" data-toggle="modal" data-target="#modal-forward" class="badge badge-warning btn-forward" data-id="' . $p['id'] . '"><i class="fa fa-forward" aria-hidden="true"></i> Teruskan</a>';
+                                            echo '<a href="javascript:;" data-id_forward="' . $query->id_forward . '" data-toggle="modal" data-target="#modal-forward" class="badge badge-warning btn-forward" data-id="' . $p->id . '"><i class="fa fa-forward" aria-hidden="true"></i> Teruskan</a>';
                                         }
                                     }
                                     ?>
@@ -267,7 +269,7 @@ function show_userinfo($teknisi, $lvl)
 
 <!-- Modal -->
 <div class="modal fade" id="modal-lihat-kendala" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal-nama">Nama</h5>
@@ -299,41 +301,19 @@ function show_userinfo($teknisi, $lvl)
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">Detail</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-2">
-                        Nama
+                    <div class="col-6">
+                        <div id="modal-detail-row1"></div>
                     </div>
-                    <div class="col-md-2">:</div>
-                    <div class="col-md-8">kkkk</div>
-                    <div class="col-md-2">
-                        NIP
+                    <div class="col-6">
+                        <div id="modal-detail-row2"></div>
                     </div>
-                    <div class="col-md-2">:</div>
-                    <div class="col-md-8">12432432</div>
-                    <div class="col-md-2">
-                        Barang
-                    </div>
-                    <div class="col-md-2">:</div>
-                    <div class="col-md-8">kkk</div>
-                    <div class="col-md-2">
-                        Ruangan
-                    </div>
-                    <div class="col-md-2">:</div>
-                    <div class="col-md-8">kkk</div>
-                    <div class="col-md-3">
-                        Tanggal
-                    </div>
-                    <div class="col-md-9">: kkk</div>
-                    <div class="col-md-3">
-                        Keterangan
-                    </div>
-                    <div class="col-md-9">: kkk</div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -366,6 +346,59 @@ function show_userinfo($teknisi, $lvl)
             document.querySelector("#edit-kendala").value = e.target.getAttribute("data-edit-kendala");
             document.querySelector("#modal-nama").innerText = e.target.getAttribute("data-nama");
             document.querySelector("#modal-isi-kendala").innerText = e.target.getAttribute("data-kendala")
+        })
+    })
+
+    document.querySelectorAll('#btn-detail').forEach(item => {
+        item.addEventListener('click', e => {
+            const status = e.target.getAttribute('data-status');
+            const id = e.target.getAttribute('data-id');
+
+            let row1 = [{
+                    title: 'Nama',
+                    value: e.target.getAttribute('data-nama')
+                },
+                {
+                    title: 'NIP',
+                    value: e.target.getAttribute('data-nip')
+                },
+                {
+                    title: 'Barang',
+                    value: e.target.getAttribute('data-brg')
+                },
+                {
+                    title: 'Kerusakan',
+                    value: e.target.getAttribute('data-kerusakan')
+                },
+            ]
+            let row2 = [{
+                    title: 'Tanggal',
+                    value: e.target.getAttribute('data-tgl')
+                },
+                {
+                    title: 'Keterangan',
+                    value: e.target.getAttribute('data-ket')
+                },
+                {
+                    title: 'Status',
+                    value: e.target.getAttribute('data-status')
+                }
+            ]
+
+            document.querySelector('#modal-detail-row1').innerHTML = `${row1.map(item=>{
+                    return `<div class="text-center">
+                                <b>${item.title}</b>
+                                <span class="d-block">${item.value}</span>
+                            </div>
+                            <hr>`
+                }).join('')}`
+            document.querySelector('#modal-detail-row2').innerHTML = `${row2.map(item=>{
+                    return `<div class="text-center">
+                                <b>${item.title}</b>
+                                <span class="d-block">${item.value}</span>
+                            </div>
+                            <hr>`
+                }).join('')}`
         })
     })
 
