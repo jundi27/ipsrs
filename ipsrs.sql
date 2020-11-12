@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 08, 2020 at 07:51 AM
+-- Generation Time: Nov 12, 2020 at 04:05 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -91,7 +91,8 @@ CREATE TABLE `forward_pengaduan` (
 --
 
 INSERT INTO `forward_pengaduan` (`id_forward`, `id_pengaduan`, `id_teknisi`, `status`, `alasan_penolakan`, `edit_alasan_penolakan`, `alasan_pengembalian`, `kendala_kerusakan`, `edit_kendala_kerusakan`, `tanggal_forward`) VALUES
-(3, 4, 21, 'Ditunda', '', '', '', 'Ada alat yang perlu dibeli dulu pak', '', '2020-11-08 06:36:37');
+(3, 4, 21, 'Ditunda', '', '', '', 'Ada alat yang perlu dibeli dulu pak', 'Mohon maaf, kepada pengadu, harap menunggu beberapa hari lagi, karena ada alat yg harus dibeli', '2020-11-11 04:52:33'),
+(4, 5, 20, 'Ditolak', 'Gitar tidak ada di poli', 'Mohon maaf, harap tidak main-main dalam menginputkan pengaduan, terimakasih', '', '', '', '2020-11-11 23:39:35');
 
 -- --------------------------------------------------------
 
@@ -253,7 +254,8 @@ CREATE TABLE `pengaduan` (
 --
 
 INSERT INTO `pengaduan` (`id`, `id_user`, `nama`, `nip`, `kerusakan_id`, `brg`, `ruangan`, `tgl`, `ket`) VALUES
-(4, 2, 'Jundi Salim', '11232323', 1, 'Stetoskop', 'Poli', '2020-11-08', 'Rusak');
+(4, 2, 'Jundi Salim', '11232323', 1, 'Stetoskop', 'Poli', '2020-11-08', 'Rusak'),
+(5, 2, 'Kiki', '1122', 1, 'Gitar', 'Poli', '2020-11-12', 'Kurang ngebass');
 
 -- --------------------------------------------------------
 
@@ -520,7 +522,7 @@ ALTER TABLE `fasilitas`
 -- AUTO_INCREMENT for table `forward_pengaduan`
 --
 ALTER TABLE `forward_pengaduan`
-  MODIFY `id_forward` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_forward` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `history_lappem`
@@ -556,7 +558,7 @@ ALTER TABLE `lap_pemeliharaan`
 -- AUTO_INCREMENT for table `pengaduan`
 --
 ALTER TABLE `pengaduan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
