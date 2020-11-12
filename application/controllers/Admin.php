@@ -240,6 +240,13 @@ class Admin extends CI_Controller
         $data['title'] = 'Administrator - History Laporan Pengaduan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
+        if (!empty($_GET['aksi']) && $_GET['aksi'] == 'hapus') {
+            $id_history = $_GET['id'];
+            $this->db->delete('history', ['id' => $id_history]);
+            $this->session->set_flashdata('success', 'Data berhasil dihapus');
+            return redirect('admin/historylappeng');
+        }
+
         $data['pengaduan'] = $this->Admin_model->getHistoryPengaduan()->result();
 
         $this->load->view('templates/header', $data);

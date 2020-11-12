@@ -159,7 +159,9 @@ function show_if_sedang_diperbaiki($id_forward)
                                     } ?>
                                 </td>
                                 <td>
-                                    <a href="<?= base_url('teknisi/detail/'); ?><?= $p['id']; ?>" class="badge badge-primary"><i class="fa fa-info-circle" aria-hidden="true"></i> Detail</a>
+                                    <a href="javascript:;" id="btn-detail" data-toggle="modal" data-target="#modal-detail" <?php foreach ($p as $k => $q) {
+                                                                                                                                echo 'data-' . $k . '="' . $q . '"';
+                                                                                                                            } ?> data-status="<?= $query ? $query->status : 'Belum Diproses' ?>" data-id="<?= $p['id'] ?>" class="badge badge-primary">Detail</a>
 
                                     <?php
                                     if ($query) :
@@ -284,6 +286,33 @@ function show_if_sedang_diperbaiki($id_forward)
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="modal-detail" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div id="modal-detail-row1"></div>
+                    </div>
+                    <div class="col-6">
+                        <div id="modal-detail-row2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     const btnTolak = document.querySelectorAll(".btn-tolak")
@@ -308,6 +337,61 @@ function show_if_sedang_diperbaiki($id_forward)
 
             document.querySelector("#modal-nama-penolak").innerText = nama
             document.querySelector("#modal-isi-penolakan").innerText = alasan
+        })
+    })
+</script>
+
+<script>
+    document.querySelectorAll('#btn-detail').forEach(item => {
+        item.addEventListener('click', e => {
+            const status = e.target.getAttribute('data-status');
+            const id = e.target.getAttribute('data-id');
+
+            let row1 = [{
+                    title: 'Nama',
+                    value: e.target.getAttribute('data-nama')
+                },
+                {
+                    title: 'NIP',
+                    value: e.target.getAttribute('data-nip')
+                },
+                {
+                    title: 'Barang',
+                    value: e.target.getAttribute('data-brg')
+                },
+                {
+                    title: 'Kerusakan',
+                    value: e.target.getAttribute('data-kerusakan')
+                },
+            ]
+            let row2 = [{
+                    title: 'Tanggal',
+                    value: e.target.getAttribute('data-tgl')
+                },
+                {
+                    title: 'Keterangan',
+                    value: e.target.getAttribute('data-ket')
+                },
+                {
+                    title: 'Status',
+                    value: e.target.getAttribute('data-status')
+                }
+            ]
+
+            document.querySelector('#modal-detail-row1').innerHTML = `${row1.map(item=>{
+                    return `<div class="text-center">
+                                <b>${item.title}</b>
+                                <span class="d-block">${item.value}</span>
+                            </div>
+                            <hr>`
+                }).join('')}`
+            document.querySelector('#modal-detail-row2').innerHTML = `${row2.map(item=>{
+                    return `<div class="text-center">
+                                <b>${item.title}</b>
+                                <span class="d-block">${item.value}</span>
+                            </div>
+                            <hr>`
+                }).join('')}`
         })
     })
 </script>

@@ -17,6 +17,9 @@ function show_status($status)
         case 'Sudah Diperbaiki':
             $echo .= '<span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i> ' . $status . '</span>';
             break;
+        case 'Ditunda':
+            $echo .= '<span class="badge badge-warning"><i class="fa fa-recycle" aria-hidden="true"></i> ' . $status . '</span>';
+            break;
         default:
             $echo .= '<span class="badge badge-secondary"><i class="fa fa-info-circle" aria-hidden="true"></i> Belum Diproses</span>';
             break;
@@ -28,6 +31,11 @@ function show_status($status)
 function show_ditolak_button($teknisi, $alasan)
 {
     return '<br /><a href="javascript:;" id="btn-lihat-alasan" data-toggle="modal" data-target="#modal-lihat-alasan" data-nama="' . $teknisi . '" data-alasan="' . $alasan . '" class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> Alasan</a>';
+}
+
+function show_ditunda_button($teknisi, $kendala)
+{
+    return '<br /><a href="javascript:;" id="btn-lihat-kendala" data-toggle="modal" data-target="#modal-lihat-kendala" data-nama="' . $teknisi . '" data-kendala="' . $kendala . '" class="badge badge-info"><i class="fa fa-eye" aria-hidden="true"></i> Alasan</a>';
 }
 
 function show_userinfo($teknisi, $lvl)
@@ -118,6 +126,9 @@ function show_userinfo($teknisi, $lvl)
                                         if ($query->status == 'Ditolak') {
                                             echo show_ditolak_button($query->t_nama, $query->edit_alasan_penolakan != '' ? $query->edit_alasan_penolakan : $query->alasan_penolakan);
                                         }
+                                        if ($query->status == 'Ditunda') {
+                                            echo show_ditunda_button($query->t_nama, $query->edit_kendala_kerusakan != '' ? $query->edit_kendala_kerusakan : $query->kendala_kerusakan);
+                                        }
                                         echo show_userinfo($query->t_nama, $query->t_lvl);
                                     } else {
                                         echo '<span class="badge badge-secondary"><i class="fa fa-info-circle" aria-hidden="true"></i> Belum Diproses</span>';
@@ -131,7 +142,7 @@ function show_userinfo($teknisi, $lvl)
                                     if ($query) {
                                         if ($query->status == 'Sudah Diperbaiki') {
                                             echo '<a href="' . base_url('user/pengaduan_saya?aksi=selesai&id=' . $query->id_forward) . '" onclick="return confirm(`Selesaikan pengaduan ini?`)" class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i> Tanda Selesai</a>';
-                                        } elseif ($query->status == 'Ditolak') {
+                                        } elseif ($query->status == 'Ditolak' || $query->status == 'Ditunda') {
                                             echo '<a href="javascript:;" id="btn-minta-lagi" data-toggle="modal" data-target="#modal-minta-lagi" data-id="' . $query->id_forward . '" class="badge badge-warning"><i class="fas fa-recycle"></i>
                                         Minta Lagi</a><br>';
                                             echo '<a href="' . base_url('user/pengaduan_saya?aksi=selesai&id=' . $query->id_forward) . '" onclick="return confirm(`Selesaikan pengaduan ini?`)" class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i> Tanda Selesai</a>';
@@ -203,6 +214,26 @@ function show_userinfo($teknisi, $lvl)
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modal-lihat-kendala" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-nama">Nama</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-isi-kendala">Isi Kendala</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     const btnLihatAlasan = document.querySelectorAll("#btn-lihat-alasan");
 
@@ -228,6 +259,15 @@ function show_userinfo($teknisi, $lvl)
             // console.log(alasan);
 
             document.querySelector("#modal-id-forward").value = idForward
+        })
+    })
+</script>
+
+<script>
+    document.querySelectorAll("#btn-lihat-kendala").forEach(item => {
+        item.addEventListener("click", e => {
+            document.querySelector("#modal-nama").innerText = e.target.getAttribute("data-nama");
+            document.querySelector("#modal-isi-kendala").innerText = e.target.getAttribute("data-kendala")
         })
     })
 </script>
