@@ -355,6 +355,19 @@ class Admin extends CI_Controller
 
     public function kelolaalkes()
     {
+        if (!empty($_GET['aksi'])) {
+            switch ($_GET['aksi']) {
+                case 'ubah':
+                    $this->_ubah_alkes($this->input->post());
+                    break;
+                case 'tambah':
+                    $this->_tambah_alkes($this->input->post());
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
         $data['title'] = 'Administrator - Kelola Data Alat Kesehatan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
@@ -365,7 +378,10 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/kelolaalkes', $data);
         $this->load->view('templates/footer');
+    }
 
+    private function _tambah_alkes($post)
+    {
         $this->form_validation->set_rules('nama_alat', 'Nama Alat', 'required|trim', array('required' => 'Nama alat harus diisi'));
         $this->form_validation->set_rules('merk', 'Merk', 'required|trim', array('required' => 'Merk harus diisi'));
         $this->form_validation->set_rules('model', 'Model', 'required|trim', array('required' => 'Model harus diisi'));
@@ -384,10 +400,28 @@ class Admin extends CI_Controller
 
 
             $this->db->insert('alkes', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                Data alat kesehatan berhasil ditambahkan!</div>');
+            $this->session->set_flashdata('success', 'Data alat kesehatan berhasil ditambahkan!');
             redirect('admin/kelolaalkes');
         }
+    }
+
+    private function _ubah_alkes($post)
+    {
+        $data = [];
+        foreach ($post as $key => $val) {
+            if ($key != 'id') {
+                $this->form_validation->set_rules($key, ucfirst($key), 'required', ['required' => '{field} harus diisi!']);
+                $data[$key] = $val;
+            }
+        }
+        if ($this->form_validation->run() == FALSE) {
+            $this->session->set_flashdata('error', 'Data gagal diubah!');
+        } else {
+            $this->db->update('alkes', $data, ['id' => $post['id']]);
+            $this->session->set_flashdata('success', 'Data berhasil diubah!');
+        }
+
+        redirect('admin/kelolaalkes');
     }
 
     public function hapusAlkes($id)
