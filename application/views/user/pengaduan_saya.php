@@ -136,7 +136,9 @@ function show_userinfo($teknisi, $lvl)
                                     ?>
                                 </td>
                                 <td>
-                                    <a href="<?= base_url('user/pengaduan_saya/'); ?><?= $p['p_id']; ?>" class="badge badge-primary">Detail</a>
+                                    <a href="javascript:;" id="btn-detail" data-toggle="modal" data-target="#modal-detail" <?php foreach ($p as $k => $q) {
+                                                                                                                                echo 'data-' . $k . '="' . $q . '"';
+                                                                                                                            } ?> data-status="<?= $query ? $query->status : 'Belum Diproses' ?>" data-id="<?= $p['id'] ?>" class="badge badge-primary"><i class="fa fa-info-circle" aria-hidden="true"></i> Detail</a>
                                     <br />
                                     <?php
                                     if ($query) {
@@ -166,7 +168,7 @@ function show_userinfo($teknisi, $lvl)
 </div>
 <!-- End of Main Content -->
 
-<!-- Modal -->
+<!-- MODAL LIHAT ALASAN -->
 <div class="modal fade" id="modal-lihat-alasan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -186,8 +188,9 @@ function show_userinfo($teknisi, $lvl)
         </div>
     </div>
 </div>
+<!-- END MODAL LIHAT ALASAN -->
 
-<!-- Modal -->
+<!-- MODAL MINTA LAGI -->
 <div class="modal fade" id="modal-minta-lagi" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -213,8 +216,9 @@ function show_userinfo($teknisi, $lvl)
         </div>
     </div>
 </div>
+<!-- END MODAL MINTA LAGI -->
 
-<!-- Modal -->
+<!-- MODAL LIHAT KENDALA -->
 <div class="modal fade" id="modal-lihat-kendala" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -233,11 +237,38 @@ function show_userinfo($teknisi, $lvl)
         </div>
     </div>
 </div>
+<!-- END MODAL LIHAT KENDALA -->
+
+<!-- MODAL DETAIL -->
+<div class="modal fade" id="modal-detail" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detail</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <div id="modal-detail-row1"></div>
+                    </div>
+                    <div class="col-6">
+                        <div id="modal-detail-row2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL DETAIL -->
 
 <script>
-    const btnLihatAlasan = document.querySelectorAll("#btn-lihat-alasan");
-
-    btnLihatAlasan.forEach(item => {
+    document.querySelectorAll("#btn-lihat-alasan").forEach(item => {
         item.addEventListener("click", e => {
             const nama = e.target.getAttribute("data-nama")
             const alasan = e.target.getAttribute("data-alasan")
@@ -246,14 +277,8 @@ function show_userinfo($teknisi, $lvl)
             document.querySelector("#modal-isi-penolakan").innerText = alasan
         })
     })
-</script>
 
-
-<script>
-    const btnMintaLagi = document.querySelectorAll("#btn-minta-lagi");
-    const idForward = document.querySelectorAll("#id-forward");
-
-    btnMintaLagi.forEach(item => {
+    document.querySelectorAll("#btn-minta-lagi").forEach(item => {
         item.addEventListener("click", e => {
             const idForward = e.target.getAttribute("data-id")
             // console.log(alasan);
@@ -261,13 +286,68 @@ function show_userinfo($teknisi, $lvl)
             document.querySelector("#modal-id-forward").value = idForward
         })
     })
-</script>
 
-<script>
     document.querySelectorAll("#btn-lihat-kendala").forEach(item => {
         item.addEventListener("click", e => {
             document.querySelector("#modal-nama").innerText = e.target.getAttribute("data-nama");
             document.querySelector("#modal-isi-kendala").innerText = e.target.getAttribute("data-kendala")
+        })
+    })
+
+    document.querySelectorAll('#btn-detail').forEach(item => {
+        item.addEventListener('click', e => {
+            const status = e.target.getAttribute('data-status');
+            const id = e.target.getAttribute('data-id');
+
+            let row1 = [{
+                    title: 'Nama',
+                    value: e.target.getAttribute('data-nama')
+                },
+                {
+                    title: 'NIP',
+                    value: e.target.getAttribute('data-nip')
+                },
+                {
+                    title: 'Barang',
+                    value: e.target.getAttribute('data-brg')
+                },
+                {
+                    title: 'Kerusakan',
+                    value: e.target.getAttribute('data-kerusakan')
+                },
+            ]
+            let row2 = [{
+                    title: 'Tanggal',
+                    value: new Intl.DateTimeFormat('id-ID', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    }).format(new Date(e.target.getAttribute('data-tgl')))
+                },
+                {
+                    title: 'Keterangan',
+                    value: e.target.getAttribute('data-ket')
+                },
+                {
+                    title: 'Status',
+                    value: e.target.getAttribute('data-status')
+                }
+            ]
+
+            document.querySelector('#modal-detail-row1').innerHTML = `${row1.map(item=>{
+                    return `<div class="text-center">
+                                <b>${item.title}</b>
+                                <span class="d-block">${item.value}</span>
+                            </div>
+                            <br />`
+                }).join('')}`
+            document.querySelector('#modal-detail-row2').innerHTML = `${row2.map(item=>{
+                    return `<div class="text-center">
+                                <b>${item.title}</b>
+                                <span class="d-block">${item.value}</span>
+                            </div>
+                            <br />`
+                }).join('')}`
         })
     })
 </script>

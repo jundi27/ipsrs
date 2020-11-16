@@ -151,7 +151,7 @@ function show_userinfo($teknisi, $lvl)
                                 <td>
                                     <a href="javascript:;" id="btn-detail" data-toggle="modal" data-target="#modal-detail" <?php foreach ($p as $k => $q) {
                                                                                                                                 echo 'data-' . $k . '="' . $q . '"';
-                                                                                                                            } ?> data-status="<?= $query ? $query->status : 'Belum Diproses' ?>" data-id="<?= $p->id ?>" class="badge badge-primary">Detail</a>
+                                                                                                                            } ?> data-status="<?= $query ? $query->status : 'Belum Diproses' ?>" data-id="<?= $p->id ?>" class="badge badge-primary"><i class="fa fa-info-circle" aria-hidden="true"></i> Detail</a>
                                     <br>
                                     <?php
                                     if (!$query) {
@@ -269,7 +269,7 @@ function show_userinfo($teknisi, $lvl)
 
 <!-- Modal -->
 <div class="modal fade" id="modal-lihat-kendala" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog modal" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal-nama">Nama</h5>
@@ -373,7 +373,11 @@ function show_userinfo($teknisi, $lvl)
             ]
             let row2 = [{
                     title: 'Tanggal',
-                    value: e.target.getAttribute('data-tgl')
+                    value: new Intl.DateTimeFormat('id-ID', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    }).format(new Date(e.target.getAttribute('data-tgl')))
                 },
                 {
                     title: 'Keterangan',
@@ -390,29 +394,26 @@ function show_userinfo($teknisi, $lvl)
                                 <b>${item.title}</b>
                                 <span class="d-block">${item.value}</span>
                             </div>
-                            <hr>`
+                            <br />`
                 }).join('')}`
             document.querySelector('#modal-detail-row2').innerHTML = `${row2.map(item=>{
                     return `<div class="text-center">
                                 <b>${item.title}</b>
                                 <span class="d-block">${item.value}</span>
                             </div>
-                            <hr>`
+                            <br />`
                 }).join('')}`
         })
     })
 
-    const idPengaduan = document.querySelector("#id-pengaduan")
-
     document.querySelectorAll(".btn-forward").forEach(item => item.addEventListener("click", (e) => {
         const id = e.target.getAttribute("data-id")
         const idForward = e.target.getAttribute("data-id_forward")
-        const modalIdForward = document.querySelector("#id-forward")
 
         if (idForward !== "") {
-            modalIdForward.value = idForward
+            document.querySelector("#id-forward").value = idForward
         } else {
-            idPengaduan.value = id
+            document.querySelector("#id-pengaduan").value = id
         }
     }))
 </script>
