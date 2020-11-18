@@ -322,7 +322,7 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         // join antara history_lappem dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: history_lappem.date_created menjadi lpdc
-        $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id')->result();
+        $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.id as hlid, history_lappem.*, user.* from history_lappem join user on history_lappem.user_id = user.id')->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebarA', $data);
