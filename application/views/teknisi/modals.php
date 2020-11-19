@@ -1,4 +1,3 @@
-
 <!-- modal add laporan -->
 <div class="modal fade" id="lappemModal" tabindex="-1" role="dialog" aria-labelledby="lappemModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -98,7 +97,7 @@
                             <td>:</td>
                             <td><span id="lpruangan"></span></td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td><b>Suhu</b></td>
                             <td>:</td>
                             <td><span id="lpsuhu"></span></td>
@@ -168,7 +167,7 @@
                             <td>:</td>
                             <td><span id="hstlpruangan"></span></td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td><b>Suhu</b></td>
                             <td>:</td>
                             <td><span id="hstlpsuhu"></span></td>

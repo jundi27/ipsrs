@@ -1,3 +1,26 @@
+<?php
+$success = $this->session->flashdata('success');
+if (!empty($success)) {
+    echo "<script>
+            swal({
+                title: 'Sukses',
+                text: '$success',
+                icon: 'success'
+            })
+            </script>";
+}
+$error = $this->session->flashdata('error');
+if (!empty($error)) {
+    echo "<script>
+            swal({
+                title: 'Gagal',
+                text: '$error',
+                icon: 'error'
+            })
+            </script>";
+}
+?>
+
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
@@ -28,6 +51,7 @@
                                                                         }
                                                                         ?> data-toggle="modal" data-target="#modal-detail-laporan" class="badge badge-primary">Detail</a>
                         <a href="<?= base_url('admin/printlappem/') . $lp->lpid ?>" target="_blank" id="togglePrintLaporan" class="badge badge-success">Cetak</a>
+                        <a href="javascript:;" id="btn-hapus-laporan" data-id="<?= $lp->lpid ?>" class="badge badge-danger">Hapus</a>
                     </td>
                 </tr>
                 <?php $i++; ?>
@@ -36,7 +60,7 @@
 
     </table>
 </div>
-</div>
+<!-- </div> -->
 
 <!-- modal detail laporan -->
 <div class="modal fade" id="modal-detail-laporan">
@@ -58,6 +82,7 @@
 </div>
 
 <script>
+    // menampilkan detail laporan
     document.querySelectorAll('#btn-detail-laporan').forEach(item => {
         item.addEventListener('click', e => {
             const get = attr => {
@@ -70,45 +95,50 @@
             }).format(new Date(get(date)))
 
             const detail = [{
-                key: 'Tanggal Laporan',
-                val: dateFormatter('lpdc')
-            }, {
-                key: 'Nama Alat',
-                val: get('nama_alat')
-            }, {
-                key: 'Ruangan',
-                val: get('ruangan')
-            }, {
-                key: 'Suhu',
-                val: get('suhu')
-            }, {
-                key: 'Kelembapan',
-                val: get('kelembaban')
-            }, {
-                key: 'Tegangan',
-                val: get('daya_semu')
-            }, {
-                key: 'Daya Aktif',
-                val: get('daya_aktif')
-            }, {
-                key: 'Daya Reaktif',
-                val: get('daya_reaktif')
-            }, {
-                key: 'Kondisi Fisik',
-                val: get('kondisi_fisik')
-            }, {
-                key: 'Ket. Kondisi Fisik',
-                val: get('ket_kondisi_fisik')
-            }, {
-                key: 'Tanggal Kadaluarsa',
-                val: dateFormatter('expired')
-            }, {
-                key: 'Nama Teknisi',
-                val: get('nama')
-            }, {
-                key: 'Jabatan',
-                val: get('lvl')
-            }]
+                    key: 'Tanggal Laporan',
+                    val: dateFormatter('lpdc')
+                }, {
+                    key: 'Nama Alat',
+                    val: get('nama_alat')
+                }, {
+                    key: 'Ruangan',
+                    val: get('ruangan')
+                }, {
+                    key: 'Suhu',
+                    val: get('suhu') + ' &deg;C'
+                }, {
+                    key: 'Kelembapan',
+                    val: get('kelembaban') + ' %RH'
+                }, {
+                    key: 'Tegangan',
+                    val: get('tegangan') + ' V'
+                },
+                {
+                    key: 'Daya Semu',
+                    val: get('daya_semu') + ' VA'
+                }, {
+                    key: 'Daya Aktif',
+                    val: get('daya_aktif') + ' watt'
+                }, {
+                    key: 'Daya Reaktif',
+                    val: get('daya_reaktif') + ' VAR'
+                }, {
+                    key: 'Kondisi Fisik',
+                    val: get('kondisi_fisik')
+                }, {
+                    key: 'Ket. Kondisi Fisik',
+                    val: get('ket_kondisi_fisik')
+                }, {
+                    key: 'Tanggal Kadaluarsa',
+                    val: dateFormatter('expired')
+                }, {
+                    key: 'Nama Teknisi',
+                    val: get('nama')
+                }, {
+                    key: 'Jabatan',
+                    val: get('lvl')
+                }
+            ]
 
             document.querySelector('#data-detail-laporan').innerHTML = `${detail.map((item,index) => {
                 return `<div class="col-6 text-center">
@@ -118,6 +148,25 @@
                     </div>`
             }).join('')}`
 
+        })
+    })
+
+    // menghapus laporan
+    document.querySelectorAll('#btn-hapus-laporan').forEach(item => {
+        item.addEventListener('click', e => {
+            const idLaporan = e.target.getAttribute('data-id')
+
+            swal({
+                title: 'Lanjutkan menghapus?',
+                text: 'Hapus data ini? data tidak bisa dikembalikan setelah dihapus.',
+                icon: 'warning',
+                buttons: ['Batal', 'Lanjut'],
+                dangerMode: true
+            }).then(confirm => {
+                if (confirm) {
+                    window.location.href = window.location.href + '?aksi=hapus&id_laporan=' + idLaporan
+                }
+            })
         })
     })
 </script>
