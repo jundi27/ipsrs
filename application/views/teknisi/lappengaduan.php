@@ -45,13 +45,13 @@ function show_userinfo($teknisi, $lvl)
 function show_if_sedang_diteruskan($id_forward)
 {
     return '<a href="' . base_url('teknisi/lappengaduan?aksi=perbaiki&id=' . $id_forward) . '" class="badge badge-success"><i class="fa fa-cog" aria-hidden="true"></i> Perbaiki</a>
-    <a href="javascript:;" data-id="' . $id_forward . '" class="badge badge-danger btn-tolak" data-toggle="modal" data-target="#modal-tolak"><i class="fa fa-times-circle" aria-hidden="true"></i> Tolak</a>
-    <a href="javascript:;" data-id="' . $id_forward . '" class="badge badge-warning btn-laporkan-kendala" data-toggle="modal" data-target="#modal-laporkan-kendala"><i class="fa fa-recycle" aria-hidden="true"></i> Laporkan Kendala</a>';
+    <a href="javascript:;" data-id="' . $id_forward . '" class="badge badge-danger btn-tolak" data-toggle="modal" data-target="#modal-tolak"><i class="fa fa-times-circle" aria-hidden="true"></i> Tolak</a>';
 }
 
 function show_if_sedang_diperbaiki($id_forward)
 {
-    return '<a href="' . base_url('teknisi/lappengaduan?aksi=selesai&id=' . $id_forward) . '" onclick="return confirm(`Sudah selesai memperbaiki pengaduan ini?`)" class="badge badge-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Tanda Selesai</a>';
+    return '<a href="' . base_url('teknisi/lappengaduan?aksi=selesai&id=' . $id_forward) . '" onclick="return confirm(`Sudah selesai memperbaiki pengaduan ini?`)" class="badge badge-success"><i class="fa fa-check-circle" aria-hidden="true"></i> Tanda Selesai</a>
+    <a href="javascript:;" data-id="' . $id_forward . '" class="badge badge-warning btn-laporkan-kendala" data-toggle="modal" data-target="#modal-laporkan-kendala"><i class="fa fa-recycle" aria-hidden="true"></i> Laporkan Kendala</a>';
 }
 ?>
 <!-- php function -->
@@ -161,7 +161,7 @@ function show_if_sedang_diperbaiki($id_forward)
                                 <td>
                                     <a href="javascript:;" id="btn-detail" data-toggle="modal" data-target="#modal-detail" <?php foreach ($p as $k => $q) {
                                                                                                                                 echo 'data-' . $k . '="' . $q . '"';
-                                                                                                                            } ?> data-status="<?= $query ? $query->status : 'Belum Diproses' ?>" data-id="<?= $p['id'] ?>" class="badge badge-primary">Detail</a>
+                                                                                                                            } ?> data-status="<?= $query ? $query->status : 'Belum Diproses' ?>" data-id="<?= $p['id'] ?>" class="badge badge-primary"><i class="fa fa-info-circle" aria-hidden="true"></i> Detail</a>
 
                                     <?php
                                     if ($query) :
@@ -315,22 +315,15 @@ function show_if_sedang_diperbaiki($id_forward)
 </div>
 
 <script>
-    const btnTolak = document.querySelectorAll(".btn-tolak")
-    const idForwardEl = document.querySelector("#id-forward")
-
-    btnTolak.forEach(item => {
+    document.querySelectorAll(".btn-tolak").forEach(item => {
         item.addEventListener("click", e => {
             const idForward = e.target.getAttribute("data-id")
 
-            idForwardEl.value = idForward
+            document.querySelector("#id-forward").value = idForward
         })
     })
-</script>
 
-<script>
-    const btnLihatAlasan = document.querySelectorAll("#btn-lihat-alasan");
-
-    btnLihatAlasan.forEach(item => {
+    document.querySelectorAll("#btn-lihat-alasan").forEach(item => {
         item.addEventListener("click", e => {
             const nama = e.target.getAttribute("data-nama")
             const alasan = e.target.getAttribute("data-alasan")
@@ -339,9 +332,7 @@ function show_if_sedang_diperbaiki($id_forward)
             document.querySelector("#modal-isi-penolakan").innerText = alasan
         })
     })
-</script>
 
-<script>
     document.querySelectorAll('#btn-detail').forEach(item => {
         item.addEventListener('click', e => {
             const status = e.target.getAttribute('data-status');
@@ -366,7 +357,11 @@ function show_if_sedang_diperbaiki($id_forward)
             ]
             let row2 = [{
                     title: 'Tanggal',
-                    value: e.target.getAttribute('data-tgl')
+                    value: new Intl.DateTimeFormat('id-ID', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric'
+                    }).format(new Date(e.target.getAttribute('data-tgl')))
                 },
                 {
                     title: 'Keterangan',
@@ -383,23 +378,20 @@ function show_if_sedang_diperbaiki($id_forward)
                                 <b>${item.title}</b>
                                 <span class="d-block">${item.value}</span>
                             </div>
-                            <hr>`
+                            <br />`
                 }).join('')}`
             document.querySelector('#modal-detail-row2').innerHTML = `${row2.map(item=>{
                     return `<div class="text-center">
                                 <b>${item.title}</b>
                                 <span class="d-block">${item.value}</span>
                             </div>
-                            <hr>`
+                            <br />`
                 }).join('')}`
         })
     })
-</script>
 
-<script>
-    const btnLihatKendala = document.querySelectorAll("#btn-lihat-kendala")
 
-    btnLihatKendala.forEach(item => {
+    document.querySelectorAll("#btn-lihat-kendala").forEach(item => {
         item.addEventListener("click", e => {
             const nama = e.target.getAttribute("data-nama")
             const kendala = e.target.getAttribute("data-kendala")
@@ -408,18 +400,12 @@ function show_if_sedang_diperbaiki($id_forward)
             document.querySelector("#modal-isi-kendala").innerText = kendala
         })
     })
-</script>
 
-
-<script>
-    const btnLaporkanKendala = document.querySelectorAll(".btn-laporkan-kendala")
-    const idForwardLaporkanKendalaElement = document.querySelector("#id-forward-laporan-kendala")
-
-    btnLaporkanKendala.forEach(item => {
+    document.querySelectorAll(".btn-laporkan-kendala").forEach(item => {
         item.addEventListener("click", e => {
             const idForward = e.target.getAttribute("data-id")
 
-            idForwardLaporkanKendalaElement.value = idForward
+            document.querySelector("#id-forward-laporan-kendala").value = idForward
         })
     })
 </script>

@@ -1,3 +1,29 @@
 - Si teknisi bisa melaporkan kendala kerusakan, status berubah jadi 'ditunda', ditunda dengan alasan.
 - Si admin bisa menyanmpaikan pesan berbeda untuk alasan ditolak dan ditunda
 - History pengaduan yang sudah selesai
+
+
+
+Sistem Pemeliharaan
+===================
+
+[Administrator]
+
+1. Menu Pemeliharaan -> History Laporan
+   -> Fitur Filter Tanggal, ubah menjadi search seperti menu lainnya
+
+2. Detail laporan pemeliharaan tidak tampil detailnya
+
+3. Cetak Laporan -> Ubah bentuknya
+
+4. Hapus Laporan -> buat menunya
+
+
+[Teknisi]
+
+1. Hapus Laporan -> buat menunya
+
+2. Detail laporan pemeliharaan tidak tampil detailnya
+
+3. Menu Pemeliharaan -> History Laporan
+   -> Fitur Filter Tanggal, ubah menjadi search seperti menu lainnya

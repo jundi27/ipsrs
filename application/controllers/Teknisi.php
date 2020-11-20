@@ -221,6 +221,12 @@ class Teknisi extends CI_Controller
         $data['title'] = 'Teknisi IPSRS - Laporan Pemeliharaan';
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
+        if (!empty($_GET['aksi']) && $_GET['aksi'] == 'hapus') {
+            $id_laporan = $_GET['id_laporan'];
+            $this->db->delete('lap_pemeliharaan', ['id' => $id_laporan]);
+            $this->session->set_flashdata('success', 'Data berhasil dihapus!');
+        }
+
         // join antara lap_pemeliharaan dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: lap_pemeliharaan.date_created menjadi lpdc
         $data['lappem'] = $this->db->query('select lap_pemeliharaan.date_created as lpdc, lap_pemeliharaan.id as lpid, lap_pemeliharaan.*, user.* from lap_pemeliharaan, user where lap_pemeliharaan.user_id = user.id order by lap_pemeliharaan.date_created desc')->result();
 
@@ -241,6 +247,7 @@ class Teknisi extends CI_Controller
         $this->form_validation->set_rules('kondisi_fisik', 'Kondisi Fisik', 'required|trim', array('required' => 'Kondisi fisik harus diisi'));
         $this->form_validation->set_rules('ket_kondisi_fisik', 'Keterangan Kondisi Fisik', 'required|trim', array('required' => 'Keterangan kondisi fisik harus diisi'));
         if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('error', 'Ups ada yg error');
         } else {
             $myd = date_create();
             $dtfrmt = date_format($myd, 'Y-m-d');
@@ -270,8 +277,7 @@ class Teknisi extends CI_Controller
 
 
             $this->db->insert('lap_pemeliharaan', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                laporan pemeliharaan berhasil dibuat!</div>');
+            $this->session->set_flashdata('success', 'Laporan pemeliharaan berhasil dibuat!');
             redirect('teknisi/lappemeliharaan');
         }
     }
@@ -282,7 +288,7 @@ class Teknisi extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['username' => $this->session->userdata('username')])->row_array();
 
         // join antara history_lappem dan user, karena ada beberapa kolom yang sama di dua tabel, untuk menghindari kerancuan beberapa kolom didefinisikan dengan nama baru spt: history_lappem.date_created menjadi lpdc
-        $data['lappem'] = $this->db->query('select history_lappem.date_created as lpdc, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id')->result();
+        $data['lappem'] = $this->db->query('select history_lappem.id as lpid, history_lappem.date_created as lpdc, history_lappem.*, user.* from history_lappem, user where history_lappem.user_id = user.id')->result();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebart', $data);

@@ -22,7 +22,12 @@
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.css">
-
+    <style media="print">
+        @page {
+            size: auto;
+            margin: 0mm;
+        }
+    </style>
     <script src="<?= base_url('assets/'); ?>js/swal.js"></script>
 
 </head>

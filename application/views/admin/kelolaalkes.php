@@ -1,5 +1,31 @@
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
+    <?php
+    $success = $this->session->flashdata('success');
+    if (!empty($success)) {
+        echo "<script>
+                    swal({
+                        title: 'Sukses',
+                        text: '$success',
+                        icon: 'success'
+                    })
+                   </script>";
+    }
+
+    ?>
+    <?php
+    $error = $this->session->flashdata('error');
+    if (!empty($error)) {
+        echo "<script>
+                    swal({
+                        title: 'Gagal',
+                        text: '$error',
+                        icon: 'error'
+                    })
+                   </script>";
+    }
+    ?>
+
     <?= $this->session->flashdata('message') ?>
     <?= validation_errors(); ?>
     <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#alkesModal">Tambah Data</a>
@@ -26,7 +52,12 @@
                     <td><?= $ak['model'] ?></td>
                     <td><?= $ak['nomorseri'] ?></td>
                     <td><?= $ak['ruangan'] ?></td>
-                    <td><a href="<?= base_url(); ?>admin/hapusAlkes/<?= $ak['id']?> " class="badge badge-danger">Hapus</a><a href="" class="badge badge-primary">Edit</a></td>
+                    <td>
+                        <a href="<?= base_url(); ?>admin/hapusAlkes/<?= $ak['id'] ?> " class="badge badge-danger">Hapus</a>
+                        <a href="javascript:;" id="btn-edit-alkes" data-toggle="modal" data-target="#modal-edit-alkes" <?php foreach ($ak as $key => $val) {
+                                                                                                                            echo 'data-' . $key . '="' . $val . '"';
+                                                                                                                        } ?> class="badge badge-primary">Edit</a>
+                    </td>
                 </tr>
 
                 <?php $i++; ?>
@@ -48,7 +79,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('admin/kelolaalkes') ?>" method="post">
+            <form action="<?= base_url('admin/kelolaalkes?aksi=tambah_alkes') ?>" method="post">
                 <div class="modal-body md-7">
                     <div class="form-group">
                         <label for="nama_alat" style="color: black">Nama Alat</label>
@@ -79,3 +110,69 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-edit-alkes" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ubah data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <?= form_open('admin/kelolaalkes?aksi=ubah') ?>
+            <div class="modal-body">
+                <div id="modal-edit-alkes-form"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Ubah</button>
+            </div>
+            <?= form_close() ?>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.querySelectorAll('#btn-edit-alkes').forEach(item => {
+        item.addEventListener('click', e => {
+            console.log(e.target);
+            const target = attr => e.target.getAttribute(`data-${attr}`)
+            const formArr = [{
+                title: 'ID',
+                attr: 'id',
+                value: target('id')
+            }, {
+                title: 'Nama Alat',
+                attr: 'nama_alat',
+                value: target('nama_alat')
+            }, {
+                title: 'Merk',
+                attr: 'merk',
+                value: target('merk')
+            }, {
+                title: 'Model',
+                attr: 'model',
+                value: target('model')
+            }, {
+                title: 'Nomor Seri',
+                attr: 'nomorseri',
+                value: target('nomorseri')
+            }, {
+                title: 'Ruangan',
+                attr: 'ruangan',
+                value: target('ruangan')
+            }, ];
+            document.querySelector('#modal-edit-alkes-form').innerHTML = `${formArr.map(item => {
+                return `<div class="form-group">
+                        ${item.attr=='id'? `<input type="hidden" name="${item.attr}" id="${item.attr}" class="form-control" value="${item.value}">`:
+                        `<label for="">${item.title}</label>
+                        <input type="text" name="${item.attr}" id="${item.attr}" class="form-control" placeholder="${item.title}..." value="${item.value}" >
+                        </div>`}`
+                }).join('')
+            }
+            `
+        })
+    })
+</script>
