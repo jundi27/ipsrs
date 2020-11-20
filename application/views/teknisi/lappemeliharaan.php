@@ -91,31 +91,31 @@ if (!empty($error)) {
                     <div class="form-group form-row">
                         <div class="col">
                             <label for="suhu" style="color: black">Suhu</label>
-                            <input type="number" required class="form-control" id="suhu" name="suhu" placeholder="Suhu ... (*C)" value="<?= set_value('suhu') ?>">
+                            <input type="text" required class="form-control" id="suhu" name="suhu" placeholder="Suhu ... (*C)" value="<?= set_value('suhu') ?>">
                         </div>
                         <div class="col">
                             <label for="kelembaban" style="color: black">Kelembaban</label>
-                            <input type="number" required class="form-control" id="kelembaban" name="kelembaban" placeholder="Kelembaban ... (% RH)" value="<?= set_value('kelembaban') ?>">
+                            <input type="text" required class="form-control" id="kelembaban" name="kelembaban" placeholder="Kelembaban ... (% RH)" value="<?= set_value('kelembaban') ?>">
                         </div>
                     </div>
                     <div class="form-group form-row">
                         <div class="col">
                             <label for="tegangan" style="color: black">Tegangan</label>
-                            <input type="number" required class="form-control" id="tegangan" name="tegangan" placeholder="Masukkan Tegangan" value="<?= set_value('tegangan') ?>">
+                            <input type="text" required class="form-control" id="tegangan" name="tegangan" placeholder="Masukkan Tegangan" value="<?= set_value('tegangan') ?>">
                         </div>
                         <div class="col">
                             <label for="daya_semu" style="color: black">Daya Semu</label>
-                            <input type="number" required class="form-control" id="daya_semu" name="daya_semu" placeholder="Daya Semu ... (VA)" value="<?= set_value('daya_semu') ?>">
+                            <input type="text" required class="form-control" id="daya_semu" name="daya_semu" placeholder="Daya Semu ... (VA)" value="<?= set_value('daya_semu') ?>">
                         </div>
                     </div>
                     <div class="form-group form-row">
                         <div class="col">
                             <label for="daya_aktif" style="color: black">Daya Aktif</label>
-                            <input type="number" required class="form-control" id="daya_aktif" name="daya_aktif" placeholder="Daya Aktif ... (watt)" value="<?= set_value('daya_aktif') ?>">
+                            <input type="text" required class="form-control" id="daya_aktif" name="daya_aktif" placeholder="Daya Aktif ... (watt)" value="<?= set_value('daya_aktif') ?>">
                         </div>
                         <div class="col">
                             <label for="daya_reaktif" style="color: black">Daya Reaktif</label>
-                            <input type="number" required class="form-control" id="daya_reaktif" name="daya_reaktif" placeholder="Daya Reaktif ... (VAR)" value="<?= set_value('daya_reaktif') ?>">
+                            <input type="text" required class="form-control" id="daya_reaktif" name="daya_reaktif" placeholder="Daya Reaktif ... (VAR)" value="<?= set_value('daya_reaktif') ?>">
                         </div>
                     </div>
                     <div class="form-group form-row">
