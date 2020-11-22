@@ -7,16 +7,17 @@
 
 <div class="container-fluid" style="max-width: 700px;">
 	<div class="py-3 mt-3 d-flex align-items-center">
-		<img src="https://via.placeholder.com/300" alt="Logo" class="img-fluid" style="max-width: 100px;">
+		<img src="<?= base_url('assets/img/rsd.png')?>" alt="Logo" class="img-fluid" style="max-width: 100px;">
 		<div class="text-center w-100">
 			<h4 style="font-weight: bold;">Laporan Pemeliharaan Alat Kesehatan
 				<br />RSD Madani Kota Pekanbaru</h4>
 		</div>
 	</div>
+	<br>
 	<table class="table table-white bg-white">
 		<tbody>
 			<tr>
-				<td style="width: 100px"><b>Nama Alat</b></td>
+				<td style="width: 250px"><b>Nama Alat</b></td>
 				<td>:</td>
 				<td><?php echo $lappem->nama_alat ?></td>
 			</tr>
@@ -79,10 +80,13 @@
 	</table>
 	<div class="float-right mb-3">
 		<div class="mb-5">
-			<?= date_format(date_create($lappem->lpdc), 'd F Y'); ?>
-			<br />Teknisi
+			<p>Pekanbaru, <?= date_format(date_create($lappem->lpdc), 'd F Y'); ?></p>
+			Teknisi
 		</div>
-		<b class="d-block"><?= $lappem->nama ?></b>
+		<div>
+			<b class="d-block"><?= $lappem->nama ?></b>
+			<hr style="margin-top: -5px;">
+		</div>
 	</div>
 </div>
 
