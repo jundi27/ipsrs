@@ -80,7 +80,7 @@ function show_userinfo($teknisi, $lvl)
                         text: '$success_message',
                         icon: 'success'
                     })
-                   </script>";
+                </script>";
             }
 
             ?>
@@ -93,7 +93,7 @@ function show_userinfo($teknisi, $lvl)
                         text: '$failed_message',
                         icon: 'success'
                     })
-                   </script>";
+                </script>";
             }
             ?>
 
