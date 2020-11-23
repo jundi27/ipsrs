@@ -369,8 +369,11 @@ class Admin extends CI_Controller
                 case 'ubah':
                     $this->_ubah_alkes($this->input->post());
                     break;
-                case 'tambah':
+                case 'tambah_alkes':
                     $this->_tambah_alkes($this->input->post());
+                    break;
+                case 'hapus':
+                    $this->_hapus_alkes($this->input->get('id'));
                     break;
                 default:
                     # code...
@@ -433,13 +436,12 @@ class Admin extends CI_Controller
         redirect('admin/kelolaalkes');
     }
 
-    public function hapusAlkes($id)
+    private function _hapus_alkes($id)
     {
         $this->load->model('Admin_model');
         $this->Admin_model->getHapusAlkes($id);
 
-        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-                Data alat kesehatan berhasil dihapus!</div>');
+        $this->session->set_flashdata('success', 'Data alat kesehatan berhasil dihapus!');
         redirect('admin/kelolaalkes');
     }
 

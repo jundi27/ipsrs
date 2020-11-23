@@ -26,9 +26,8 @@
     }
     ?>
 
-    <?= $this->session->flashdata('message') ?>
     <?= validation_errors(); ?>
-    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#alkesModal">Tambah Data</a>
+    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah-alkes">Tambah Data</a>
     <table class="table table-striped text-dark table-responsive-lg text-center">
         <thead>
             <tr>
@@ -53,7 +52,7 @@
                     <td><?= $ak['nomorseri'] ?></td>
                     <td><?= $ak['ruangan'] ?></td>
                     <td>
-                        <a href="<?= base_url(); ?>admin/hapusAlkes/<?= $ak['id'] ?> " class="badge badge-danger">Hapus</a>
+                        <a href="javascript:;" id="btn-hapus-alkes" data-id="<?= $ak['id'] ?>" class="badge badge-danger">Hapus</a>
                         <a href="javascript:;" id="btn-edit-alkes" data-toggle="modal" data-target="#modal-edit-alkes" <?php foreach ($ak as $key => $val) {
                                                                                                                             echo 'data-' . $key . '="' . $val . '"';
                                                                                                                         } ?> class="badge badge-primary">Edit</a>
@@ -70,7 +69,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="alkesModal" tabindex="-1" role="dialog" aria-labelledby="alkesModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambah-alkes" tabindex="-1" role="dialog" aria-labelledby="alkesModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -173,6 +172,25 @@
                 }).join('')
             }
             `
+        })
+    })
+
+    document.querySelectorAll('#btn-hapus-alkes').forEach(item => {
+        item.addEventListener('click', e => {
+            const id = e.target.getAttribute('data-id')
+            swal({
+                title: 'Hapus data ini?',
+                text: 'Data tidak dapat dikembalikan setelah dihapus.',
+                icon: 'warning',
+                buttons: ['Batal', 'Hapus'],
+                dangerMode: true
+            }).then(willdDelete => {
+                if (willdDelete) {
+                    window.location.href = window.location.href + '?aksi=hapus&id=' + id
+                } else {
+                    console.log('Batal dihapus!')
+                }
+            })
         })
     })
 </script>
