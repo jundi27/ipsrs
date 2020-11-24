@@ -7,10 +7,13 @@
         $alldate = date_create();
         echo '<span style="color: green;">History laporan sebelum ' . date_format($alldate, 'M Y') . "</span>";
         ?>
-        <thead>
+        <thead style="background-color:#008983; color:#ffffff">
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Teknisi</th>
+                <th scope="col">Alat</th>
+                <th scope="col">Ruangan</th>
+                <th scope="col">Kondisi</th>
                 <th scope="col">Tanggal Laporan</th>
                 <th scope="col">Aksi</th>
             </tr>
@@ -21,6 +24,9 @@
                 <tr>
                     <td scope="row"><?= $i; ?></td>
                     <td><?= $lp->nama; ?></td>
+                    <td><?= $lp->nama_alat; ?></td>
+                    <td><?= $lp->ruangan; ?></td>
+                    <td><?= $lp->kondisi_fisik; ?></td>
                     <td><?php $myd = date_create($lp->lpdc);
                         echo date_format($myd, 'd M Y'); ?></td>
                     <td><a href="javascript:;" <?php
