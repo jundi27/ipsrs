@@ -27,7 +27,8 @@
     ?>
 
     <?= validation_errors(); ?>
-    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambah-alkes">Tambah Data</a>
+    <a href="" class="btn btn-primary mb-3" style="background-color:#008983; color:#ffffff" data-toggle="modal" data-target="#tambah-alkes">
+        <i class="fa fa-plus"></i> Tambah Data</a>
     <table class="table table-striped text-dark table-responsive-lg text-center">
         <thead>
             <tr>
@@ -72,7 +73,7 @@
 <div class="modal fade" id="tambah-alkes" tabindex="-1" role="dialog" aria-labelledby="alkesModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#008983; color:#ffffff">
                 <h5 class="modal-title" id="alkesModalLabel">Tambah Data Alat Kesehatan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -102,8 +103,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Buat</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Buat</button>
                 </div>
             </form>
         </div>
@@ -114,7 +115,7 @@
 <div class="modal fade" id="modal-edit-alkes" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#008983; color:#ffffff">
                 <h5 class="modal-title">Ubah data</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -125,8 +126,8 @@
                 <div id="modal-edit-alkes-form"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Ubah</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary" style="background-color:#008983; color:#ffffff">Ubah</button>
             </div>
             <?= form_close() ?>
         </div>

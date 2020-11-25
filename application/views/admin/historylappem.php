@@ -42,6 +42,7 @@
         </tbody>
     </table>
 </div>
+</div>
 
 <!-- modal detail history lappem -->
 <div class="modal fade" id="detail-history-lappem" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">

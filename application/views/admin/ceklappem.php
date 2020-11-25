@@ -67,12 +67,13 @@ if (!empty($error)) {
     </table>
 </div>
 <!-- </div> -->
+</div>
 
 <!-- modal detail laporan -->
 <div class="modal fade" id="modal-detail-laporan">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#008983; color:#ffffff">
                 <div class="modal-title">
                     <h5>Detail Laporan</h5>
                 </div>
