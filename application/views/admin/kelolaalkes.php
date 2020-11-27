@@ -83,23 +83,23 @@
                 <div class="modal-body md-7">
                     <div class="form-group">
                         <label for="nama_alat" style="color: black">Nama Alat</label>
-                        <input type="text" class="form-control" id="nama_alat" name="nama_alat" placeholder="Masukkan Nama Alat..." value="<?= set_value('nama_alat') ?>">
+                        <input type="text" required class="form-control" id="nama_alat" name="nama_alat" placeholder="Masukkan Nama Alat..." value="<?= set_value('nama_alat') ?>">
                     </div>
                     <div class="form-group">
                         <label for="Merk" style="color: black">Merk</label>
-                        <input type="text" class="form-control" id="merk" name="merk" placeholder="Masukkan Merk..." value="<?= set_value('merk') ?>">
+                        <input type="text" required class="form-control" id="merk" name="merk" placeholder="Masukkan Merk..." value="<?= set_value('merk') ?>">
                     </div>
                     <div class="form-group">
                         <label for="model" style="color: black">Model</label>
-                        <input type="text" class="form-control" id="model" name="model" placeholder="Masukkan Model" value="<?= set_value('model') ?>">
+                        <input type="text" required class="form-control" id="model" name="model" placeholder="Masukkan Model" value="<?= set_value('model') ?>">
                     </div>
                     <div class="form-group">
                         <label for="nomorseri" style="color: black">Nomor Seri</label>
-                        <input type="text" class="form-control" id="nomorseri" name="nomorseri" placeholder="Masukkan Nomor Seri" value="<?= set_value('nomorseri') ?>">
+                        <input type="text" required class="form-control" id="nomorseri" name="nomorseri" placeholder="Masukkan Nomor Seri" value="<?= set_value('nomorseri') ?>">
                     </div>
                     <div class="form-group">
                         <label for="ruangan" style="color: black">Ruangan</label>
-                        <input type="text" class="form-control" id="ruangan" name="ruangan" placeholder="Masukkan Ruangan" value="<?= set_value('ruangan') ?>">
+                        <input type="text" required class="form-control" id="ruangan" name="ruangan" placeholder="Masukkan Ruangan" value="<?= set_value('ruangan') ?>">
                     </div>
                 </div>
                 <div class="modal-footer">
