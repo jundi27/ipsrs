@@ -44,6 +44,7 @@
         </tbody>
     </table>
 </div>
+</div>
 
 <!-- modal detail laporan -->
 <div class="modal fade" id="modal-detail-laporan">
