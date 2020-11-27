@@ -29,7 +29,7 @@ if (!empty($error)) {
     <a href="" class="btn btn-primary mb-3" style="background-color:#008983; color:#ffffff" data-toggle="modal" data-target="#lappemModal">
         <i class="fa fa-plus"></i> Buat Laporan</a>
     <table class="table table-striped text-dark text-center">
-        <thead>
+        <thead style="background-color:#008983; color:#ffffff">
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Teknisi</th>
