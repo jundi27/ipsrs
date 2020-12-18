@@ -26,9 +26,13 @@
     }
     ?>
 
-    <?= $this->session->flashdata('message') ?>
     <?= validation_errors(); ?>
+<<<<<<< HEAD
     <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#alkesModal" style="background-color:#008983; color:#ffffff;">Tambah Data</a>
+=======
+    <a href="" class="btn btn-primary mb-3" style="background-color:#008983; color:#ffffff" data-toggle="modal" data-target="#tambah-alkes">
+        <i class="fa fa-plus"></i> Tambah Data</a>
+>>>>>>> 2380b451d782fac499917d2a4fe35d814ef6d3ab
     <table class="table table-striped text-dark table-responsive-lg text-center">
         <thead style="background-color:#008983; color:#ffffff;">
             <tr>
@@ -53,7 +57,7 @@
                     <td><?= $ak['nomorseri'] ?></td>
                     <td><?= $ak['ruangan'] ?></td>
                     <td>
-                        <a href="<?= base_url(); ?>admin/hapusAlkes/<?= $ak['id'] ?> " class="badge badge-danger">Hapus</a>
+                        <a href="javascript:;" id="btn-hapus-alkes" data-id="<?= $ak['id'] ?>" class="badge badge-danger">Hapus</a>
                         <a href="javascript:;" id="btn-edit-alkes" data-toggle="modal" data-target="#modal-edit-alkes" <?php foreach ($ak as $key => $val) {
                                                                                                                             echo 'data-' . $key . '="' . $val . '"';
                                                                                                                         } ?> class="badge badge-primary">Edit</a>
@@ -70,10 +74,10 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="alkesModal" tabindex="-1" role="dialog" aria-labelledby="alkesModalLabel" aria-hidden="true">
+<div class="modal fade" id="tambah-alkes" tabindex="-1" role="dialog" aria-labelledby="alkesModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#008983; color:#ffffff">
                 <h5 class="modal-title" id="alkesModalLabel">Tambah Data Alat Kesehatan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -83,28 +87,28 @@
                 <div class="modal-body md-7">
                     <div class="form-group">
                         <label for="nama_alat" style="color: black">Nama Alat</label>
-                        <input type="text" class="form-control" id="nama_alat" name="nama_alat" placeholder="Masukkan Nama Alat..." value="<?= set_value('nama_alat') ?>">
+                        <input type="text" required class="form-control" id="nama_alat" name="nama_alat" placeholder="Masukkan Nama Alat..." value="<?= set_value('nama_alat') ?>">
                     </div>
                     <div class="form-group">
                         <label for="Merk" style="color: black">Merk</label>
-                        <input type="text" class="form-control" id="merk" name="merk" placeholder="Masukkan Merk..." value="<?= set_value('merk') ?>">
+                        <input type="text" required class="form-control" id="merk" name="merk" placeholder="Masukkan Merk..." value="<?= set_value('merk') ?>">
                     </div>
                     <div class="form-group">
                         <label for="model" style="color: black">Model</label>
-                        <input type="text" class="form-control" id="model" name="model" placeholder="Masukkan Model" value="<?= set_value('model') ?>">
+                        <input type="text" required class="form-control" id="model" name="model" placeholder="Masukkan Model" value="<?= set_value('model') ?>">
                     </div>
                     <div class="form-group">
                         <label for="nomorseri" style="color: black">Nomor Seri</label>
-                        <input type="text" class="form-control" id="nomorseri" name="nomorseri" placeholder="Masukkan Nomor Seri" value="<?= set_value('nomorseri') ?>">
+                        <input type="text" required class="form-control" id="nomorseri" name="nomorseri" placeholder="Masukkan Nomor Seri" value="<?= set_value('nomorseri') ?>">
                     </div>
                     <div class="form-group">
                         <label for="ruangan" style="color: black">Ruangan</label>
-                        <input type="text" class="form-control" id="ruangan" name="ruangan" placeholder="Masukkan Ruangan" value="<?= set_value('ruangan') ?>">
+                        <input type="text" required class="form-control" id="ruangan" name="ruangan" placeholder="Masukkan Ruangan" value="<?= set_value('ruangan') ?>">
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Buat</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-success">Buat</button>
                 </div>
             </form>
         </div>
@@ -115,7 +119,7 @@
 <div class="modal fade" id="modal-edit-alkes" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#008983; color:#ffffff">
                 <h5 class="modal-title">Ubah data</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -126,8 +130,8 @@
                 <div id="modal-edit-alkes-form"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Ubah</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary" style="background-color:#008983; color:#ffffff">Ubah</button>
             </div>
             <?= form_close() ?>
         </div>
@@ -173,6 +177,25 @@
                 }).join('')
             }
             `
+        })
+    })
+
+    document.querySelectorAll('#btn-hapus-alkes').forEach(item => {
+        item.addEventListener('click', e => {
+            const id = e.target.getAttribute('data-id')
+            swal({
+                title: 'Hapus data ini?',
+                text: 'Data tidak dapat dikembalikan setelah dihapus.',
+                icon: 'warning',
+                buttons: ['Batal', 'Hapus'],
+                dangerMode: true
+            }).then(willdDelete => {
+                if (willdDelete) {
+                    window.location.href = window.location.href + '?aksi=hapus&id=' + id
+                } else {
+                    console.log('Batal dihapus!')
+                }
+            })
         })
     })
 </script>

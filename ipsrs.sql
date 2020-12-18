@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 12, 2020 at 04:05 AM
+-- Generation Time: Nov 22, 2020 at 04:17 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -42,7 +42,7 @@ CREATE TABLE `alkes` (
 --
 
 INSERT INTO `alkes` (`id`, `nama_alat`, `merk`, `model`, `nomorseri`, `ruangan`, `date_created`) VALUES
-(2, 'HP', 'Oddo', 'A6s', 289, 'Mawar', 1589183891);
+(2, 'Handphone', 'Oddo', 'A6s', 233, 'Melati', 1589183891);
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ CREATE TABLE `forward_pengaduan` (
 --
 
 INSERT INTO `forward_pengaduan` (`id_forward`, `id_pengaduan`, `id_teknisi`, `status`, `alasan_penolakan`, `edit_alasan_penolakan`, `alasan_pengembalian`, `kendala_kerusakan`, `edit_kendala_kerusakan`, `tanggal_forward`) VALUES
-(3, 4, 21, 'Ditunda', '', '', '', 'Ada alat yang perlu dibeli dulu pak', 'Mohon maaf, kepada pengadu, harap menunggu beberapa hari lagi, karena ada alat yg harus dibeli', '2020-11-11 04:52:33'),
+(3, 4, 21, 'Ditunda', '', '', '', 'Ada alat yg perlu dibeli dulu pak', '', '2020-11-14 22:42:41'),
 (4, 5, 20, 'Ditolak', 'Gitar tidak ada di poli', 'Mohon maaf, harap tidak main-main dalam menginputkan pengaduan, terimakasih', '', '', '', '2020-11-11 23:39:35');
 
 -- --------------------------------------------------------
@@ -122,12 +122,12 @@ CREATE TABLE `history_lappem` (
 --
 
 INSERT INTO `history_lappem` (`id`, `user_id`, `nama_alat`, `ruangan`, `suhu`, `kelembaban`, `tegangan`, `daya_semu`, `daya_aktif`, `daya_reaktif`, `kondisi_fisik`, `ket_kondisi_fisik`, `date_created`, `expired`) VALUES
-(1, '3', 'kulkas', 'ac', -12, 212, '21', '12', '2131', '321', 'Bagus', 'sd', '2020-04-18', '2020-05-18'),
-(2, '4', 'korek', 'baru', 32, 32, '32', '32', '32', '32', 'Rusak', 'rusak', '2020-04-18', '2020-05-18'),
-(3, '3', 'Container', 'VIP', 54, 32, '28', '28', '28', '28', 'Kurang Bagus', 'Terlalu panas', '2020-05-17', '2020-05-21'),
-(4, '4', 'Sabun Cuci', 'Kamar Mandi', 34, 34, '3', '34', '34', '34', 'Bagus', 'mantap', '2020-05-18', '2020-05-23'),
-(5, '3', 'HP3', 'Cadangan', 32, 32, '32', '32', '32', '32', 'Bagus', 'Bagus', '2020-05-23', '2020-05-22'),
-(6, '4', 'Mesin Cuci', 'Kebersihan', 20, 23, '20', '15', '10', '5', 'Bagus', 'Kondisinya bagus', '2020-06-06', '2020-07-06');
+(1, '20', 'kulkas', 'ac', -12, 212, '21', '12', '2131', '321', 'Bagus', 'sd', '2020-04-18', '2020-05-18'),
+(2, '21', 'korek', 'baru', 32, 32, '32', '32', '32', '32', 'Rusak', 'rusak', '2020-04-18', '2020-05-18'),
+(3, '20', 'Container', 'VIP', 54, 32, '28', '28', '28', '28', 'Kurang Bagus', 'Terlalu panas', '2020-05-17', '2020-05-21'),
+(4, '21', 'Sabun Cuci', 'Kamar Mandi', 34, 34, '3', '34', '34', '34', 'Bagus', 'mantap', '2020-05-18', '2020-05-23'),
+(5, '20', 'HP3', 'Cadangan', 32, 32, '32', '32', '32', '32', 'Bagus', 'Bagus', '2020-05-23', '2020-05-22'),
+(6, '21', 'Mesin Cuci', 'Kebersihan', 20, 23, '20', '15', '10', '5', 'Bagus', 'Kondisinya bagus', '2020-06-06', '2020-07-06');
 
 -- --------------------------------------------------------
 
@@ -230,6 +230,13 @@ CREATE TABLE `lap_pemeliharaan` (
   `date_created` date NOT NULL,
   `expired` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `lap_pemeliharaan`
+--
+
+INSERT INTO `lap_pemeliharaan` (`id`, `user_id`, `nama_alat`, `ruangan`, `suhu`, `kelembaban`, `tegangan`, `daya_semu`, `daya_aktif`, `daya_reaktif`, `kondisi_fisik`, `ket_kondisi_fisik`, `date_created`, `expired`) VALUES
+(5, '21', 'Kulkas', 'Poli Anak', 30, 30, '5', '5', '5', '5', 'Rusak', 'Sangat Rusak', '2020-11-19', '2020-12-19');
 
 -- --------------------------------------------------------
 
@@ -510,7 +517,7 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `alkes`
 --
 ALTER TABLE `alkes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `fasilitas`
@@ -552,7 +559,7 @@ ALTER TABLE `kendala`
 -- AUTO_INCREMENT for table `lap_pemeliharaan`
 --
 ALTER TABLE `lap_pemeliharaan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pengaduan`

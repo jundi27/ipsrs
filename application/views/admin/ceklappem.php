@@ -25,10 +25,17 @@ if (!empty($error)) {
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <table class="table table-striped text-dark text-center">
+<<<<<<< HEAD
         <thead style="background-color:#008983; color:#ffffff;">
+=======
+        <thead style="background-color:#008983; color:#ffffff">
+>>>>>>> 2380b451d782fac499917d2a4fe35d814ef6d3ab
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Teknisi</th>
+                <th scope="col">Alat</th>
+                <th scope="col">Ruangan</th>
+                <th scope="col">Kondisi</th>
                 <th scope="col">Tanggal Laporan</th>
                 <th scope="col">Aksi</th>
             </tr>
@@ -40,6 +47,9 @@ if (!empty($error)) {
                 <tr>
                     <td scope="row"><?= $i; ?></td>
                     <td><?= $lp->nama; ?></td>
+                    <td><?= $lp->nama_alat; ?></td>
+                    <td><?= $lp->ruangan; ?></td>
+                    <td><?= $lp->kondisi_fisik; ?></td>
                     <td><?php
                         $myd = date_create($lp->lpdc);
                         echo date_format($myd, 'd M Y');
@@ -61,12 +71,13 @@ if (!empty($error)) {
     </table>
 </div>
 <!-- </div> -->
+</div>
 
 <!-- modal detail laporan -->
 <div class="modal fade" id="modal-detail-laporan">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#008983; color:#ffffff">
                 <div class="modal-title">
                     <h5>Detail Laporan</h5>
                 </div>

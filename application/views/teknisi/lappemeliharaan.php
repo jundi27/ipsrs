@@ -26,12 +26,16 @@ if (!empty($error)) {
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
     <?= $this->session->flashdata('message') ?>
     <?= validation_errors(); ?>
-    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#lappemModal">Buat Laporan</a>
+    <a href="" class="btn btn-primary mb-3" style="background-color:#008983; color:#ffffff" data-toggle="modal" data-target="#lappemModal">
+        <i class="fa fa-plus"></i> Buat Laporan</a>
     <table class="table table-striped text-dark text-center">
-        <thead>
+        <thead style="background-color:#008983; color:#ffffff">
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Teknisi</th>
+                <th scope="col">Alat</th>
+                <th scope="col">Ruangan</th>
+                <th scope="col">Kondisi</th>
                 <th scope="col">Tanggal Laporan</th>
                 <th scope="col">Aksi</th>
             </tr>
@@ -42,6 +46,9 @@ if (!empty($error)) {
                 <tr>
                     <td scope="row"><?= $i; ?></td>
                     <td><?= $lp->nama; ?></td>
+                    <td><?= $lp->nama_alat; ?></td>
+                    <td><?= $lp->ruangan; ?></td>
+                    <td><?= $lp->kondisi_fisik; ?></td>
                     <td>
                         <?php
                         $myd = date_create($lp->lpdc);
@@ -136,8 +143,8 @@ if (!empty($error)) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary">Buat</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary" style="background-color:#008983; color:#ffffff">Buat</button>
                 </div>
             </form>
         </div>
