@@ -25,11 +25,9 @@ if (!empty($error)) {
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
     <table class="table table-striped text-dark text-center">
-<<<<<<< HEAD
-        <thead style="background-color:#008983; color:#ffffff;">
-=======
+
         <thead style="background-color:#008983; color:#ffffff">
->>>>>>> 2380b451d782fac499917d2a4fe35d814ef6d3ab
+
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Teknisi</th>

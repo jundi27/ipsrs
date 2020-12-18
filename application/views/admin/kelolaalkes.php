@@ -27,12 +27,8 @@
     ?>
 
     <?= validation_errors(); ?>
-<<<<<<< HEAD
-    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#alkesModal" style="background-color:#008983; color:#ffffff;">Tambah Data</a>
-=======
     <a href="" class="btn btn-primary mb-3" style="background-color:#008983; color:#ffffff" data-toggle="modal" data-target="#tambah-alkes">
         <i class="fa fa-plus"></i> Tambah Data</a>
->>>>>>> 2380b451d782fac499917d2a4fe35d814ef6d3ab
     <table class="table table-striped text-dark table-responsive-lg text-center">
         <thead style="background-color:#008983; color:#ffffff;">
             <tr>
