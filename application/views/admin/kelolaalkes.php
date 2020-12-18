@@ -28,9 +28,9 @@
 
     <?= $this->session->flashdata('message') ?>
     <?= validation_errors(); ?>
-    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#alkesModal">Tambah Data</a>
+    <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#alkesModal" style="background-color:#008983; color:#ffffff;">Tambah Data</a>
     <table class="table table-striped text-dark table-responsive-lg text-center">
-        <thead>
+        <thead style="background-color:#008983; color:#ffffff;">
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Nama Alat</th>

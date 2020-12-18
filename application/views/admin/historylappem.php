@@ -7,7 +7,7 @@
         $alldate = date_create();
         echo '<span style="color: green;">History laporan sebelum ' . date_format($alldate, 'M Y') . "</span>";
         ?>
-        <thead>
+        <thead style="background-color:#008983; color:#ffffff;">
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Teknisi</th>

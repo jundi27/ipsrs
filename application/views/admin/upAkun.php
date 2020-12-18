@@ -30,12 +30,12 @@
                             <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label for="email">Email</label>
                         </div>
-                        <!-- <div class="input-form">
+                        <div class="input-form">
                             <input value="" type="password" id="password1" name="password1" placeholder="Password">
                             <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label for="password1">Password</label>
                         </div>
-                        <div class="input-form">
+                        <!-- <div class="input-form">
                             <input type="password" id="password2" name="password2" placeholder="Ulangi Password">
                             <label for="password2">Ulangi Password</label>
                         </div> -->
