@@ -97,7 +97,7 @@
 
             <div class="input-div pass">
                 <div class="i">
-                    <i class="fas fa-user"></i>
+                    <i class="fas fa-envelope"></i>
                 </div>
                 <div class="div">
                     <h5>Masukkan alamat email...</h5>

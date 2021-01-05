@@ -30,7 +30,7 @@
     <a href="" class="btn btn-primary mb-3" style="background-color:#008983; color:#ffffff" data-toggle="modal" data-target="#tambah-alkes">
         <i class="fa fa-plus"></i> Tambah Data</a>
     <table class="table table-striped text-dark table-responsive-lg text-center">
-        <thead>
+        <thead style="background-color:#008983; color:#ffffff;">
             <tr>
                 <th scope="col">No</th>
                 <th scope="col">Nama Alat</th>
