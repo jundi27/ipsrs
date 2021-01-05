@@ -247,7 +247,8 @@ class Teknisi extends CI_Controller
         $this->form_validation->set_rules('kondisi_fisik', 'Kondisi Fisik', 'required|trim', array('required' => 'Kondisi fisik harus diisi'));
         $this->form_validation->set_rules('ket_kondisi_fisik', 'Keterangan Kondisi Fisik', 'required|trim', array('required' => 'Keterangan kondisi fisik harus diisi'));
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('error', 'Ups ada yg error');
+            $this->session->set_flashdata('success', 'Data Berhasil Dihapus');
+            //$this->session->set_flashdata('error', 'Ups ada yg error');
         } else {
             $myd = date_create();
             $dtfrmt = date_format($myd, 'Y-m-d');
