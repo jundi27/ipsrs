@@ -32,6 +32,7 @@ class Admin_model extends CI_Model
     {
         $data = [
             'nama' => htmlspecialchars($this->input->post('nama', true)),
+            'nip' => htmlspecialchars($this->input->post('nip', true)),
             'username' => htmlspecialchars($this->input->post('username', true)),
             'image' => 'default.jpg',
             'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
@@ -54,6 +55,7 @@ class Admin_model extends CI_Model
     {
         $data = [
             'nama' => htmlspecialchars($this->input->post('nama', true)),
+            'nip' => htmlspecialchars($this->input->post('nip', true)),
             'username' => htmlspecialchars($this->input->post('username', true)),
             'image' => 'default.jpg',
             'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),

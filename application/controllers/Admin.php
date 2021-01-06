@@ -111,6 +111,7 @@ class Admin extends CI_Controller
         $data['teknisi'] = $this->Admin_model->getTeknisi();
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]');
         $this->form_validation->set_rules('username', 'Username', 'required|trim|is_unique[user.username]');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]');
@@ -148,6 +149,7 @@ class Admin extends CI_Controller
         $data['user'] = $this->Admin_model->getUserById($un);
 
         $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+        $this->form_validation->set_rules('nip', 'NIP', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('username', 'Nama Pengguna', 'required|trim');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]');

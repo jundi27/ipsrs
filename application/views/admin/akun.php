@@ -192,6 +192,12 @@
                         </div>
 
                         <div class="input-form">
+                            <input type="text" id="nip" name="nip" placeholder="NIP">
+                            <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="nip">NIP</label>
+                        </div>
+
+                        <div class="input-form">
                             <input type="text" id="username" name="username" placeholder="Username">
                             <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label for="username">Username</label>

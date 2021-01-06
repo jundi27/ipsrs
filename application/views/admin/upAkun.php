@@ -26,6 +26,12 @@
                         </div>
 
                         <div class="input-form">
+                            <input value="<?= $user['nip']; ?>" type="text" id="nip" name="nip" placeholder="NIP" readonly>
+                            <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
+                            <label for="nip">NIP</label>
+                        </div>
+
+                        <div class="input-form">
                             <input value="<?= $user['email']; ?>" type="text" id="email" name="email" placeholder="Email" readonly>
                             <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                             <label for="email">Email</label>

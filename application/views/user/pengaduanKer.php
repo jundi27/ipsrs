@@ -20,7 +20,7 @@
                 <div class="form-group row">
                     <label for="nip" class="col-sm-3 col-form-label">NIP</label>
                     <div class="col-sm-9">
-                        <input type="number" class="form-control" id="nip" name="nip">
+                        <input type="number" value="<?= $user['nip']; ?>" class="form-control" id="nip" name="nip" readonly>
                         <?= form_error('nip', '<small class="text-danger pl-3">', '</small>'); ?>
                     </div>
                 </div>
