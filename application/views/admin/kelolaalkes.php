@@ -38,6 +38,7 @@
                 <th scope="col">Model</th>
                 <th scope="col">Nomor Seri</th>
                 <th scope="col">Ruangan</th>
+
                 <th scope="col">Aksi</th>
             </tr>
         </thead>
@@ -52,6 +53,7 @@
                     <td><?= $ak['model'] ?></td>
                     <td><?= $ak['nomorseri'] ?></td>
                     <td><?= $ak['ruangan'] ?></td>
+                   
                     <td>
                         <a href="javascript:;" id="btn-hapus-alkes" data-id="<?= $ak['id'] ?>" class="badge badge-danger">Hapus</a>
                         <a href="javascript:;" id="btn-edit-alkes" data-toggle="modal" data-target="#modal-edit-alkes" <?php foreach ($ak as $key => $val) {

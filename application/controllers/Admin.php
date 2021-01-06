@@ -392,6 +392,7 @@ class Admin extends CI_Controller
         $this->load->view('templates/topbar', $data);
         $this->load->view('admin/kelolaalkes', $data);
         $this->load->view('templates/footer');
+        
     }
 
     private function _tambah_alkes($post)
